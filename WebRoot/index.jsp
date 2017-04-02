@@ -31,8 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!--<p style="float: right"></p>-->
                 </div>
                 <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">[1234]</h4>
-                    123<span class="badge">新</span>
+                    <h4 class="list-group-item-heading">[1234567]</h4>
+                    123567<span class="badge">新</span>
                     <p class="text-right" style="float: right;margin-right: 20px">浏览量:2&nbsp;评论量:5&nbsp;发表日期:2017-03-25</p>
                 </a>
             </ul>
