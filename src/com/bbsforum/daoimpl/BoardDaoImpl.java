@@ -6,6 +6,8 @@ import java.util.Set;
 
 
 
+
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,8 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bbsforum.dao.BoardDAO;
 import com.bbsforum.entity.Board;
 import com.bbsforum.entity.Childboard;
+import com.opensymphony.xwork2.util.logging.Logger;
+import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
 public class BoardDaoImpl implements BoardDAO {
+	private static final Logger log=LoggerFactory.getLogger(BoardDaoImpl.class);
+	
 	SessionFactory sessionFactory;
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -47,9 +53,17 @@ public class BoardDaoImpl implements BoardDAO {
 		Transaction tr=(Transaction) session.beginTransaction();
 		Childboard childboard=(Childboard) session.get(Childboard.class, ChildBoardId);
 		session.delete(childboard);
-		tr.commit();
-		session.close();
-		return false;
+		try{
+			tr.commit();
+			session.close();
+			return true;
+		}
+		catch(Exception e){
+			tr.rollback();
+			log.error("deleteChildBoard error", e);
+			session.close();
+			return false;
+		}
 	}
 	
 
