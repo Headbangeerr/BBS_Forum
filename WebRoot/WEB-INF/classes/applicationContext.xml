@@ -38,6 +38,7 @@
 				<value>com.bbsforum.entity.User</value>
 				<value>com.bbsforum.entity.Board</value>
 				<value>com.bbsforum.entity.Childboard</value>
+				<value>com.bbsforum.entity.Post</value>
 			
 			
 			
@@ -71,6 +72,16 @@
 	</bean>
 		<bean id="boardAction" class="com.bbsforum.action.BoardAction">
 		<property name="boardBiz" ref="boardBiz"></property>
+	</bean>
+	
+	<bean id="postDao" class="com.bbsforum.daoimpl.PostDaoImlp">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="postBiz" class="com.bbsforum.bizimpl.PostBizImpl">
+		<property name="postDao" ref="postDao"></property>
+	</bean>
+		<bean id="postAction" class="com.bbsforum.action.PostAction">
+		<property name="postBiz" ref="postBiz"></property>
 	</bean>
 	
 </beans>

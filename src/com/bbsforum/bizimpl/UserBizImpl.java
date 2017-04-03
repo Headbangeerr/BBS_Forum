@@ -1,13 +1,13 @@
 package com.bbsforum.bizimpl;
 
 import com.bbsforum.biz.UserBiz;
-import com.bbsforum.dao.UserDAO;
+import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.User;
 
 public class UserBizImpl implements UserBiz {
 
-	UserDAO userDao;
-	public void setUserDao(UserDAO userDao) {
+	UserDao userDao;
+	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 

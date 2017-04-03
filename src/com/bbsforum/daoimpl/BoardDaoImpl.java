@@ -14,13 +14,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bbsforum.dao.BoardDAO;
+import com.bbsforum.dao.BoardDao;
 import com.bbsforum.entity.Board;
 import com.bbsforum.entity.Childboard;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
-public class BoardDaoImpl implements BoardDAO {
+public class BoardDaoImpl implements BoardDao {
 	private static final Logger log=LoggerFactory.getLogger(BoardDaoImpl.class);
 	
 	SessionFactory sessionFactory;

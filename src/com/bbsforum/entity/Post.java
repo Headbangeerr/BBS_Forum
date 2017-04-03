@@ -24,7 +24,7 @@ public class Post implements java.io.Serializable {
 	private Timestamp publishTime;
 	private Integer childboardId;
 	private String childboardName;
-	private Integer pageView;//流浪两
+	private Integer pageView;//浏览量
 	private Integer replyNumber;//回复数
 	private String lastupdateUsermail;
 	private String lastupdateUsername;

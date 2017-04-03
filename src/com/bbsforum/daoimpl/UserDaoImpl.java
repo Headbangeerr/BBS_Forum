@@ -3,10 +3,10 @@ package com.bbsforum.daoimpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.bbsforum.dao.UserDAO;
+import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.User;
 
-public class UserDaoImpl implements UserDAO {
+public class UserDaoImpl implements UserDao {
 
 	SessionFactory sessionFactory;
 	public void setSessionFactory(SessionFactory sessionFactory) {

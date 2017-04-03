@@ -11,7 +11,7 @@ public class UserAction extends BaseAction {
 
 	private String mailAddress;
 	private String password;
-	private int errorFlag;
+	private int errorFlag;//登录时用于标记错误信息，为0时表示用户不存在，为2时表示密码错误
 	
 	
 	public int getErrorFlag() {
@@ -46,7 +46,7 @@ public class UserAction extends BaseAction {
 			@Result(name="success",location="/index.jsp"),
 			@Result(name="login",location="/login.jsp")
 	})
-	public String login(){
+	public String login(){//登陆
 		
 		User user=userBiz.getUserByMailAddress(mailAddress);
 		if(user==null){
