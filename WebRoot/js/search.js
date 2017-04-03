@@ -1,5 +1,5 @@
 $(function(){
-	$(document).ready(function(){
+	$("a[name='detailSearch']").click(function(){
 		$.ajax({
 			type:"post",
 			url:"getBoardList",
@@ -37,7 +37,7 @@ $(function(){
 		var index=$(this).index();
 		$(".bodys p").eq(index).show().siblings().hide();
 	});
-	//点击高级搜索跳出窗体
+	
 	$(".bodys a").hover(function () {
 		$(this).stop().animate({
 			opacity: '1'
@@ -51,7 +51,8 @@ $(function(){
 		$("#mask").addClass("mask").fadeIn("slow");
 		$("#detailedSearch").fadeIn("slow");
 	});
-	//关闭摁钮
+	
+	
 	$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
 		$("#detailedSearch").fadeOut("fast");
 		$("#detailedSearch1").fadeOut("fast");
@@ -60,7 +61,8 @@ $(function(){
 		$(".error_cuo").hide();
 		iniForm();
 	});
-	//搜索摁钮的动画显示
+	
+	
 	$("#search_submit").hover(function () {
 		$(this).stop().animate({
 			opacity: '1'
@@ -79,7 +81,7 @@ $(function(){
 			opacity: '0.5'
 		}, 500);
 	});
-	//提交搜索表单验证
+	
 	$("#search_submit").click(function(){
 		$(".error_cuo").hide();
 		if($("*[name='search_boardlist']").val()==0){
@@ -101,12 +103,12 @@ $(function(){
 		
 	})
 	
-	//初始化两个搜索表单
+	
 	function iniForm(){
 		$("*[name='searchByBoard']")[0].reset();
 		$("*[name='searchByUser']")[0].reset();
 	}
-	//两个悬浮层的交替动画实现
+	
 	$("#changto_user").click(function(){
 		$("#detailedSearch").fadeOut("slow");
 		$("#detailedSearch1").fadeIn("slow");

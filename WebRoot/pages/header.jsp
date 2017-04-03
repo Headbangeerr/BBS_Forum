@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </head>
-  <body onload="showBoardList()">
+  <body>
   <nav class="navbar navbar-inverse" role="navigation">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">BBS技术论坛</a>
@@ -72,14 +72,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
                  <p class="navbar-text navbar-right">尊敬的用户您好！</p>
    
-   </s:elseif>
-       
-            
+   </s:elseif>     
     </nav>   
   </body>
 </html>
 <script>
-function showBoardList(){//通过ajax从后台获取板块列表
+$(document).ready(function (){//通过ajax从后台获取板块列表
 	$.ajax({
 		type:"post",
 		url:"getBoardList",
@@ -95,10 +93,6 @@ function showBoardList(){//通过ajax从后台获取板块列表
         			
         	});
         }
-	});	
-	
-	}
-		
-
-
+	})
+	});
 </script>

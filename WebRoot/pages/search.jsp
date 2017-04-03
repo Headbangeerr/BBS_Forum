@@ -34,9 +34,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<li><a onmouseover="this.style.cursor='pointer'">用户</a></li>
 	</ul>
 	<div class="bodys">
-		<p><input type="text" value="" id="" class="one" placeholder="输入关键字" /><button class="one1">搜索</button><a  onmouseover="this.style.cursor='pointer'">高级搜索</a></p>
-		<p><input type="text" value="" id="" class="two" placeholder="输入关键字" /><button class="two2">搜索</button><a  onmouseover="this.style.cursor='pointer'">高级搜索</a></p>
-		<p><input type="text" value="" id="" class="three" placeholder="输入用户名" /><button class="three3">搜索</button><a  onmouseover="this.style.cursor='pointer'">高级搜索</a></p>
+		<p><input type="text" value="" id="" class="one" placeholder="输入关键字" /><button class="one1">搜索</button><a name="detailSearch" onmouseover="this.style.cursor='pointer'">高级搜索</a></p>
+		<p><input type="text" value="" id="" class="two" placeholder="输入关键字" /><button class="two2">搜索</button><a  name="detailSearch"  onmouseover="this.style.cursor='pointer'">高级搜索</a></p>
+		<p><input type="text" value="" id="" class="three" placeholder="输入用户名" /><button class="three3">搜索</button><a  name="detailSearch"  onmouseover="this.style.cursor='pointer'">高级搜索</a></p>
 	</div>
    </div>
    
