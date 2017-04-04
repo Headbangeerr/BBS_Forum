@@ -30,12 +30,12 @@ import com.bbsforum.entity.Post;
 public class test {
 
 	public static void main(String[] args) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
-		// TODO Auto-generated method stub
+//		 TODO Auto-generated method stub
 //		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
 //		BoardDao boardDAO=(BoardDao) context.getBean("boardDao");
-//		Set<Childboard> childBoard=boardDAO.getChildBoardList(1);
+//		Set<Childboard> childBoard=boardDAO.getChildBoardList(2);
 //		for (Childboard temp : childBoard) {
-//			System.out.println(temp.getName());
+//			System.out.println(temp.getParentBoard().getChildBoard());
 //		}
 	//	boardDAO.deleteChildBoard(3);
 		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -43,7 +43,7 @@ public class test {
 		List<Post> list=postBiz.getLastestPost(1, 10);
 		for (Post temp : list) {
 			
-			System.out.println(temp.getTitle());
+			System.out.println(temp.getPublisherMail().getPosts());
 		}
 	}
 

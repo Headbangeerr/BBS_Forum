@@ -1,10 +1,17 @@
 package com.bbsforum.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  * User entity. @author MyEclipse Persistence Tools
@@ -25,6 +32,7 @@ public class User implements java.io.Serializable {
 	private Integer level;
 	private Integer type;
 	private String signature;
+	private Set<Post> posts=new HashSet<Post>();
 
 	// Constructors
 
@@ -67,6 +75,17 @@ public class User implements java.io.Serializable {
 
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
+	}
+
+	
+	@OneToMany(mappedBy="publisherMail")
+	@Cascade(value={CascadeType.DELETE})
+	public Set<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(Set<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Column(name = "username", nullable = false, length = 50)

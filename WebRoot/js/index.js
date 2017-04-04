@@ -4,7 +4,7 @@ function showPostList(){
 		url:"showLastestPostOnIndexPage",
 		dataType:"json",
         success:function(data){
-               	$.each(data.lastestPostList,function(index,post){        
+               	$.each(data,function(index,post){        
         			alert(post.title)
         	});
         }

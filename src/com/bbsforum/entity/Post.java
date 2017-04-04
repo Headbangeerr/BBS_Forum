@@ -1,10 +1,17 @@
 package com.bbsforum.entity;
 
 import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  * Post entity. @author MyEclipse Persistence Tools
@@ -15,20 +22,13 @@ public class Post implements java.io.Serializable {
 
 	// Fields
 
-	private String id;//编号的生成规则是使用当时精确到毫秒的系统时间与发表用户的邮箱地址串接成的字符串。
+	private String id;
 	private String title;
 	private String content;
-	private String publisherMail;
-	private String publisherUsername;
-	private Integer publisherType;
+	private User publisherMail;
 	private Timestamp publishTime;
-	private Integer childboardId;
-	private String childboardName;
-	private Integer pageView;//浏览量
-	private Integer replyNumber;//回复数
-	private String lastupdateUsermail;
-	private String lastupdateUsername;
-	private Integer lastupdateUsertype;
+	private Childboard childboardId;
+	private Integer pageView;
 
 	// Constructors
 
@@ -36,27 +36,7 @@ public class Post implements java.io.Serializable {
 	public Post() {
 	}
 
-	/** full constructor */
-	public Post(String id, String title, String content, String publisherMail,
-			String publisherUsername, Integer publisherType,
-			Timestamp publishTime, Integer childboardId, String childboardName,
-			Integer pageView, Integer replyNumber, String lastupdateUsermail,
-			String lastupdateUsername, Integer lastupdateUsertype) {
-		this.id = id;
-		this.title = title;
-		this.content = content;
-		this.publisherMail = publisherMail;
-		this.publisherUsername = publisherUsername;
-		this.publisherType = publisherType;
-		this.publishTime = publishTime;
-		this.childboardId = childboardId;
-		this.childboardName = childboardName;
-		this.pageView = pageView;
-		this.replyNumber = replyNumber;
-		this.lastupdateUsermail = lastupdateUsermail;
-		this.lastupdateUsername = lastupdateUsername;
-		this.lastupdateUsertype = lastupdateUsertype;
-	}
+
 
 	// Property accessors
 	@Id
@@ -87,31 +67,16 @@ public class Post implements java.io.Serializable {
 		this.content = content;
 	}
 
-	@Column(name = "publisher_mail", nullable = false, length = 20)
-	public String getPublisherMail() {
-		return this.publisherMail;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@Cascade(value={CascadeType.SAVE_UPDATE})
+	@JoinColumn(name="publisher_mail")
+	public User getPublisherMail() {
+		return publisherMail;
 	}
 
-	public void setPublisherMail(String publisherMail) {
+	public void setPublisherMail(User publisherMail) {
 		this.publisherMail = publisherMail;
-	}
-
-	@Column(name = "publisher_username", nullable = false, length = 50)
-	public String getPublisherUsername() {
-		return this.publisherUsername;
-	}
-
-	public void setPublisherUsername(String publisherUsername) {
-		this.publisherUsername = publisherUsername;
-	}
-
-	@Column(name = "publisher_type", nullable = false)
-	public Integer getPublisherType() {
-		return this.publisherType;
-	}
-
-	public void setPublisherType(Integer publisherType) {
-		this.publisherType = publisherType;
 	}
 
 	@Column(name = "publish_time", nullable = false, length = 19)
@@ -123,23 +88,17 @@ public class Post implements java.io.Serializable {
 		this.publishTime = publishTime;
 	}
 
-	@Column(name = "childboardId", nullable = false)
-	public Integer getChildboardId() {
-		return this.childboardId;
+	@ManyToOne(fetch=FetchType.EAGER )
+	@Cascade(value={CascadeType.SAVE_UPDATE})
+	@JoinColumn(name="childboard_id")
+	public Childboard getChildboardId() {
+		return childboardId;
 	}
-
-	public void setChildboardId(Integer childboardId) {
+	public void setChildboardId(Childboard childboardId) {
 		this.childboardId = childboardId;
 	}
 
-	@Column(name = "childboardName", nullable = false, length = 10)
-	public String getChildboardName() {
-		return this.childboardName;
-	}
 
-	public void setChildboardName(String childboardName) {
-		this.childboardName = childboardName;
-	}
 
 	@Column(name = "page_view", nullable = false)
 	public Integer getPageView() {
@@ -148,42 +107,6 @@ public class Post implements java.io.Serializable {
 
 	public void setPageView(Integer pageView) {
 		this.pageView = pageView;
-	}
-
-	@Column(name = "reply_number", nullable = false)
-	public Integer getReplyNumber() {
-		return this.replyNumber;
-	}
-
-	public void setReplyNumber(Integer replyNumber) {
-		this.replyNumber = replyNumber;
-	}
-
-	@Column(name = "lastupdate_usermail", nullable = false, length = 20)
-	public String getLastupdateUsermail() {
-		return this.lastupdateUsermail;
-	}
-
-	public void setLastupdateUsermail(String lastupdateUsermail) {
-		this.lastupdateUsermail = lastupdateUsermail;
-	}
-
-	@Column(name = "lastupdate_username", nullable = false, length = 50)
-	public String getLastupdateUsername() {
-		return this.lastupdateUsername;
-	}
-
-	public void setLastupdateUsername(String lastupdateUsername) {
-		this.lastupdateUsername = lastupdateUsername;
-	}
-
-	@Column(name = "lastupdate_usertype", nullable = false)
-	public Integer getLastupdateUsertype() {
-		return this.lastupdateUsertype;
-	}
-
-	public void setLastupdateUsertype(Integer lastupdateUsertype) {
-		this.lastupdateUsertype = lastupdateUsertype;
 	}
 
 }

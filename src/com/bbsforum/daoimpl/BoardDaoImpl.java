@@ -21,8 +21,6 @@ import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
 public class BoardDaoImpl implements BoardDao {
-	private static final Logger log=LoggerFactory.getLogger(BoardDaoImpl.class);
-	
 	SessionFactory sessionFactory;
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -34,6 +32,7 @@ public class BoardDaoImpl implements BoardDao {
 		String hql="from Board";
 		Query query=session.createQuery(hql);
 		List boardList=query.list();
+		session.flush();
 		session.close();
 		return boardList;
 		
@@ -44,6 +43,7 @@ public class BoardDaoImpl implements BoardDao {
 		Session session=sessionFactory.openSession();
 		Board board=(Board) session.get(Board.class, ParentBoardId);
 		Set childBoard=board.getChildBoard();
+		session.flush();
 		session.close();
 		return childBoard;
 	}
@@ -53,6 +53,7 @@ public class BoardDaoImpl implements BoardDao {
 		Transaction tr=(Transaction) session.beginTransaction();
 		Childboard childboard=(Childboard) session.get(Childboard.class, ChildBoardId);
 		session.delete(childboard);
+		session.flush();
 		try{
 			tr.commit();
 			session.close();
@@ -60,7 +61,6 @@ public class BoardDaoImpl implements BoardDao {
 		}
 		catch(Exception e){
 			tr.rollback();
-			log.error("deleteChildBoard error", e);
 			session.close();
 			return false;
 		}

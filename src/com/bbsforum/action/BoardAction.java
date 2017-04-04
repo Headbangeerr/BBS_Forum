@@ -29,7 +29,9 @@ public class BoardAction extends BaseAction {
 
 
 	@Action(value="getBoardList",results={
-			@Result(name="success",type="json")
+			@Result(name="success",type="json",params={
+					"excludeProperties","boardList\\[\\d+\\]\\.childBoard\\[\\d+\\]\\.posts,"
+							})
 	})
 	public String  getAllBoard(){
 		BoardList=boardBiz.getBoardList();

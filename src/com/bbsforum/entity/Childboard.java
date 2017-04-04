@@ -1,12 +1,16 @@
 package com.bbsforum.entity;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -25,6 +29,7 @@ public class Childboard implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private Board parentBoard;
+	private Set<Post> posts=new HashSet<Post>();
 
 	// Constructors
 
@@ -58,6 +63,17 @@ public class Childboard implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@OneToMany(mappedBy="childboardId")
+	@Cascade(value={CascadeType.DELETE})
+	public Set<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(Set<Post> posts) {
+		this.posts = posts;
+	}
+	
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@Cascade(value={CascadeType.SAVE_UPDATE})
 	@JoinColumn(name="parent_board")//Íâ¼ü×Ö¶ÎÃû
