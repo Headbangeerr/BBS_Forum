@@ -34,7 +34,7 @@ public class Childboard implements java.io.Serializable {
 	// Constructors
 
 	/** default constructor */
-	public Childboard() {
+	public Childboard(){
 	}
 
 	/** full constructor */
