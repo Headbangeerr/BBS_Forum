@@ -48,6 +48,7 @@ public class BoardAction extends BaseAction {
 		ChildBoardList = childBoardList;
 	}
 	
+	@JSON(serialize=false)
 	@Action(value="getBoardList",results={
 			@Result(name="success",type="json",params={
 					"excludeProperties","boardList\\[\\d+\\]\\.childBoard\\[\\d+\\]\\.posts,"
@@ -58,8 +59,12 @@ public class BoardAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	@JSON(serialize=false)
 	@Action(value="getChildBoardListByParentBoardId",results={
-			@Result(name="success",type="json")
+			@Result(name="success",type="json",params={
+					"excludeProperties","childBoardList\\[\\d+\\]\\.parentBoard,"
+					+"childBoardList\\[\\d+\\]\\.posts"
+			})
 	})
 	public String  getChildBoardByParentBoardId(){
 		ChildBoardList=boardBiz.getChildboardByParentBoardId(parentboardId);

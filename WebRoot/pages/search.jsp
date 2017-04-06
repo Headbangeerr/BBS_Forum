@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   				<option value="0">未选择</option>
 	   			</select>-
 	   			<select name="search_childboardlist">
-	   				<option value="0">无</option>
+	   				<option value="0">请选择</option>
 	   			</select>
 				<span id="boardlist_error1" class="error_cuo">
 					× 请选择版块

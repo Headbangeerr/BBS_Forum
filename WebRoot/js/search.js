@@ -49,18 +49,20 @@ $(function(){
 	
 	//搜索框中的下拉菜单ajax获取子版块列表
 	$("select[name='search_boardlist']").change(function(){
+		$("select[name='search_childboardlist'] option").not(":first").remove();
 		var parentBoardId=$(this).val();
 		$.ajax({//获取搜索框中的板块列表
 			type:"post",
-			url:"getBoardList",
+			url:"getChildBoardListByParentBoardId?parentboardId="+parentBoardId,
 			dataType:"json",
 	        success:function(data){
-	               	$.each(data.boardList,function(idnex,board){        
+	               	$.each(data.childBoardList,function(idnex,board){   
+	               		//alert(board.name)
 	        			var str;
 	        			str="<option value='"+board.id+"'>";
 	        			str+=board.name;
 	        			str+="</option>"
-	        			$("*[name='search_boardlist']").append(str);
+	        			$("select[name='search_childboardlist']").append(str);
 	        			
 	        	});
 	        }
@@ -88,7 +90,7 @@ $(function(){
 	
 	$("#search_submit").click(function(){
 		$(".error_cuo").hide();
-		if($("*[name='search_boardlist']").val()==0){
+		if($("*[name='search_boardlist']").val()==0||$("select[name='search_childboardlist']").val()==0){
 			$("#boardlist_error1").show();
 		}
 		if($("input[name='search_keyword1']").val()==""){
