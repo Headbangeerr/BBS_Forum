@@ -34,26 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!--<p style="float: right"></p>-->
                 </div>
                 <div class="tab-pane active" id="home">
-					<section name="LastestPostList" class="widget bg-white post-comments">
-						<div class="media">
-							<a class="pull-left" href="#">
-								<img class="media-object avatar avatar-sm" src="upload/headicon/default_icon.jpg" alt="sjswc">
-							</a>
-							<div class="comment">
-								<div class="comment-author h6 no-margin">
-									<div class="comment-meta small">
-										<a class="badge-comment">1</a>
-									</div>
-									<a href="#">Hello</a>
-								</div>
-								<div class="comment-bt">
-									<span class="label label-default"><a href="$">JavaWeb</a></span> &nbsp;•&nbsp;
-									<strong><a href="#">sjswc</a></strong>
-									 &nbsp;•&nbsp; <span>3天前</span>
-								</div>
-							</div>
-						</div>								
-						<hr>
+					<section id="LastestPostList" class="widget bg-white post-comments">
 					</section>								
 					</div>			
             </ul>

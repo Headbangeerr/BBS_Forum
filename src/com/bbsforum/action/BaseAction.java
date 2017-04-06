@@ -22,7 +22,6 @@ public class BaseAction extends ActionSupport implements SessionAware, RequestAw
 	public void setRequest(Map<String, Object> request) {
 		this.request = request;
 	}
-	
 	//用于在子类中获取session对象
 	public Map<String, Object> getSession(){
 		return session;

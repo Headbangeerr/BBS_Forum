@@ -1,21 +1,4 @@
 $(function(){
-	$("a[name='detailSearch']").click(function(){
-		$.ajax({
-			type:"post",
-			url:"getBoardList",
-			dataType:"json",
-	        success:function(data){
-	               	$.each(data.boardList,function(idnex,board){        
-	        			var str;
-	        			str="<option value='"+board.id+"'>";
-	        			str+=board.name;
-	        			str+="</option>"
-	        			$("*[name='search_boardlist']").append(str);
-	        			
-	        	});
-	        }
-		});	
-	})
 	$(".bodys p").not(":first").hide();
 	$(".searchbox ul li").click(function(){
 		var index = $(this).index();
