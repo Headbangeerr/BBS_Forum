@@ -36,8 +36,6 @@ $(function(){
 	});
 	
 	
-	
-	
 	$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
 		$("#detailedSearch").fadeOut("fast");
 		$("#detailedSearch1").fadeOut("fast");
