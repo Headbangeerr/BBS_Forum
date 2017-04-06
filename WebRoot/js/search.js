@@ -36,6 +36,8 @@ $(function(){
 	});
 	
 	
+	
+	
 	$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
 		$("#detailedSearch").fadeOut("fast");
 		$("#detailedSearch1").fadeOut("fast");
@@ -45,6 +47,25 @@ $(function(){
 		iniForm();
 	});
 	
+	//搜索框中的下拉菜单ajax获取子版块列表
+	$("select[name='search_boardlist']").change(function(){
+		var parentBoardId=$(this).val();
+		$.ajax({//获取搜索框中的板块列表
+			type:"post",
+			url:"getBoardList",
+			dataType:"json",
+	        success:function(data){
+	               	$.each(data.boardList,function(idnex,board){        
+	        			var str;
+	        			str="<option value='"+board.id+"'>";
+	        			str+=board.name;
+	        			str+="</option>"
+	        			$("*[name='search_boardlist']").append(str);
+	        			
+	        	});
+	        }
+		});	
+	})
 	
 	$("#search_submit").hover(function () {
 		$(this).stop().animate({

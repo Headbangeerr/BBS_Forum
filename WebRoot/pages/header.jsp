@@ -47,19 +47,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    </div>
    
    
-   <s:if test='#session.username==null'>
+   <s:if test='#session.user==null'>
 	   	<ul class="nav navbar-nav navbar-right user">
 	                <li><a href="<%=request.getContextPath()%>/login.jsp">登陆</a></li>
 	                <li><a href="<%=request.getContextPath()%>/regist.jsp">注册</a></li>
 	    </ul>         
 	    <p class="navbar-text navbar-right">尊敬的游客您好！</p>    
    </s:if>
-   <s:elseif test='#session.usertype=="0"'><!-- 判断用户类型，如果为0代表用户为一般用户 -->
+   <s:elseif test='#session.user.userType=="0"'><!-- 判断用户类型，如果为0代表用户为一般用户 -->
    		<ul class="nav navbar-nav navbar-right user">
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <s:property value="#session.username"/><b class="caret"></b>
+                            <s:property value="#session.user.username"/><b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="<%=path+"/pages/change-info.jsp"%>">个人资料</a></li>

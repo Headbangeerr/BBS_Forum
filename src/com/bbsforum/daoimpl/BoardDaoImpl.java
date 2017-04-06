@@ -1,7 +1,9 @@
 package com.bbsforum.daoimpl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 
 
@@ -39,10 +41,18 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public Set getChildBoardList(int ParentBoardId) {
+	public Set getChildBoardListByParentBoardId(int ParentBoardId) {
 		Session session=sessionFactory.openSession();
 		Board board=(Board) session.get(Board.class, ParentBoardId);
-		Set childBoard=board.getChildBoard();
+		if(board==null){
+			System.out.println("Board null");
+			return null;
+		}
+		Set<Childboard> childBoard=board.getChildBoard();
+		System.out.println("BoardDaoImp:");
+		for (Childboard childboard2 : childBoard) {
+			System.out.println(childboard2.getName());
+		}
 		session.flush();
 		session.close();
 		return childBoard;
@@ -56,13 +66,14 @@ public class BoardDaoImpl implements BoardDao {
 		session.flush();
 		try{
 			tr.commit();
-			session.close();
 			return true;
 		}
 		catch(Exception e){
 			tr.rollback();
-			session.close();
 			return false;
+		}
+		finally{
+			session.close();
 		}
 	}
 	

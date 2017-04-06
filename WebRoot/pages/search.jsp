@@ -50,8 +50,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			<div class="login_username">
 					
 				<form name="searchByBoard">
-	   			选择版块：<select name="search_boardlist">
+	   			选择版块：<br>
+	   			<select name="search_boardlist">
 	   				<option value="0">未选择</option>
+	   			</select>-
+	   			<select name="search_childboardlist">
+	   				<option value="0">无</option>
 	   			</select>
 				<span id="boardlist_error1" class="error_cuo">
 					× 请选择版块

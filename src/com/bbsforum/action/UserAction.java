@@ -54,9 +54,7 @@ public class UserAction extends BaseAction {
 			return LOGIN;
 		}else{
 			if(user.getPassword().endsWith(password)){
-				getSession().put("userMail", mailAddress);
-				getSession().put("username", user.getUsername());
-				getSession().put("usertype", user.getType());
+				getSession().put("user", user);
 				return SUCCESS;
 			}else{
 				errorFlag=2;
@@ -69,9 +67,8 @@ public class UserAction extends BaseAction {
 			@Result(name="success",location="/index.jsp")
 	})
 	public String logout(){
-		getSession().put("username", null);
-		getSession().put("userMail", null);
-		getSession().put("usertype", null);
+		getSession().put("user", null);
+		
 		return SUCCESS;
 
 	}

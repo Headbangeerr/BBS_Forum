@@ -1,6 +1,7 @@
 package com.bbsforum.bizimpl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,12 @@ public class BoardBizImpl implements BoardBiz {
 	public List getBoardList() {
 		List boardlist=boardDao.getBoardList();
 		return boardlist;
+	}
+
+	@Override
+	public Set getChildboardByParentBoardId(int ParentBoardId) {
+		
+		return boardDao.getChildBoardListByParentBoardId(ParentBoardId);
 	}
 
 }
