@@ -9,11 +9,13 @@ import org.hibernate.SessionFactory;
 
 import com.bbsforum.dao.PostDao;
 import com.bbsforum.entity.Post;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 public class PostDaoImlp implements PostDao {
 
-	
+	@Autowired
 	SessionFactory sessionFactory;
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.PostBiz;
 import com.bbsforum.daoimpl.PostDaoImlp;
@@ -23,6 +24,7 @@ public class PostAction extends BaseAction {
 		this.lastestPostList = lastestPostList;
 	}
 
+	@Autowired
 	PostBiz postBiz;
 	public void setPostBiz(PostBiz postBiz) {
 		this.postBiz = postBiz;

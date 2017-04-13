@@ -2,12 +2,15 @@ package com.bbsforum.bizimpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.bbsforum.biz.PostBiz;
 import com.bbsforum.dao.PostDao;
 import com.bbsforum.entity.Post;
 
 public class PostBizImpl implements PostBiz {
 
+	@Autowired
 	PostDao postDao;
 	public void setPostDao(PostDao postDao) {
 		this.postDao = postDao;

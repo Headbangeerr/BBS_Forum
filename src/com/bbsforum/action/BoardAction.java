@@ -8,6 +8,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,6 +28,7 @@ public class BoardAction extends BaseAction {
 		this.parentboardId = parentboardId;
 	}
 
+	@Autowired
 	BoardBiz boardBiz;
 	public void setBoardBiz(BoardBiz boardBiz) {
 		this.boardBiz = boardBiz;

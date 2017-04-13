@@ -2,6 +2,7 @@ package com.bbsforum.action;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.UserBiz;
 import com.bbsforum.entity.User;
@@ -36,7 +37,7 @@ public class UserAction extends BaseAction {
 	
 	
 	
-	
+	@Autowired
 	UserBiz userBiz;
 	public void setUserBiz(UserBiz userBiz) {
 		this.userBiz = userBiz;

@@ -65,8 +65,7 @@ public class Post implements java.io.Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
+	}	
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@Cascade(value={CascadeType.SAVE_UPDATE})
