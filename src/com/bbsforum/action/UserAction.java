@@ -69,9 +69,25 @@ public class UserAction extends BaseAction {
 	})
 	public String logout(){
 		getSession().put("user", null);
-		
 		return SUCCESS;
-
+	}
+	
+	@Action(value="chaeckUserByUrl",results={
+			@Result(name="others",location="/member.jsp"),
+			@Result(name="self",location="/personal.jsp")
+	})
+	public String checkUserByUrl(){
+		User user=(User) getSession().get("user");
+		//如果要查看的用户与此时已登录的用户是同一个人，则跳转至用户的个人资料修改页面
+		if(null==user){
+			return "others";
+		}
+		else if(mailAddress.equals(user.getMailAddress())){
+			return "self";
+		}
+		else {
+			return "self";
+		}
 	}
 	
 	

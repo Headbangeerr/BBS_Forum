@@ -7,7 +7,7 @@ function showPostList(){//页面载入时通过ajax获取相应数据
                	$.each(data.lastestPostList,function(index,post){  
                		var str;
                		str="<div class='media'>"+
-							"<a class='pull-left' href='#'>"+
+							"<a class='pull-left' href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'>"+
 								"<img class='media-object avatar avatar-sm' src='"+post.publisherMail.photoUrl+"' alt='sjswc'>"+
 							"</a>"+
 							"<div class='comment'>"+
@@ -19,7 +19,7 @@ function showPostList(){//页面载入时通过ajax获取相应数据
 								"</div>"+
 								"<div class='comment-bt'>"+
 									"<span class='label label-default'><a href='#'>"+post.childboardId.name+"</a></span> &nbsp;•&nbsp;"+
-									"<strong><a href='#'>"+post.publisherMail.username+"</a></strong>"+
+									"<strong><a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'>"+post.publisherMail.username+"</a></strong>"+
 									 "&nbsp;•&nbsp; <span>"+post.publishTime+"</span>"+
 								"</div>"+
 							"</div>"+
