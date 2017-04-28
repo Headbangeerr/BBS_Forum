@@ -9,6 +9,18 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+   <context-param>    
+   		<param-name>webAppRootKey</param-name>    
+   		<param-value>webApp.root</param-value>  
+   	</context-param>
+  <context-param>  
+    <param-name>log4jConfigLocation</param-name>  
+    <param-value>classpath:log4j.properties</param-value>  
+</context-param>  
+<!-- 利用spring来使用log4j -->  
+<listener>  
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
+</listener>  
   <filter>
    <filter-name>hibernateFilter</filter-name>
    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>

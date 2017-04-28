@@ -12,8 +12,11 @@ import javax.ws.rs.GET;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bbsforum.biz.BoardBiz;
@@ -42,8 +45,7 @@ public class test {
 		PostBiz postBiz= (PostBiz) context.getBean("postBiz");
 		List<Post> list=postBiz.getLastestPost(1, 10);
 		for (Post temp : list) {
-			
-			System.out.println(temp.getPublisherMail().getPosts());
+			System.out.println("test:test"+temp.getPublisherMail().getType());
 		}
 	}
 

@@ -52,7 +52,6 @@ public class BoardDaoImpl implements BoardDao {
 			return null;
 		}
 		Set<Childboard> childBoard=board.getChildBoard();
-		System.out.println("BoardDaoImp:");
 		for (Childboard childboard2 : childBoard) {
 			System.out.println(childboard2.getName());
 		}

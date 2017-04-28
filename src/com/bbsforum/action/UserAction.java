@@ -50,6 +50,7 @@ public class UserAction extends BaseAction {
 	public String login(){//µÇÂ½
 		
 		User user=userBiz.getUserByMailAddress(mailAddress);
+		System.out.println("action:"+user.getMailAddress());
 		if(user==null){
 			errorFlag=0;
 			return LOGIN;

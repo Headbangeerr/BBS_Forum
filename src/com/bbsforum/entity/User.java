@@ -28,12 +28,10 @@ public class User implements java.io.Serializable {
 	private String sex;
 	private Timestamp registerDate;
 	private String photoUrl;
-	private Integer userType;
-	private Integer level;
 	private Integer type;
+	private Integer level;
 	private String signature;
 	private Set<Post> posts=new HashSet<Post>();
-
 	// Constructors
 
 	/** default constructor */
@@ -42,27 +40,26 @@ public class User implements java.io.Serializable {
 
 	/** minimal constructor */
 	public User(String mailAddress, String username, String password,
-			String sex, String photoUrl) {
+			String sex, Timestamp registerDate) {
 		this.mailAddress = mailAddress;
 		this.username = username;
 		this.password = password;
 		this.sex = sex;
-		this.photoUrl = photoUrl;
+		this.registerDate = registerDate;
 	}
 
 	/** full constructor */
 	public User(String mailAddress, String username, String password,
 			String sex, Timestamp registerDate, String photoUrl,
-			Integer userType, Integer level, Integer type, String signature) {
+			Integer type, Integer level, String signature) {
 		this.mailAddress = mailAddress;
 		this.username = username;
 		this.password = password;
 		this.sex = sex;
 		this.registerDate = registerDate;
 		this.photoUrl = photoUrl;
-		this.userType = userType;
-		this.level = level;
 		this.type = type;
+		this.level = level;
 		this.signature = signature;
 	}
 
@@ -72,11 +69,10 @@ public class User implements java.io.Serializable {
 	public String getMailAddress() {
 		return this.mailAddress;
 	}
-
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
 	}
-
+	
 	
 	@OneToMany(mappedBy="publisherMail")
 	@Cascade(value={CascadeType.DELETE})
@@ -115,7 +111,7 @@ public class User implements java.io.Serializable {
 		this.sex = sex;
 	}
 
-	@Column(name = "register_date", length = 19)
+	@Column(name = "register_date", nullable = false, length = 19)
 	public Timestamp getRegisterDate() {
 		return this.registerDate;
 	}
@@ -124,31 +120,13 @@ public class User implements java.io.Serializable {
 		this.registerDate = registerDate;
 	}
 
-	@Column(name = "photo_url", nullable = false)
+	@Column(name = "photo_url", length = 40)
 	public String getPhotoUrl() {
 		return this.photoUrl;
 	}
 
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
-	}
-
-	@Column(name = "user_type")
-	public Integer getUserType() {
-		return this.userType;
-	}
-
-	public void setUserType(Integer userType) {
-		this.userType = userType;
-	}
-
-	@Column(name = "level")
-	public Integer getLevel() {
-		return this.level;
-	}
-
-	public void setLevel(Integer level) {
-		this.level = level;
 	}
 
 	@Column(name = "type")
@@ -158,6 +136,15 @@ public class User implements java.io.Serializable {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	@Column(name = "level")
+	public Integer getLevel() {
+		return this.level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 	@Column(name = "signature")
