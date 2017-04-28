@@ -8,12 +8,10 @@ import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
-import javax.ws.rs.GET;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.StaticApplicationContext;
@@ -32,7 +30,10 @@ import com.bbsforum.entity.Post;
 
 public class test {
 
+	private static Logger logger = Logger.getLogger(test.class);  
 	public static void main(String[] args) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
+		System.out.println("hello");
+		
 //		 TODO Auto-generated method stub
 //		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
 //		BoardDao boardDAO=(BoardDao) context.getBean("boardDao");
@@ -45,7 +46,7 @@ public class test {
 		PostBiz postBiz= (PostBiz) context.getBean("postBiz");
 		List<Post> list=postBiz.getLastestPost(1, 10);
 		for (Post temp : list) {
-			System.out.println("test:test"+temp.getPublisherMail().getType());
+			logger.info(temp.getPublisherMail().getType()+"");
 		}
 	}
 

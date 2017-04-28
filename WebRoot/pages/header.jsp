@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </ul>         
 	    <p class="navbar-text navbar-right">尊敬的游客您好！</p>    
    </s:if>
-   <s:elseif test='#session.user.userType=="0"'><!-- 判断用户类型，如果为0代表用户为一般用户 -->
+   <s:elseif test='#session.user.type=="0"'><!-- 判断用户类型，如果为0代表用户为一般用户 -->
    		<ul class="nav navbar-nav navbar-right user">
 
                     <li class="dropdown">

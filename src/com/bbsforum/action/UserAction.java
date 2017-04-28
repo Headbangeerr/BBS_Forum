@@ -1,5 +1,6 @@
 package com.bbsforum.action;
 
+import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import com.bbsforum.entity.User;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserAction extends BaseAction {
-
+private static Logger logger=Logger.getLogger(UserAction.class);
 	private String mailAddress;
 	private String password;
 	private int errorFlag;//登录时用于标记错误信息，为0时表示用户不存在，为2时表示密码错误
@@ -48,9 +49,8 @@ public class UserAction extends BaseAction {
 			@Result(name="login",location="/login.jsp")
 	})
 	public String login(){//登陆
-		
+		logger.info("login……   useraddress:"+mailAddress);
 		User user=userBiz.getUserByMailAddress(mailAddress);
-		System.out.println("action:"+user.getMailAddress());
 		if(user==null){
 			errorFlag=0;
 			return LOGIN;
