@@ -25,6 +25,4 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return user;
 	}
-	
-
 }
