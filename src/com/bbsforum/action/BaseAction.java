@@ -8,7 +8,9 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class BaseAction extends ActionSupport implements SessionAware, RequestAware {
-
+ 
+	
+	
 	private static final long serialVersionUID = 1L;
 	private Map<String, Object> session;
 	private Map<String, Object> request;
