@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50627
 File Encoding         : 65001
 
-Date: 2017-04-06 21:53:05
+Date: 2017-04-30 19:40:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,6 +52,45 @@ CREATE TABLE `childboard` (
 INSERT INTO `childboard` VALUES ('4', 'ASP开发', '2');
 
 -- ----------------------------
+-- Table structure for `friends`
+-- ----------------------------
+DROP TABLE IF EXISTS `friends`;
+CREATE TABLE `friends` (
+  `user_mail` char(20) NOT NULL,
+  `friend_mail` char(20) NOT NULL,
+  `add_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_mail`,`friend_mail`),
+  KEY `friend_mail` (`friend_mail`),
+  CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_mail`) REFERENCES `user` (`mail_address`),
+  CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friend_mail`) REFERENCES `user` (`mail_address`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of friends
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `news`
+-- ----------------------------
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE `news` (
+  `sender_mail` char(20) NOT NULL,
+  `receiver_mail` char(20) NOT NULL,
+  `send_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `content` varchar(255) NOT NULL DEFAULT 'CURRENT_TIMESTAMP',
+  `type` char(5) DEFAULT 'n',
+  `state` int(2) DEFAULT '0',
+  PRIMARY KEY (`sender_mail`,`receiver_mail`),
+  KEY `receiver_mail` (`receiver_mail`),
+  CONSTRAINT `news_ibfk_1` FOREIGN KEY (`sender_mail`) REFERENCES `user` (`mail_address`),
+  CONSTRAINT `news_ibfk_2` FOREIGN KEY (`receiver_mail`) REFERENCES `user` (`mail_address`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of news
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `post`
 -- ----------------------------
 DROP TABLE IF EXISTS `post`;
@@ -60,9 +99,9 @@ CREATE TABLE `post` (
   `title` varchar(255) NOT NULL,
   `content` varchar(255) NOT NULL,
   `publisher_mail` char(20) NOT NULL,
-  `publish_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `publish_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `childboard_id` int(11) NOT NULL,
-  `page_view` int(11) NOT NULL,
+  `page_view` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `publisher_mail` (`publisher_mail`),
   KEY `childboardId` (`childboard_id`),
@@ -103,14 +142,13 @@ CREATE TABLE `user` (
   `sex` char(2) NOT NULL DEFAULT '男',
   `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '注册时间',
   `photo_url` varchar(40) DEFAULT 'upload/headicon/default_icon.jpg' COMMENT '用于存放用户头像的本地文件地址，需要在注册时指定为默认的头像地址',
-  `user_type` int(11) DEFAULT '0' COMMENT '为int类型，0代表普通用户，1代表被赋予了管理员权限',
   `level` int(11) DEFAULT '1',
-  `type` int(1) DEFAULT '0' COMMENT '用户类型，0代表一般用户，1代表被管理员',
   `signature` varchar(255) DEFAULT '还未设置个人签名。' COMMENT '个人签名',
+  `type` int(1) DEFAULT NULL,
   PRIMARY KEY (`mail_address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1111', 'Headbanger', '123456', '男', '2017-04-04 16:48:45', 'upload/headicon/default_icon.jpg', '0', '1', '0', 'NO PAIN,NO GAIN.');
+INSERT INTO `user` VALUES ('1111', 'Headbanger', '123456', '男', '2017-04-28 14:26:01', 'upload/headicon/default_icon.jpg', '1', 'NO PAIN,NO GAIN.', '0');
