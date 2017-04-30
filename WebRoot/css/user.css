@@ -2,6 +2,9 @@ body{
     background: #f4f4f4 !important;
     font-family: 'Microsoft YaHei' !important;
 }
+.navbar-inverse{
+	height: 51.433px;
+}
 
 .wrap {
     width: 100%;
@@ -40,7 +43,7 @@ body{
 
 .user{
     position: relative;
-    margin-top: 115px;
+    margin-top: 35px;
     margin-bottom: 60px !important;
 }
 
