@@ -9,8 +9,9 @@
       <attribute name="version-id" value="3.1"/>
     </node>
   </facet>
-  <facet id="wst.jsdt.web"/>
   <facet id="web.struts2"/>
+  <facet id="wst.jsdt.web"/>
+  <facet id="me.hibernate"/>
   <facet id="jst.web.jstl"/>
   <facet id="jst.web"/>
   <facet id="java"/>

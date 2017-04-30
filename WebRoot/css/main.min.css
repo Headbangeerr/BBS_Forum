@@ -17,6 +17,7 @@ body {
 	/* -webkit-font-smoothing: antialiased; */
 	font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
 	-ms-overflow-style: -ms-autohiding-scrollbar;
+}
 
 body, html {
 	height: 100%;
@@ -15574,7 +15575,7 @@ textarea {
 }
 
 .label-default {
-	background-color: #e2e2e2;
+	background-color: #afafaf;
 	color: #616161
 }
 
