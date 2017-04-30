@@ -40,6 +40,7 @@ public class PostAction extends BaseAction {
 	public String  showLastestPostOnIndexPage(){
 		lastestPostList=new ArrayList<Post>();
 		lastestPostList=postBiz.getLastestPost(1, 10);//显示前十条最新发帖
+		logger.info("timestamp:"+lastestPostList.get(0).getPublishTime());
 		return SUCCESS;
 	}
 }

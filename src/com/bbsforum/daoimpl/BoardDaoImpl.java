@@ -47,14 +47,7 @@ public class BoardDaoImpl implements BoardDao {
 	public Set getChildBoardListByParentBoardId(int ParentBoardId) {
 		Session session=sessionFactory.openSession();
 		Board board=(Board) session.get(Board.class, ParentBoardId);
-		if(board==null){
-			System.out.println("Board null");
-			return null;
-		}
 		Set<Childboard> childBoard=board.getChildBoard();
-		for (Childboard childboard2 : childBoard) {
-			System.out.println(childboard2.getName());
-		}
 		session.flush();
 		session.close();
 		return childBoard;

@@ -16,8 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>导航栏</title>
-	<link rel="stylesheet" type="text/css" href="<%=basePath%>css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="<%=basePath%>css/titlebar.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </head>

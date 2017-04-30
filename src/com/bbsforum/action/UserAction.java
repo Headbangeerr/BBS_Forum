@@ -80,14 +80,21 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public String checkUserByUrl(){
 		User user=(User) getSession().get("user");
 		//如果要查看的用户与此时已登录的用户是同一个人，则跳转至用户的个人资料修改页面
-		if(null==user){
+		if(null==user){//在未登录的情况下，都显示该url所指用户的详细信息页
+			User checked=userBiz.getUserByMailAddress(mailAddress);
+			logger.info("用户未登录：   正在查看用户的详细信息…… 用户邮箱地址为："+mailAddress+"   用户名为："+checked.getUsername());
+			getRequest().put("user",checked);
 			return "others";
 		}
-		else if(mailAddress.equals(user.getMailAddress())){
+		else if(mailAddress.equals(user.getMailAddress())){//在有人登陆且登陆者就是要查看的人
+			getRequest().put("user", (User)getSession().get("user"));
 			return "self";
 		}
 		else {
-			return "self";
+			User checked=userBiz.getUserByMailAddress(mailAddress);
+			logger.info("用户已登录：   正在查看用户的详细信息…… 用户邮箱地址为："+mailAddress+"   用户名为："+checked.getUsername());
+			getRequest().put("user",checked);
+			return "others";
 		}
 	}
 	
