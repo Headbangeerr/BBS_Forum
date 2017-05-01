@@ -1,12 +1,21 @@
 package com.bbsforum.entity;
 
 import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  * Message entity. @author MyEclipse Persistence Tools
@@ -18,8 +27,8 @@ public class Message implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String publisherMail;
-	private String reciverMail;
+	private User publisherMail;
+	private User reciverMail;
 	private String content;
 	private Timestamp publishDate;
 
@@ -30,17 +39,15 @@ public class Message implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Message(String publisherMail, String reciverMail, String content) {
-		this.publisherMail = publisherMail;
-		this.reciverMail = reciverMail;
+	public Message( String content) {
+	
 		this.content = content;
 	}
 
 	/** full constructor */
-	public Message(String publisherMail, String reciverMail, String content,
+	public Message( String content,
 			Timestamp publishDate) {
-		this.publisherMail = publisherMail;
-		this.reciverMail = reciverMail;
+		
 		this.content = content;
 		this.publishDate = publishDate;
 	}
@@ -57,21 +64,27 @@ public class Message implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "publisher_mail", nullable = false, length = 20)
-	public String getPublisherMail() {
-		return this.publisherMail;
+	
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@Cascade(value={CascadeType.SAVE_UPDATE})
+	@JoinColumn(name="publisher_mail")
+	public User getPublisherMail() {
+		return publisherMail;
 	}
 
-	public void setPublisherMail(String publisherMail) {
+	public void setPublisherMail(User publisherMail) {
 		this.publisherMail = publisherMail;
 	}
 
-	@Column(name = "reciver_mail", nullable = false, length = 20)
-	public String getReciverMail() {
-		return this.reciverMail;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@Cascade(value={CascadeType.SAVE_UPDATE})
+	@JoinColumn(name="receiver_mail")
+	public User getReciverMail() {
+		return reciverMail;
 	}
 
-	public void setReciverMail(String reciverMail) {
+	public void setReciverMail(User reciverMail) {
 		this.reciverMail = reciverMail;
 	}
 

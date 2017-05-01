@@ -23,16 +23,17 @@ import com.bbsforum.biz.UserBiz;
 import com.bbsforum.bizimpl.BoardBizImpl;
 import com.bbsforum.bizimpl.UserBizImpl;
 import com.bbsforum.dao.BoardDao;
+import com.bbsforum.dao.MessageDao;
 import com.bbsforum.daoimpl.BoardDaoImpl;
 import com.bbsforum.entity.Board;
 import com.bbsforum.entity.Childboard;
+import com.bbsforum.entity.Message;
 import com.bbsforum.entity.Post;
 
 public class test {
 
 	private static Logger logger = Logger.getLogger(test.class);  
 	public static void main(String[] args) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException {
-		System.out.println("hello");
 		
 //		 TODO Auto-generated method stub
 //		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -43,10 +44,10 @@ public class test {
 //		}
 	//	boardDAO.deleteChildBoard(3);
 		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
-		PostBiz postBiz= (PostBiz) context.getBean("postBiz");
-		List<Post> list=postBiz.getLastestPost(1, 10);
-		for (Post temp : list) {
-			logger.info(temp.getPublisherMail().getType()+"");
+		MessageDao messageDao= (MessageDao) context.getBean("messageDao");
+		List<Message> list=messageDao.getMessageByReceiverMail("1111");
+		for (Message message : list) {
+			logger.info(message.getPublisherMail().getUsername());
 		}
 	}
 

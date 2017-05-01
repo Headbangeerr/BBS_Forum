@@ -68,6 +68,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <div class="user-right-n clearfix tab-content">
 	                <!-- 遍历展示Ta的帖子列表 -->
 	                    <div role="tabpanel" class="tab-pane active" id="myArticle">
+	                    <s:if test='#request.checkedUser.posts.size()==0'>
+	                    	  <h4><span class="title">此用户未发布任何帖子。</span></h4>         
+	                    </s:if>
 	                    	<s:iterator value="#request.checkedUser.posts" var="post">
 	                    		<div class="art-row">
 	                            <a  class="author"><i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 
@@ -79,11 +82,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    </div>
 	
 	                    <div role="tabpanel" class="tab-pane" id="myCollection">
-	                        <div class="art-row">
-	                            <a href="" class="author"><i class="fa fa-user"></i>&nbsp;<span>笨笨熊喜欢吃饼干</span></a> <a href="" class="time"><i class="fa fa-clock-o"></i>&nbsp;<span>2016-7-17 14:24</span></a> <a href="" class="time"><i class="fa fa-list-ul"></i>&nbsp;发表在:&nbsp;<span>前端</span></a>
-	                            <h4><a href="" class="title">你好，世界！我的理想是能够在你的怀抱沉睡</a></h4>
-	                            <a href="" class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>125</span></a> <a href="" class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>151</span></a> <a href="" class="time"><i class="fa fa-heart"></i>&nbsp;收藏:&nbsp;<span>151</span></a>
-	                        </div>
+	                     <s:if test='#request.messageList.size()==0'>
+	                    	  <h4><span class="title">没有人为该用户留言。</span></h4>         
+	                    </s:if>
+	                    <s:iterator value="#request.messageList" var="message">
+	                    		<div class="art-row">	                           
+	                            <h4><a href="" class="title">${message.content} </a></h4>	                          
+	                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
+	                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 
+	                        </div>	
+	                     </s:iterator>
+	                        
 	                    </div>		                   
 	                </div>
 	            </div>

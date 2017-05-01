@@ -1,11 +1,15 @@
 package com.bbsforum.action;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bbsforum.biz.MessageBiz;
 import com.bbsforum.biz.UserBiz;
+import com.bbsforum.entity.Message;
 import com.bbsforum.entity.User;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -73,6 +77,12 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		return SUCCESS;
 	}
 	
+	@Autowired
+	MessageBiz messageBiz;
+	public MessageBiz getMessageBiz() {
+		return messageBiz;
+	}
+	
 	@Action(value="chaeckUserByUrl",results={
 			@Result(name="others",location="/member.jsp"),
 			@Result(name="self",location="/personal.jsp")
@@ -80,9 +90,12 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public String checkUserByUrl(){
 		User user=(User) getSession().get("user");
 		//如果要查看的用户与此时已登录的用户是同一个人，则跳转至用户的个人资料修改页面
-		if(null==user){//如果没有用户登录，此时查看任意用户都跳转至指定用户的信息页面
-			User check=userBiz.getUserByMailAddress(mailAddress);
-			logger.info("无用户登陆     被查看的用户账号："+mailAddress+"  用户名"+check.getUsername()+"注册时间："+check.getRegisterDate());
+		User check;
+		List<Message> messageList=messageBiz.getMessageByReceiverMail(mailAddress);
+		getRequest().put("messageList", messageList);
+		if(null==user){//如果没有用户登录，此时查看任意用户都跳转至指定用户的信息页面			
+			check=userBiz.getUserByMailAddress(mailAddress);
+			logger.info("无用户登陆     被查看的用户账号："+mailAddress+"  用户名"+check.getUsername()+"注册时间："+check.getRegisterDate());			
 			getRequest().put("checkedUser", check);
 			return "others";
 		}
@@ -92,7 +105,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			return "self";
 		}
 		else {
-			User check=userBiz.getUserByMailAddress(mailAddress);
+			check=userBiz.getUserByMailAddress(mailAddress);
 			logger.info("用户已登陆     被查看的用户账号："+mailAddress+"  用户名"+check.getUsername());
 			getRequest().put("checkedUser", check);
 			return "others";
