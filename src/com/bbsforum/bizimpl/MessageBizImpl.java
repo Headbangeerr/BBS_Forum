@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbsforum.biz.MessageBiz;
 import com.bbsforum.dao.MessageDao;
 import com.bbsforum.entity.Message;
+import com.bbsforum.entity.User;
 
 public class MessageBizImpl implements MessageBiz {
 
@@ -24,4 +25,11 @@ public class MessageBizImpl implements MessageBiz {
 		return messageDao.getMessageByReceiverMail(ReceiverMail);
 	}
 
+
+	@Override
+	public boolean addMessage(User publisher, User receiver, String Content) {
+		return messageDao.addMessage(publisher, receiver, Content);
+	}
+
+	
 }

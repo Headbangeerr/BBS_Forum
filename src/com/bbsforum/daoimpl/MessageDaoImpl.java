@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbsforum.dao.MessageDao;
 import com.bbsforum.entity.Message;
 import com.bbsforum.entity.Post;
+import com.bbsforum.entity.User;
 
 public class MessageDaoImpl implements MessageDao {
 	private static Logger logger=Logger.getLogger(MessageDaoImpl.class);
@@ -29,6 +30,24 @@ public class MessageDaoImpl implements MessageDao {
 		List<Message> list = query.list();
 		session.close();
 		return list;
+	}
+	@Override
+	public boolean addMessage(User publisher, User receiver, String Content) {
+		session=sessionFactory.openSession();
+		Message message=new Message();
+		message.setPublisherMail(publisher);
+		message.setReciverMail(receiver);
+		message.setContent(Content);
+		try {
+			session.save(message);
+			session.close();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			session.close();
+			return false;
+		}
+		
 	}
 
 }

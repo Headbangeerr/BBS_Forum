@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    </li>	               
 	                    <li class="list-group-item" href="" style="text-align: center;">
 	                        
-	                        <i class="fa fa-clock-o"></i>&nbsp;注册日期：<s:date name="#request.checkedUser.registerDate" format="yyyy-MM-dd HH:mm" />
+	                        <i class="fa fa-clock-o"></i>&nbsp;注册日期：<s:date name="#request.checkedUser.registerDate" format="yyyy-MM-dd " />
 	                    </li>
 	                </ul>
 	                <a href="#" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
@@ -76,8 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <a  class="author"><i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 
 	                            <h4><a href="" class="title">${post.title} </a></h4>
 	                            <a  class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>${post.pageView} </span></a> <a  class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>${post.pageView} </span></a> 
-	                        </div>	
-	                    	
+	                        </div>		              
 	                    	</s:iterator>	                    	                                
 	                    </div>
 	
@@ -92,7 +91,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 
 	                        </div>	
 	                     </s:iterator>
-	                        
+	                     
+	                     <a style="width: 175px;float: right;" class="btn btn-success btn-outline btn-block" >
+								<i class="fa fa-pencil"></i>&nbsp;<span>给Ta留言</span>
+						 </a>
 	                    </div>		                   
 	                </div>
 	            </div>

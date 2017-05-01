@@ -112,5 +112,4 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		}
 	}
 	
-	
 }
