@@ -82,7 +82,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		//如果要查看的用户与此时已登录的用户是同一个人，则跳转至用户的个人资料修改页面
 		if(null==user){//如果没有用户登录，此时查看任意用户都跳转至指定用户的信息页面
 			User check=userBiz.getUserByMailAddress(mailAddress);
-			logger.info("无用户登陆     被查看的用户账号："+mailAddress+"  用户名"+check.getUsername());
+			logger.info("无用户登陆     被查看的用户账号："+mailAddress+"  用户名"+check.getUsername()+"注册时间："+check.getRegisterDate());
 			getRequest().put("checkedUser", check);
 			return "others";
 		}

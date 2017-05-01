@@ -24,14 +24,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <jsp:include page="pages/header.jsp"></jsp:include>
-    
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 用户信息</div>
 	    <div class="user-cont clearfix">
 	        <div class="col-md-4 user-left">
 	            <div class="user-left-n clearfix">
-	                <h6>详细信息</h6>
-	                <a href="#" class="user-headimg f"><img src='<s:property value="#request.checkedUser.photoUrl"/>'></a>
+	               <h6> <i class="fa fa-address-card"></i>详细信息</h6>
+	                <a class="user-headimg f"><img src='<s:property value="#request.checkedUser.photoUrl"/>'></a>
 	                <div class="user-name f">
 	                    <h4><s:property value="#request.checkedUser.username"/></h4>
 	                    <p><s:property value="#request.checkedUser.signature"/></p>
@@ -39,20 +38,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            <div class="user-left-n clearfix">
 	                <ul class="list-group">
-	                    <li class="list-group-item">
+	                    <li class="list-group-item" style="text-align: center;">
 	                        <i class="fa fa-user-secret"></i>&nbsp;Level：<s:property value="#request.checkedUser.level"/>
 	                    </li>
-	                    <li class="list-group-item" href="">
-	                        <span class="badge red">0</span>
-	                        <i class="fa fa-book"></i>&nbsp;他的帖子
-	                    </li>
-	                    <a class="list-group-item" href="">
-	                        <span class="badge">0</span>
-	                        <i class="fa fa-heart"></i>&nbsp;我收藏的文章
-	                    </a>
-	                    <li class="list-group-item" href="">
-	                        <span class="badge">0</span>
-	                        <i class="fa fa-star"></i>&nbsp;关注我的人数
+	                    <li class="list-group-item" style="text-align: center;" href="">
+	                       
+	                        <i class="fa fa-transgender"></i>&nbsp;性别:<s:property value="#request.checkedUser.sex"/>
+	                    </li>	               
+	                    <li class="list-group-item" href="" style="text-align: center;">
+	                        
+	                        <i class="fa fa-clock-o"></i>&nbsp;注册日期：<s:date name="#request.checkedUser.registerDate" format="yyyy-MM-dd HH:mm" />
 	                    </li>
 	                </ul>
 	                <a href="#" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
@@ -71,30 +66,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </ul>
 	
 	                <div class="user-right-n clearfix tab-content">
+	                <!-- 遍历展示Ta的帖子列表 -->
 	                    <div role="tabpanel" class="tab-pane active" id="myArticle">
-	                        <div class="art-row">
-	                            <a href="" class="author"><i class="fa fa-user"></i>&nbsp;<span>笨笨熊喜欢吃饼干</span></a> <a href="" class="time"><i class="fa fa-clock-o"></i>&nbsp;<span>2016-7-17 14:24</span></a> <a href="" class="time"><i class="fa fa-list-ul"></i>&nbsp;发表在:&nbsp;<span>前端</span></a>
-	                            <h4><a href="" class="title">CSS3 塞贝尔曲线用法详解</a></h4>
-	                            <a href="" class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>125</span></a> <a href="" class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>151</span></a> <a href="" class="time"><i class="fa fa-heart"></i>&nbsp;收藏:&nbsp;<span>151</span></a>
-	                        </div>
-	
-	                        <div class="art-row">
-	                            <a href="" class="author"><i class="fa fa-user"></i>&nbsp;<span>笨笨熊喜欢吃饼干</span></a> <a href="" class="time"><i class="fa fa-clock-o"></i>&nbsp;<span>2016-7-17 14:24</span></a> <a href="" class="time"><i class="fa fa-list-ul"></i>&nbsp;发表在:&nbsp;<span>前端</span></a>
-	                            <h4><a href="" class="title">CSS3 塞贝尔曲线用法详解</a></h4>
-	                            <a href="" class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>125</span></a> <a href="" class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>151</span></a> <a href="" class="time"><i class="fa fa-heart"></i>&nbsp;收藏:&nbsp;<span>151</span></a>
-	                        </div>
-	
-	                        <div class="art-row">
-	                            <a href="" class="author"><i class="fa fa-user"></i>&nbsp;<span>笨笨熊喜欢吃饼干</span></a> <a href="" class="time"><i class="fa fa-clock-o"></i>&nbsp;<span>2016-7-17 14:24</span></a> <a href="" class="time"><i class="fa fa-list-ul"></i>&nbsp;发表在:&nbsp;<span>前端</span></a>
-	                            <h4><a href="" class="title">CSS3 塞贝尔曲线用法详解</a></h4>
-	                            <a href="" class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>125</span></a> <a href="" class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>151</span></a> <a href="" class="time"><i class="fa fa-heart"></i>&nbsp;收藏:&nbsp;<span>151</span></a>
-	                        </div>
-	
-	                        <div class="art-row">
-	                            <a href="" class="author"><i class="fa fa-user"></i>&nbsp;<span>笨笨熊喜欢吃饼干</span></a> <a href="" class="time"><i class="fa fa-clock-o"></i>&nbsp;<span>2016-7-17 14:24</span></a> <a href="" class="time"><i class="fa fa-list-ul"></i>&nbsp;发表在:&nbsp;<span>前端</span></a>
-	                            <h4><a href="" class="title">CSS3 塞贝尔曲线用法详解</a></h4>
-	                            <a href="" class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>125</span></a> <a href="" class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>151</span></a> <a href="" class="time"><i class="fa fa-heart"></i>&nbsp;收藏:&nbsp;<span>151</span></a>
-	                        </div>
+	                    	<s:iterator value="#request.checkedUser.posts" var="post">
+	                    		<div class="art-row">
+	                            <a  class="author"><i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 
+	                            <h4><a href="" class="title">${post.title} </a></h4>
+	                            <a  class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>${post.pageView} </span></a> <a  class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>${post.pageView} </span></a> 
+	                        </div>	
+	                    	
+	                    	</s:iterator>	                    	                                
 	                    </div>
 	
 	                    <div role="tabpanel" class="tab-pane" id="myCollection">
@@ -103,11 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <h4><a href="" class="title">你好，世界！我的理想是能够在你的怀抱沉睡</a></h4>
 	                            <a href="" class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>125</span></a> <a href="" class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>151</span></a> <a href="" class="time"><i class="fa fa-heart"></i>&nbsp;收藏:&nbsp;<span>151</span></a>
 	                        </div>
-	                    </div>
-	
-	                    <div role="tabpanel" class="tab-pane" id="qd">
-	                        <div class="alert alert-info"><i class="fa fa-smile-o"></i>&nbsp;签到功能暂未上线，请大家耐心等待。一旦签到功能上线，我们将发送通知邮件到您的注册邮箱</div>
-	                    </div>
+	                    </div>		                   
 	                </div>
 	            </div>
 	        </div>

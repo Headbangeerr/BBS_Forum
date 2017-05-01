@@ -1,6 +1,8 @@
 package com.bbsforum.entity;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -73,7 +75,7 @@ public class User implements java.io.Serializable {
 		this.mailAddress = mailAddress;
 	}
 	
-	
+
 	@OneToMany(mappedBy="publisherMail")
 	@Cascade(value={CascadeType.DELETE})
 	public Set<Post> getPosts() {

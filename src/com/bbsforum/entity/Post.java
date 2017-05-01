@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.struts2.json.annotations.JSON;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -78,6 +79,7 @@ public class Post implements java.io.Serializable {
 		this.publisherMail = publisherMail;
 	}
 
+	@JSON(format="yyyy-MM-dd HH:mm")  
 	@Column(name = "publish_time", nullable = false, length = 19)
 	public Timestamp getPublishTime() {
 		return this.publishTime;

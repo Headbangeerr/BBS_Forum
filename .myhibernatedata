@@ -1,16 +1,20 @@
 #MyEclipse Hibernate Properties
-#Sun Apr 30 12:20:22 CST 2017
-genVersionTag=false
-genAnnotations=false
-configFile=/BBS_Forum/src/hibernate.cfg.xml
-reStrategyClass=
-sessionFactoryId=
+#Mon May 01 16:06:56 CST 2017
+genBasicCompId=true
+sessionFactoryName=
 profile=
+daoSFId=
+jndiPath=
 detectM2M=false
-genBasicCompId=false
-keyGenerator=
-createConfigFile=true
-basePersistenceClass=
+reStrategyClass=
 detectO2O=false
+springDaoFile=
 useJavaTypes=true
+keyGenerator=
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+genAnnotations=true
 reSettingsFile=
+configFile=/BBS_Forum/src/hibernate.cfg.xml
+createConfigFile=true
