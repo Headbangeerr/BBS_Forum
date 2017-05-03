@@ -8,10 +8,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
-    <title><s:property value="#request.checkedUser.username"  />的信息</title>
-    
+    <base href="<%=basePath%>">    
+    <title><s:property value="#request.checkedUser.username"/>的信息</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -19,9 +17,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
-
   </head>
-  
+   <script type="text/javascript" src="<%=basePath%>js/sendmessage.js"></script>
+    <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
   <body>
     <jsp:include page="pages/header.jsp"></jsp:include>
 	<div class="container user">
@@ -92,9 +90,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        </div>	
 	                     </s:iterator>
 	                     
-	                     <a style="width: 175px;float: right;" class="btn btn-success btn-outline btn-block" >
-								<i class="fa fa-pencil"></i>&nbsp;<span>给Ta留言</span>
-						 </a>
+	                     <form action="addMessage">
+	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
+		                    <textarea name="content"  class="form-control" name="mailAddress" style="height: 70px; margin-top: 30px;" placeholder="对Ta说点啥"></textarea>
+	                   		<br>
+		                     <a style="width: 175px;float: right;" class="btn btn-success btn-outline btn-block" id="send_message" >
+									<i class="fa fa-pencil"></i>&nbsp;<span>给Ta留言</span>
+							 </a>	                     
+	                     </form>	                     
 	                    </div>		                   
 	                </div>
 	            </div>

@@ -27,8 +27,8 @@ public class MessageBizImpl implements MessageBiz {
 
 
 	@Override
-	public boolean addMessage(User publisher, User receiver, String Content) {
-		return messageDao.addMessage(publisher, receiver, Content);
+	public boolean addMessage(Message message) {
+		return messageDao.addMessage(message);
 	}
 
 	

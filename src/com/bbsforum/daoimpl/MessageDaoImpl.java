@@ -32,12 +32,8 @@ public class MessageDaoImpl implements MessageDao {
 		return list;
 	}
 	@Override
-	public boolean addMessage(User publisher, User receiver, String Content) {
+	public boolean addMessage(Message message) {
 		session=sessionFactory.openSession();
-		Message message=new Message();
-		message.setPublisherMail(publisher);
-		message.setReciverMail(receiver);
-		message.setContent(Content);
 		try {
 			session.save(message);
 			session.close();
