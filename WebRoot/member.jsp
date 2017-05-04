@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
   </head>
-   <script type="text/javascript" src="<%=basePath%>js/sendmessage.js"></script>
+   <script type="text/javascript" src="<%=basePath%>js/send_message.js" charset="gb2312"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
   <body>
     <jsp:include page="pages/header.jsp"></jsp:include>
@@ -90,11 +90,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        </div>	
 	                     </s:iterator>
 	                     
-	                     <form action="addMessage">
+	                     <form id="messageForm">	            
+	                     <input type="hidden" name="publisherMail" value="<s:property value="#session.user.username"/>">
 	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
 		                    <textarea name="content"  class="form-control" name="mailAddress" style="height: 70px; margin-top: 30px;" placeholder="对Ta说点啥"></textarea>
 	                   		<br>
-		                     <a style="width: 175px;float: right;" class="btn btn-success btn-outline btn-block" id="send_message" >
+		                     <a onclick="send_message()" style="width: 175px;float: right;" class="btn btn-success btn-outline btn-block" id="send_message" >
 									<i class="fa fa-pencil"></i>&nbsp;<span>给Ta留言</span>
 							 </a>	                     
 	                     </form>	                     

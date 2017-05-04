@@ -50,13 +50,16 @@ public class MessageAction extends BaseAction {
 	}
 	
 	@Action(value="addMessage",results={
-			@Result(name="Success",type="json")
+			@Result(name="success",type="json")
 	})
 	public String addMessage(){
 		boolean flag;
-		
+		logger.info("receiverMail:"+receiverMail);
 		User publishser=(User)getSession().get("user");
 		User receiver=userDao.findUserByMailAddress(receiverMail);
+		logger.info("receiver:"+receiver.getUsername());
+		logger.info("content:"+content);
+		logger.info("receiverMail:"+receiverMail);
 		logger.info("正在添加留言……     发布人："+publishser.getUsername()+"   接收人："+receiver.getUsername());
 		Message message=new Message();
 		message.setContent(content);
