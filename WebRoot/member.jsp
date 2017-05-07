@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,15 +12,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">    
     <title><s:property value="#request.checkedUser.username"/>的信息</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
+	<style type="text/css">
+	.alert {
+	    display: none;
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    min-width: 200px;
+	    margin-left: -100px;
+	    z-index: 99999;
+	    padding: 15px;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	}
+	.alert-success {
+	    color: #3c763d;
+	    background-color: #dff0d8;
+	    border-color: #d6e9c6;
+	}
+		
+	</style>
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
   </head>
-   <script type="text/javascript" src="<%=basePath%>js/send_message.js" charset="gb2312"></script>
+   <script type="text/javascript" src="<%=basePath%>js/member.js" charset="gb2312"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
   <body>
     <jsp:include page="pages/header.jsp"></jsp:include>
@@ -79,22 +96,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    </div>
 	
 	                    <div role="tabpanel" class="tab-pane" id="myCollection">
-	                     <s:if test='#request.messageList.size()==0'>
-	                    	  <h4><span class="title">没有人为该用户留言。</span></h4>         
+	                     <s:if test='#request.pageBean.list.size()==0'>
+	                    	  <h4><span name="nomessage"  class="title">没有人为该用户留言。</span></h4>         
 	                    </s:if>
-	                    <s:iterator value="#request.messageList" var="message">
-	                    		<div class="art-row">	                           
+	                    <s:iterator value="#request.pageBean.list" var="message">
+	                    	<div class="art-row">	                           
 	                            <h4><a href="" class="title">${message.content} </a></h4>	                          
 	                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
-	                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 
+	                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
 	                        </div>	
 	                     </s:iterator>
-	                     
-	                     <form id="messageForm">	            
+	                     <!-- 分页标签的显示 -->
+	                     <ul id="pagefoot" class="pager">	                     	                     	
+	                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
+		                     <c:forEach var="pageNum" begin="1" end="${pageBean.totalPage}">
+		                     	<c:choose>
+		                     		<c:when test="${pageNum == 1}">
+		                     			<li class="active"><a>${pageNum}</a></li>
+		                     		</c:when>
+		                     		<c:otherwise>
+		                     			<li><a onclick="paging(this)" href="javascript:void(0);" name="showMessageByPage?page=${pageNum}&receiverMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
+		                     		</c:otherwise>		                     		                     			                     
+		                     	</c:choose>		                     			                     		                     	
+		                     </c:forEach>
+		                     <c:choose>
+	                     		<c:when test="${pageBean.currentPage eq pageBean.totalPage}">	                     		
+	                     			<li class="disabled"><a href="#">&raquo;</a></li>	
+	                     		</c:when>
+	                     		<c:otherwise>
+	                     			<li><a onclick="paging(this)" href="javascript:void(0);" name="showMessageByPage?page=${pageBean.currentPage+1}&receiverMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>	
+	                     		
+	                     		</c:otherwise>
+	                     	</c:choose>	                        
+	                      	   
+						</ul>
+						<!-- 分页结束 -->
+	                     <form id="messageForm">
+	                     <div class="alert"></div>	            
 	                     <input type="hidden" name="publisherMail" value="<s:property value="#session.user.username"/>">
 	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
-		                    <textarea name="content"  class="form-control" name="mailAddress" style="height: 70px; margin-top: 30px;" placeholder="对Ta说点啥"></textarea>
-	                   		<br>
+		                    <textarea name="content"  class="form-control" name="mailAddress" style="height: 70px; margin-top: 5px;" placeholder="对Ta说点啥"></textarea>	                  
 		                     <a onclick="send_message()" style="width: 175px;float: right;" class="btn btn-success btn-outline btn-block" id="send_message" >
 									<i class="fa fa-pencil"></i>&nbsp;<span>给Ta留言</span>
 							 </a>	                     

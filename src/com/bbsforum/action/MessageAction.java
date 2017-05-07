@@ -1,5 +1,9 @@
 package com.bbsforum.action;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -7,9 +11,13 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bbsforum.biz.MessageBiz;
+import com.bbsforum.biz.PageViewBiz;
+import com.bbsforum.biz.UserBiz;
 import com.bbsforum.dao.MessageDao;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.Message;
+import com.bbsforum.entity.PageBean;
 import com.bbsforum.entity.User;
 
 @ParentPackage("json-default")//要使用json必须要依赖于该包
@@ -17,8 +25,46 @@ public class MessageAction extends BaseAction {
 
 	private static Logger logger=Logger.getLogger(MessageAction.class);
 	
-	String receiverMail;
-	String content;
+	private String receiverMail;
+	private String content;
+	private PageBean pageBean;
+	private int page;
+	
+	@JSON(serialize=false)
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public PageBean getPageBean() {
+		return pageBean;
+	}
+	public void setPageBean(PageBean pageBean) {
+		this.pageBean = pageBean;
+	}
+
+
+
+
+	List<Message> messages=new ArrayList<Message>();
+	public List<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+
+
+
+
+	boolean flag;
+	public boolean getFlag() {
+		return flag;
+	}
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
 	
 	@JSON(serialize=false)
 	public String getReceiverMail() {
@@ -39,24 +85,26 @@ public class MessageAction extends BaseAction {
 	
 	
 	@Autowired
-	MessageDao messageDao;
-	public MessageDao getMessageDao() {
-		return messageDao;
+	MessageBiz messageBiz;
+	public MessageBiz getMessageBiz() {
+		return messageBiz;
 	}
+	
 	@Autowired
-	UserDao userDao;
-	public UserDao getUserDao() {
-		return userDao;
+	UserBiz userBiz;
+	public UserBiz getUserBiz() {
+		return userBiz;
 	}
 	
 	@Action(value="addMessage",results={
-			@Result(name="success",type="json")
+			@Result(name="success",type="json",params={
+					"excludeProperties", "messages\\[\\d+\\]\\.publisherMail.posts,"
+							+ "messages\\[\\d+\\]\\.receiverMail.posts"})
 	})
 	public String addMessage(){
-		boolean flag;
 		logger.info("receiverMail:"+receiverMail);
 		User publishser=(User)getSession().get("user");
-		User receiver=userDao.findUserByMailAddress(receiverMail);
+		User receiver=userBiz.getUserByMailAddress(receiverMail);
 		logger.info("receiver:"+receiver.getUsername());
 		logger.info("content:"+content);
 		logger.info("receiverMail:"+receiverMail);
@@ -64,8 +112,11 @@ public class MessageAction extends BaseAction {
 		Message message=new Message();
 		message.setContent(content);
 		message.setPublisherMail(publishser);
-		message.setReciverMail(receiver);
-		if(messageDao.addMessage(message)){
+		message.setReceiverMail(receiver);
+		message.setPublishDate(new Timestamp(System.currentTimeMillis()));
+		if(messageBiz.addMessage(message)){
+			messages=messageBiz.getMessageByReceiverMail(receiverMail);
+			logger.info("获取添加留言更新后的留言列表："+messages.size());
 			flag=true;
 		}
 		else{
@@ -73,4 +124,25 @@ public class MessageAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+	
+	
+	@Autowired
+	private PageViewBiz pageViewBiz;
+	public PageViewBiz getPageViewBiz() {
+		return pageViewBiz;
+	}
+	
+	@Action(value="showMessageByPage",results={
+			@Result(name="success",type="json",params={
+					"excludeProperties", "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.receiverMail.posts"})
+	}) 
+	public String showMessageByPage(){
+		logger.info("page:"+page+"receiverMail:"+receiverMail);
+		pageBean=pageViewBiz.showMessageBypage(page, 4, receiverMail);
+		logger.info(pageBean.getList().size());
+		return SUCCESS;
+	}
+	
+	
 }

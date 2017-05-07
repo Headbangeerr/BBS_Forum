@@ -28,7 +28,7 @@ public class Message implements java.io.Serializable {
 
 	private Integer id;
 	private User publisherMail;
-	private User reciverMail;
+	private User receiverMail;
 	private String content;
 	private Timestamp publishDate;
 
@@ -80,12 +80,12 @@ public class Message implements java.io.Serializable {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@Cascade(value={CascadeType.SAVE_UPDATE})
 	@JoinColumn(name="receiver_mail")
-	public User getReciverMail() {
-		return reciverMail;
+	public User getReceiverMail() {
+		return receiverMail;
 	}
 
-	public void setReciverMail(User reciverMail) {
-		this.reciverMail = reciverMail;
+	public void setReceiverMail(User reciverMail) {
+		this.receiverMail = reciverMail;
 	}
 
 	@Column(name = "content", nullable = false)

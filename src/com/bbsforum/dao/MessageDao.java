@@ -20,4 +20,14 @@ public interface MessageDao {
 	 * @return 如果为true表示返回成功，在action中通过flag通知前台是否已发布成功
 	 */
 	public boolean addMessage(Message message);
+	
+	/**
+	 * 利用分页查询获取消息列表
+	 * @param pageIndex 起始页标 
+	 * @param pageSize 一个页面中记录条数
+	 * @return 分页后的单页留言列表
+	 */
+	public List<Message> getMessagesForPage(int offset,int pageSize,String receiveral);
+	
+	
 }

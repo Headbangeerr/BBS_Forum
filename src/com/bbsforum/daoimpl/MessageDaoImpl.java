@@ -1,5 +1,6 @@
 package com.bbsforum.daoimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,8 +25,8 @@ public class MessageDaoImpl implements MessageDao {
 	@Override
 	public List<Message> getMessageByReceiverMail(String ReceiverMail) {
 		session=sessionFactory.openSession();
-		String hql="from Message m where reciverMail =? order by m.publishDate desc ";//Oder by要放在条件的后面！！！
-		Query query=session.createQuery(hql);
+		String hql="from Message m where receiverMail =? order by m.publishDate desc";//Oder by要放在条件的后面！！！
+		Query query=session.createQuery(hql);		
 		query.setString(0, ReceiverMail);
 		List<Message> list = query.list();
 		session.close();
@@ -44,6 +45,18 @@ public class MessageDaoImpl implements MessageDao {
 			return false;
 		}
 		
+	}
+	@Override
+	public List<Message> getMessagesForPage(int offset, int pageSize,String receiverMail) {
+		session=sessionFactory.openSession();
+		List<Message> messagePage=new ArrayList<Message>();
+		Query query=session.createQuery("from Message where receiverMail =?");
+		query.setString(0, receiverMail);
+		query.setFirstResult(offset);
+		query.setMaxResults(pageSize);
+		messagePage=query.list();
+		session.close();
+		return messagePage;
 	}
 
 }

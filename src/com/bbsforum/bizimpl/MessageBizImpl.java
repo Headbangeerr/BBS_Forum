@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbsforum.biz.MessageBiz;
 import com.bbsforum.dao.MessageDao;
 import com.bbsforum.entity.Message;
+import com.bbsforum.entity.PageBean;
 import com.bbsforum.entity.User;
 
 public class MessageBizImpl implements MessageBiz {

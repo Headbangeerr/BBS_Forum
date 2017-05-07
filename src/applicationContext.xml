@@ -49,7 +49,7 @@
 				<value>com.bbsforum.entity.Board</value>
 				<value>com.bbsforum.entity.Childboard</value>
 				<value>com.bbsforum.entity.Post</value>
-				<value>com.bbsforum.entity.Message</value>
+				<value>com.bbsforum.entity.Message</value>				
 			</list>
 		</property></bean>
 	<bean id="transactionManager"
@@ -88,6 +88,9 @@
 	<bean id="messageBiz" class="com.bbsforum.bizimpl.MessageBizImpl">
 	</bean>
 	<bean id="messageAction" class="com.bbsforum.action.MessageAction">
+	</bean>
+	
+	<bean id="pageViewBiz" class="com.bbsforum.bizimpl.PageViewBizImpl">
 	</bean>
 </beans>
 	
