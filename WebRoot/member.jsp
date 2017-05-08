@@ -82,55 +82,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	                <div class="user-right-n clearfix tab-content">
 	                <!-- 遍历展示Ta的帖子列表 -->
-	                    <div role="tabpanel" class="tab-pane active" id="myArticle">
-	                    <s:if test='#request.checkedUser.posts.size()==0'>
-	                    	  <h4><span class="title">此用户未发布任何帖子。</span></h4>         
+	                  	<div role="tabpanel" class="tab-pane active" id="myArticle">
+	                  		<input type="hidden" name="publisherMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
+		                  <s:if test='#request.postBean.list.size()==0'>
+	                    	  <h4><span name="nopost"  class="title">该用户未发布任何帖子。</span></h4>         
 	                    </s:if>
-	                    	<s:iterator value="#request.checkedUser.posts" var="post">
-	                    		<div class="art-row">
-	                            <a  class="author"><i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 
-	                            <h4><a href="" class="title">${post.title} </a></h4>
-	                            <a  class="author"><i class="fa fa-comment"></i>&nbsp;评论:&nbsp;<span>${post.pageView} </span></a> <a  class="time"><i class="fa fa-eye"></i>&nbsp;阅读:&nbsp;<span>${post.pageView} </span></a> 
-	                        </div>		              
-	                    	</s:iterator>	                    	                                
+	                    <s:else>
+	                    	<s:iterator value="#request.postBean.list" var="post">
+		                    	<div class="art-row">	                           
+		                            <h4><a href="" class="title">${post.title} </a></h4>	                          
+		                            <span class="label label-default"><a href="">${post.childboardId.name}</a></span>
+		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
+		                             <i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span>
+		                             </a>
+		                             <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
+		                        </div>	
+	                     	</s:iterator>	                     			                  
+		                     <ul id="postpagefoot" class="pager">	                     	                     	
+		                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
+			                     <c:forEach var="pageNum" begin="1" end="${postBean.totalPage}">
+			                     	<c:choose>
+			                     		<c:when test="${pageNum == 1}">
+			                     			<li class="active"><a>${pageNum}</a></li>
+			                     		</c:when>
+			                     		<c:otherwise>
+			                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageNum}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
+			                     		</c:otherwise>		                     		                     			                     
+			                     	</c:choose>		                     			                     		                     	
+			                     </c:forEach>
+			                     <c:choose>
+		                     		<c:when test="${postBean.currentPage eq postBean.totalPage}">	                     		
+		                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
+		                     		</c:when>
+		                     		<c:otherwise>
+		                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageBean.currentPage+1}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
+		                     		</c:otherwise>
+		                     	</c:choose>	                        		                      	   
+							</ul>							
+							                  
+							 
+	                    </s:else>	                	                                
 	                    </div>
 	
 	                    <div role="tabpanel" class="tab-pane" id="myCollection">
 	                     <s:if test='#request.pageBean.list.size()==0'>
 	                    	  <h4><span name="nomessage"  class="title">没有人为该用户留言。</span></h4>         
 	                    </s:if>
-	                    <s:iterator value="#request.pageBean.list" var="message">
-	                    	<div class="art-row">	                           
-	                            <h4><a href="" class="title">${message.content} </a></h4>	                          
-	                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
-	                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
-	                        </div>	
-	                     </s:iterator>
-	                     <!-- 分页标签的显示 -->
-	                     <ul id="pagefoot" class="pager">	                     	                     	
-	                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
-		                     <c:forEach var="pageNum" begin="1" end="${pageBean.totalPage}">
-		                     	<c:choose>
-		                     		<c:when test="${pageNum == 1}">
-		                     			<li class="active"><a>${pageNum}</a></li>
+	                    <s:else>
+	                    	<s:iterator value="#request.pageBean.list" var="message">
+		                    	<div class="art-row">	                           
+		                            <h4><a href="" class="title">${message.content} </a></h4>	                          
+		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
+		                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
+		                        </div>	
+	                     	</s:iterator>	                    	
+		                     <!-- 分页标签的显示 -->
+		                     <ul id="pagefoot" class="pager">	                     	                     	
+		                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
+			                     <c:forEach var="pageNum" begin="1" end="${pageBean.totalPage}">
+			                     	<c:choose>
+			                     		<c:when test="${pageNum == 1}">
+			                     			<li class="active"><a>${pageNum}</a></li>
+			                     		</c:when>
+			                     		<c:otherwise>
+			                     			<li><a onclick="paging(this)" href="javascript:void(0);" name="showMessageByPage?page=${pageNum}&receiverMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
+			                     		</c:otherwise>		                     		                     			                     
+			                     	</c:choose>		                     			                     		                     	
+			                     </c:forEach>
+			                     <c:choose>
+		                     		<c:when test="${pageBean.currentPage eq pageBean.totalPage}">	                     		
+		                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
 		                     		</c:when>
 		                     		<c:otherwise>
-		                     			<li><a onclick="paging(this)" href="javascript:void(0);" name="showMessageByPage?page=${pageNum}&receiverMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
-		                     		</c:otherwise>		                     		                     			                     
-		                     	</c:choose>		                     			                     		                     	
-		                     </c:forEach>
-		                     <c:choose>
-	                     		<c:when test="${pageBean.currentPage eq pageBean.totalPage}">	                     		
-	                     			<li class="disabled"><a href="#">&raquo;</a></li>	
-	                     		</c:when>
-	                     		<c:otherwise>
-	                     			<li><a onclick="paging(this)" href="javascript:void(0);" name="showMessageByPage?page=${pageBean.currentPage+1}&receiverMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>	
-	                     		
-	                     		</c:otherwise>
-	                     	</c:choose>	                        
-	                      	   
-						</ul>
-						<!-- 分页结束 -->
+		                     			<li><a onclick="paging(this)" href="javascript:void(0);" name="showMessageByPage?page=${pageBean.currentPage+1}&receiverMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
+		                     		</c:otherwise>
+		                     	</c:choose>	                        		                      	   
+							</ul>
+							<!-- 分页结束 -->	                    
+	                    </s:else>	
+	                                        	                 
+						<a id="showLastPage" style="display: none" onclick="paging(this)"  name=''></a>
 	                     <form id="messageForm">
 	                     <div class="alert"></div>	            
 	                     <input type="hidden" name="publisherMail" value="<s:property value="#session.user.username"/>">

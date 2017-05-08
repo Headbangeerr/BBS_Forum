@@ -86,14 +86,14 @@ public class MessageAction extends BaseAction {
 	
 	@Autowired
 	MessageBiz messageBiz;
-	public MessageBiz getMessageBiz() {
-		return messageBiz;
+	public void setMessageBiz(MessageBiz messageBiz) {
+		this.messageBiz = messageBiz;
 	}
 	
 	@Autowired
 	UserBiz userBiz;
-	public UserBiz getUserBiz() {
-		return userBiz;
+	public void setUserBiz(UserBiz userBiz) {
+		this.userBiz = userBiz;
 	}
 	
 	@Action(value="addMessage",results={
@@ -128,8 +128,8 @@ public class MessageAction extends BaseAction {
 	
 	@Autowired
 	private PageViewBiz pageViewBiz;
-	public PageViewBiz getPageViewBiz() {
-		return pageViewBiz;
+	public void setPageViewBiz(PageViewBiz pageViewBiz) {
+		this.pageViewBiz = pageViewBiz;
 	}
 	
 	@Action(value="showMessageByPage",results={

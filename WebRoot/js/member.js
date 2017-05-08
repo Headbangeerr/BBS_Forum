@@ -8,7 +8,7 @@ function send_message(){
 	}else if(publisher.length==0){
 		alert("请登录以后再再留言！")
 	}
-	else{
+	else{		
 		var params = $("#messageForm").serialize();  
 		 $.ajax({  
              url:"addMessage",  
@@ -19,23 +19,30 @@ function send_message(){
                if(data.flag==true){            	            	               	            	 
             	   $('.alert').html('发布成功！').addClass('alert-success').show().delay(1500).fadeOut();            	  
             	   $("textarea[name=content]").val("");
-            	   var str;            	  
-            	   var temp=data.messages[0];  
-            	   var date=temp.publishDate.substring(0,10);
-        		   date+=" "+temp.publishDate.substring(11,16);  
-        		   str="<div class='art-row'>"	                           
-                            +"<h4><a href='' class='title'>"+temp.content+"</a></h4>"+	                          
-                             "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+temp.publisherMail.mailAddress+"' class='author'>"+
-                             "<i class='fa fa-user'></i>&nbsp;<span>"+temp.publisherMail.username+"</span></a> <a  class='time'>" +
-                             "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" 	                          
-                        +"</div>";  		        
+            	   if($("#myCollection>.art-row").size()==4){
+           			  var totalpage=$("#pagefoot>li").size()-2;
+           			  var receiverMail=$("input[name=receiverMail]").val();
+           			  $("#showLastPage").attr("name","showMessageByPage?page="+totalpage+"&receiverMail="+receiverMail);
+           			  $("#showLastPage").trigger("click");
+           			}else{
+           			 var str;            	  
+           			 var temp=data.messages[0];  
+           			 var date=temp.publishDate.substring(0,10);
+           			 date+=" "+temp.publishDate.substring(11,16);  
+           			 str="<div class='art-row'>"	                           
+                              +"<h4><a href='' class='title'>"+temp.content+"</a></h4>"+	                          
+                               "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+temp.publisherMail.mailAddress+"' class='author'>"+
+                               "<i class='fa fa-user'></i>&nbsp;<span>"+temp.publisherMail.username+"</span></a> <a  class='time'>" +
+                               "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" 	                          
+                          +"</div>";  	
+           			}       	        
             	   if(data.messages.length==1){//如果返回后的留言列表的长度为1，则代表这是第一次添加留言
             		   //alert("这是第一次留言")
             		   $("span[name=nomessage]").remove();            		  
             		   $("#messageForm").before(str);
             	   }else{
             		   $("#myCollection>.art-row:first").before(str);
-            	   }            		               	              	  	          
+            	   }            	               	              	  	          
                }else{
             	   alert("发布失败！")
                }
@@ -46,7 +53,7 @@ function send_message(){
 function paging(t){
 	var url=$(t).attr("name");	
 	var receiverMail=$("input[name=receiverMail]").val();
-	$.ajax({//获取搜索框中的板块列表
+	$.ajax({
 		type:"post",
 		url:url,
 		dataType:"json",
@@ -72,7 +79,7 @@ function paging(t){
         	var next=currentPage+1;       
         	str="<ul id='pagefoot' class='pager'>";
         	if(currentPage==1){
-        		str+="<li class='disabled'><a onclick='paging(this)'  href='javascript:void(0);' name='showMessageByPage?page="+pre+"'>&laquo;</a></li>";        
+        		str+="<li class='disabled'><a>&laquo;</a></li>";        
         	}else{
         		str+="<li><a onclick='paging(this)'  href='javascript:void(0);' name='showMessageByPage?page="+pre+"&receiverMail="+receiverMail+"'>&laquo;</a></li>";        
         	}        		               
@@ -85,15 +92,66 @@ function paging(t){
         		}        		
         	}
         	if(currentPage==pageBean.totalPage){
-        		str+="<li class='disabled'><a onclick='paging(this)' href='javascript:void(0);' name='showMessageByPage?page="+next+"&receiverMail="+receiverMail+"'>&raquo;</a></li>"+		   
+        		str+="<li class='disabled'><a>&raquo;</a></li>"+		   
 	             "</ul>";	        
         	}else{
         		str+="<li ><a onclick='paging(this)' href='javascript:void(0);' name='showMessageByPage?page="+next+"&receiverMail="+receiverMail+"'>&raquo;</a></li>"+		   
 	             "</ul>";	 
-        	}
-	        
+        	}	        
 	        $("#messageForm").before(str);
         }
 	});	
-	
+}
+function pagingPost(t){
+	var url=$(t).attr("name");	
+	var publisherMail=$("#myArticle>[name=publisherMail]").val();
+	$.ajax({
+		type:"post",
+		url:url,
+		dataType:"json",
+        success:function(data){
+        	var str;
+        	var date;
+        	$("#myArticle>.art-row").remove();
+        	$("#postpagefoot").remove();        	
+        	$.each(data.pageBean.list,function(index,post){         
+         	   date=post.publishTime.substring(0,10);
+      		   date+=" "+post.publishTime.substring(11,16);        		 
+         		str="<div class='art-row'>"	                           
+                     +"<h4><a href='' class='title'>"+post.title+"</a></h4>"+
+                     "<span class='label label-default'><a href=''>"+post.childboardId.name+"</a></span>"+
+                      "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'class='author'>"+
+                      "<i class='fa fa-user'></i>&nbsp;<span>"+post.publisherMail.username+"</span></a> <a  class='time'>" +
+                      "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" 	                          
+                +"</div>";     
+         		$("#myArticle").append(str);
+         	});
+        	var pageBean=data.pageBean;
+        	var currentPage=pageBean.currentPage;
+        	var pre=currentPage-1;
+        	var next=currentPage+1;         
+        	str="<ul id='postpagefoot' class='pager'>";
+        	if(currentPage==1){
+        		str+="<li class='disabled'><a>&laquo;</a></li>";        
+        	}else{
+        		str+="<li><a onclick='pagingPost(this)'  href='javascript:void(0);' name='showPostByPage?page="+pre+"&publisherMail="+publisherMail+"'>&laquo;</a></li>";        
+        	}            	
+        	for(var i=1;i<pageBean.totalPage+1;i++){
+        		if(i==currentPage){
+        			str+="<li ><a >"+i+"</a></li>";
+        		}
+        		else{
+        			str+="<li><a  href='javascript:void(0);' onclick='pagingPost(this)' name='showPostByPage?page="+i+"&publisherMail="+publisherMail+"'>"+i+"</a></li>";
+        		}        		
+        	}
+        	if(currentPage==pageBean.totalPage){
+        		str+="<li class='disabled'><a>&raquo;</a></li>"+		   
+	             "</ul>";	        
+        	}else{
+        		str+="<li ><a onclick='pagingPost(this)' href='javascript:void(0);' name='showPostByPage?page="+next+"&publisherMail="+publisherMail+"'>&raquo;</a></li>"+		   
+	             "</ul>";	 
+        	}	                
+        	$("#myArticle>.art-row:last").after(str);           	
+        	}	
+        })
 }

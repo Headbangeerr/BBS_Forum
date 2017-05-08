@@ -9,4 +9,6 @@ public interface PageViewBiz {
 
 	public PageBean showMessageBypage(int pageIndex, int pageSize,String receiverMail);
 	
+	public PageBean showPostBypage(int pageIndex, int pageSize,String publisherMail,int itemSum);
+	
 }
