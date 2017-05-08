@@ -123,6 +123,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			logger.info("被查看的用户是登陆者本人："+user.getUsername());
 			getRequest().put("checkedUser", user);
 			postBean=pageViewBiz.showPostBypage(1, 5, mailAddress, user.getPosts().size());
+			pageBean=pageViewBiz.showMessageBypage(1, 5, mailAddress);	
 			return "self";
 		}
 	}

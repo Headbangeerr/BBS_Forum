@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <s:else>
 	                    	<s:iterator value="#request.pageBean.list" var="message">
 		                    	<div class="art-row">	                           
-		                            <h4><a href="" class="title">${message.content} </a></h4>	                          
+		                            <h4><a  class="title">${message.content} </a></h4>	                          
 		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
 		                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
 		                        </div>	

@@ -66,12 +66,17 @@ function paging(t){
         	   date=message.publishDate.substring(0,10);
      		   date+=" "+message.publishDate.substring(11,16);       		   
         		str="<div class='art-row'>"	                           
-                    +"<h4><a href='' class='title'>"+message.content+"</a></h4>"+                          
+                    +"<h4><a  class='title'>"+message.content+"</a></h4>"+                          
                      "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+message.publisherMail.mailAddress+"' class='author'>"+
                      "<i class='fa fa-user'></i>&nbsp;<span>"+message.publisherMail.username+"</span></a> <a  class='time'>" +
                      "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" 	                          
-                +"</div>";     
-        		$("#messageForm").before(str);
+                +"</div>";
+        		if($("#messageForm").length>0){
+        			$("#messageForm").before(str);
+        		}else{
+        			$("#myCollection").append(str);
+        		}
+        		
         	});
         	var pageBean=data.pageBean;
         	var currentPage=pageBean.currentPage;
@@ -98,7 +103,11 @@ function paging(t){
         		str+="<li ><a onclick='paging(this)' href='javascript:void(0);' name='showMessageByPage?page="+next+"&receiverMail="+receiverMail+"'>&raquo;</a></li>"+		   
 	             "</ul>";	 
         	}	        
-	        $("#messageForm").before(str);
+        	if($("#messageForm").length>0){
+    			$("#messageForm").before(str);
+    		}else{
+    			$("#myCollection").append(str);
+    		}
         }
 	});	
 }
