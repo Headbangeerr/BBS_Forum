@@ -1,16 +1,20 @@
 package com.bbsforum.bizimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.PageViewBiz;
+import com.bbsforum.dao.FriendsDao;
 import com.bbsforum.dao.MessageDao;
 import com.bbsforum.dao.PostDao;
+import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.Message;
 import com.bbsforum.entity.PageBean;
 import com.bbsforum.entity.Post;
+import com.bbsforum.entity.User;
 
 public class PageViewBizImpl implements PageViewBiz {
 	private static Logger logger=Logger.getLogger(PageViewBizImpl.class);
@@ -24,6 +28,16 @@ public class PageViewBizImpl implements PageViewBiz {
 	PostDao postDao;
 	public PostDao getPostDao() {
 		return postDao;
+	}
+	@Autowired
+	FriendsDao friendsDao;
+	public FriendsDao getFriendsDao() {
+		return friendsDao;
+	}
+	@Autowired
+	UserDao userDao;
+	public UserDao getUserDao() {
+		return userDao;
 	}
 	
 	@Override
@@ -61,6 +75,26 @@ public class PageViewBizImpl implements PageViewBiz {
 		pageBean.setAllRow(itemSum);
 		pageBean.setTotalPage(totalPage);
 		pageBean.setList(posts);
+		pageBean.init();
+		return pageBean;
+	}
+
+	@Override
+	public PageBean showFridensByPage(int pageIndex, int pageSize,
+			String userMail){
+		int itemSum=userDao.findUserByMailAddress(userMail).getFriends().size();
+		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
+		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
+		logger.info("好友列表长度："+itemSum+"offset:"+offset);
+		final int length=pageSize;//每页的记录数
+		final int currentPage=PageBean.countCurrentPage(pageIndex);
+		List<User> friends=friendsDao.getFriendList(userMail, offset, pageSize);
+		PageBean pageBean=new PageBean();
+		pageBean.setPageSize(pageSize);
+		pageBean.setCurrentPage(pageIndex);
+		pageBean.setAllRow(itemSum);
+		pageBean.setTotalPage(totalPage);
+		pageBean.setList(friends);
 		pageBean.init();
 		return pageBean;
 	}

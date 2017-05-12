@@ -92,6 +92,10 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public PageBean getPostBean() {
 		return postBean;
 	}
+	private PageBean friendsBean;
+	public PageBean getFriendsBean() {
+		return friendsBean;
+	}
 	@Autowired
 	private PageViewBiz pageViewBiz;
 	public PageViewBiz getPageViewBiz() {
@@ -104,13 +108,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	})
 	public String checkUserByUrl(){
 		User user=(User) getSession().get("user");
-		pageBean=new PageBean();
-		postBean=new PageBean();
 		//如果要查看的用户与此时已登录的用户是同一个人，则跳转至用户的个人资料修改页面
 		User check;
 		//List<Message> messageList=messageBiz.getMessageByReceiverMail(mailAddress);
 		logger.info("mailAddress"+mailAddress);
-		pageBean=pageViewBiz.showMessageBypage(1, 4, mailAddress);		
+		pageBean=pageViewBiz.showMessageBypage(1, 4, mailAddress);
 		getRequest().put("pageBean", pageBean);
 		if(null==user||!mailAddress.equals(user.getMailAddress())){
 			check=userBiz.getUserByMailAddress(mailAddress);
@@ -123,7 +125,8 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			logger.info("被查看的用户是登陆者本人："+user.getUsername());
 			getRequest().put("checkedUser", user);
 			postBean=pageViewBiz.showPostBypage(1, 5, mailAddress, user.getPosts().size());
-			pageBean=pageViewBiz.showMessageBypage(1, 5, mailAddress);	
+			pageBean=pageViewBiz.showMessageBypage(1, 5, mailAddress);
+			friendsBean=pageViewBiz.showFridensByPage(1, 5, mailAddress);
 			return "self";
 		}
 	}

@@ -72,7 +72,8 @@ public class PostAction extends BaseAction {
 			@Result(name="success",type="json",params={
 					"excludeProperties","lastestPostList\\[\\d+\\]\\.childboardId.parentBoard,"
 							+ "lastestPostList\\[\\d+\\]\\.childboardId.posts,"
-							+ "lastestPostList\\[\\d+\\]\\.publisherMail.posts"})
+							+ "lastestPostList\\[\\d+\\]\\.publisherMail.posts,"
+							+ "lastestPostList\\[\\d+\\]\\.publisherMail.friends"})
 			//这里必须使用正则表达式，具体说明请见错误说明文档
 	})
 	public String  showLastestPostOnIndexPage(){
@@ -91,7 +92,7 @@ public class PostAction extends BaseAction {
 			@Result(name="success",type="json",params={
 					"excludeProperties", "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
 							+ "pageBean.list\\[\\d+\\]\\.childboardId.posts,"
-							+ "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
 							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard"})
 	}) 
 	public String showPostByPage(){

@@ -99,6 +99,8 @@ public class MessageAction extends BaseAction {
 	@Action(value="addMessage",results={
 			@Result(name="success",type="json",params={
 					"excludeProperties", "messages\\[\\d+\\]\\.publisherMail.posts,"
+							+"messages\\[\\d+\\]\\.publisherMail.friendss,"
+							+"messages\\[\\d+\\]\\.receiverMail.friendss,"
 							+ "messages\\[\\d+\\]\\.receiverMail.posts"})
 	})
 	public String addMessage(){
@@ -135,6 +137,8 @@ public class MessageAction extends BaseAction {
 	@Action(value="showMessageByPage",results={
 			@Result(name="success",type="json",params={
 					"excludeProperties", "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
+							+"pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
+							+"pageBean.list\\[\\d+\\]\\.receiverMail.friends,"
 							+ "pageBean.list\\[\\d+\\]\\.receiverMail.posts"})
 	}) 
 	public String showMessageByPage(){

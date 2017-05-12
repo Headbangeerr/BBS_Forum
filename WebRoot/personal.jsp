@@ -10,10 +10,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
+<style type="text/css">
+.greenbutton {
+	color: #3e5706;
+	background: #a5cd4e;
+}
+
+/* Blue Color */
+.graybutton {
+	color: #515151;
+	background: #d3d3d3;
+}
+.hoverbutton {
+	display: inline-block;
+	position: relative;
+	margin: 5px;
+	padding: 0 20px;
+	text-align: center;
+	text-decoration: none;
+	font: bold 12px/25px Arial, sans-serif;
+	text-shadow: 1px 1px 1px rgba(255,255,255, .22);
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+	-moz-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+	box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+	-webkit-transition: all 0.15s ease;
+	-moz-transition: all 0.15s ease;
+	-o-transition: all 0.15s ease;
+	-ms-transition: all 0.15s ease;
+	transition: all 0.15s ease;
+} 
+  
+  
+  
+  </style>
     <base href="<%=basePath%>">    
     <title>我的信息</title>
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
+	<link type="text/css" rel="stylesheet" href="css/main.min.css">
   </head>
    <script type="text/javascript" src="<%=basePath%>js/member.js" charset="gb2312"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
@@ -56,7 +93,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        <a href="#myArticle" id="home-tab1" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;我的帖子</a>
 	                    </li>
 	                    <li role="presentation">
-	                        <a href="#myCollection" id="home-tab2" data-toggle="tab"><i class="fa fa-commenting-o "></i>&nbsp;我的留言板</a>
+	                        <a href="#myCollection" id="home-tab2" data-toggle="tab"><i class="fa fa-commenting-o"></i>&nbsp;我的留言板</a>
+	                    </li>	 
+	                    <li role="presentation">
+	                        <a href="#myFriends" id="home-tab3" data-toggle="tab"><i class="fa fa-group"></i>&nbsp;我的好友</a>
 	                    </li>	    
 	                </ul>
 	
@@ -67,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                  <s:if test='#request.postBean.list.size()==0'>
 	                    	  <h4><span name="nopost"  class="title">未发布任何帖子。</span></h4>         
 	                    </s:if>
-	                    <s:else>
+	                    <s:else>	                    	
 	                    	<s:iterator value="#request.postBean.list" var="post">
 		                    	<div class="art-row">	                           
 		                            <h4><a href="" class="title">${post.title} </a></h4>	                          
@@ -77,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                             </a>
 		                             <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
 		                        </div>	
-	                     	</s:iterator>	                     			                  
+	                     	</s:iterator>	                     	                     			                 
 		                     <ul id="postpagefoot" class="pager">	                     	                     	
 		                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
 			                     <c:forEach var="pageNum" begin="1" end="${postBean.totalPage}">
@@ -141,7 +181,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</ul>
 							<!-- 分页结束 -->	                    
 	                    </s:else>		                                        	                 						                 
-	                    </div>		                   
+	                    </div>	
+	                    
+	                    <div role="tabpanel" class="tab-pane" id="myFriends">
+	                  	  <input type="hidden" name="userMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
+		                  <s:if test='#request.friendsBean.list.size()==0'>
+	                    	  <h4><span name="nofriends"  class="title">你还没有添加任何好友。</span></h4>         
+	                   	  </s:if>
+	                   	  <s:else>	 
+	                   	  	<selection  class="widget bg-white post-comments">                  
+		                   	  	<s:iterator value="#request.friendsBean.list" var="user">
+			                    	<div class="media">	                           
+			                            <a class="pull-left" href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress }">
+			                            	<img class="media-object avatar avatar-sm" src="${user.photoUrl}" alt="${user.username }">
+			                            </a>
+			                            <div class="comment" style="width: 450px;float: left"> 
+					                         <div class="comment-author h6 no-margin">
+					                        	<a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress}">${user.username}</a>
+					                        </div>
+					                        <div class="comment-bt">
+					                        	<span>${user.signature}</span>
+					                       	</div>                    
+			                      	  </div>
+			                      	  <div name="hoverbutton" style="float:right;display: none">
+			                      	  	<a class="hoverbutton greenbutton">私信</a>			                      	  	
+			                      	  	<a class="hoverbutton graybutton">删除</a>
+			                      	  </div>		                          	                            
+			                        </div>
+			                        <hr>			                       
+		                     	</s:iterator> 
+		                     	<ul id="friednpagefoot" class="pager">	                     	                     	
+		                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
+			                     <c:forEach var="pageNum" begin="1" end="${friendsBean.totalPage}">
+			                     	<c:choose>
+			                     		<c:when test="${pageNum == 1}">
+			                     			<li class="active"><a>${pageNum}</a></li>
+			                     		</c:when>
+			                     		<c:otherwise>
+			                     			<li><a onclick="pagingFriends(this)" href="javascript:void(0);" name="showFriendsList?page=${pageNum}&userMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
+			                     		</c:otherwise>		                     		                     			                     
+			                      	</c:choose>		                     			                     		                     	
+			                     </c:forEach>
+			                     <c:choose>
+		                     		<c:when test="${friendsBean.currentPage eq friendsBean.totalPage}">	                     		
+		                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
+		                     		</c:when>
+		                     		<c:otherwise>
+		                     			<li><a onclick="pagingFriends(this)" href="javascript:void(0);" name="showFriendsList?page=${friendsBean.currentPage+1}&userMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
+		                     		</c:otherwise>
+		                     	</c:choose>	                        		                      	   
+							</ul>
+	                     	</selection>	
+	                   	  </s:else>	                           	                              
+	                    </div>	                     	                  
 	                </div>
 	            </div>
 	        </div>
@@ -149,3 +241,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
   </body>
 </html>
+<script type="text/javascript">
+$(function(){
+	$(".media").on("mouseenter",function(){		
+		$(this).children("div[name=hoverbutton]").show();
+	});
+	$(".media").on("mouseleave",function(){		
+		$(this).children("div[name=hoverbutton]").hide();
+	});
+})
+</script>
+

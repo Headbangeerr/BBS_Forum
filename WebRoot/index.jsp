@@ -15,14 +15,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <link type="text/css" rel="stylesheet" href="css/main.min.css">
-   <script type="text/javascript" src="js/index.js"></script>
-      <script type="text/javascript" src="<%=basePath%>js/sendmessage.js"></script>
     <base href="<%=basePath%>">
     <title>欢迎进入！</title>
    
   </head>
   
-  <body onload="showPostList()">
+  <body>
 	  <jsp:include page="/pages/header.jsp"></jsp:include>
 	  <jsp:include page="/pages/search.jsp"></jsp:include>
 	<div class="container" style="margin-top: 30px;">

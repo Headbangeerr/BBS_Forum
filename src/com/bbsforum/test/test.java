@@ -24,11 +24,13 @@ import com.bbsforum.bizimpl.BoardBizImpl;
 import com.bbsforum.bizimpl.UserBizImpl;
 import com.bbsforum.dao.BoardDao;
 import com.bbsforum.dao.MessageDao;
+import com.bbsforum.dao.UserDao;
 import com.bbsforum.daoimpl.BoardDaoImpl;
 import com.bbsforum.entity.Board;
 import com.bbsforum.entity.Childboard;
 import com.bbsforum.entity.Message;
 import com.bbsforum.entity.Post;
+import com.bbsforum.entity.User;
 
 public class test {
 
@@ -43,12 +45,17 @@ public class test {
 //			System.out.println(temp.getParentBoard().getChildBoard());
 //		}
 	//	boardDAO.deleteChildBoard(3);
-		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
-		MessageDao messageDao= (MessageDao) context.getBean("messageDao");
-		List<Message> list=messageDao.getMessageByReceiverMail("1111");
-		for (Message message : list) {
-			logger.info(message.getPublisherMail().getUsername());
-		}
+//		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+//		MessageDao messageDao= (MessageDao) context.getBean("messageDao");
+//		List<Message> list=messageDao.getMessageByReceiverMail("1111");
+//		for (Message message : list) {
+//			logger.info(message.getPublisherMail().getUsername());
+//		}
+//		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+//		UserDao userDao=(UserDao) context.getBean("userDao");
+//		User user=userDao.findUserByMailAddress("0000");
+//		logger.info("0000的好友个数："+user.getFriends().size());
+		
 	}
 
 	

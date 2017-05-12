@@ -8,7 +8,11 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,6 +38,7 @@ public class User implements java.io.Serializable {
 	private Integer level;
 	private String signature;
 	private Set<Post> posts=new HashSet<Post>();
+	private Set<User> friends=new HashSet<User>();
 	// Constructors
 
 	/** default constructor */
@@ -80,6 +85,20 @@ public class User implements java.io.Serializable {
 	@Cascade(value={CascadeType.DELETE})
 	public Set<Post> getPosts() {
 		return posts;
+	}
+
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@Cascade(value={CascadeType.SAVE_UPDATE})
+	@JoinTable(name="friends",
+	joinColumns={@JoinColumn(name="user_mail")},
+	inverseJoinColumns={@JoinColumn(name="friend_mail")})
+	public Set<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Set<User> friends) {
+		this.friends = friends;
 	}
 
 	public void setPosts(Set<Post> posts) {

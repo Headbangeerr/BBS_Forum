@@ -11,4 +11,5 @@ public interface PageViewBiz {
 	
 	public PageBean showPostBypage(int pageIndex, int pageSize,String publisherMail,int itemSum);
 	
+	public PageBean showFridensByPage(int pageIndex,int pageSize,String userMail);
 }
