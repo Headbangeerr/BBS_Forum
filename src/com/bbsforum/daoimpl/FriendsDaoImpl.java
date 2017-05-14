@@ -21,9 +21,19 @@ public class FriendsDaoImpl implements FriendsDao {
 	}
 	Session session;
 	@Override
-	public boolean addFriends(String userMail, User friend) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addFriends(String userMail, String friendMail) {
+		session=sessionFactory.openSession();
+		String sql="insert into friends(user_mail,friend_mail) values(?,?)";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, userMail);
+		query.setString(1, friendMail);
+		if(query.executeUpdate()>0){
+			session.close();
+			return true;
+		}else{
+			session.close();
+			return false;
+		}
 	}
 
 	@Override
@@ -38,11 +48,40 @@ public class FriendsDaoImpl implements FriendsDao {
 		query.setMaxResults(pageSize);
 		List<User> friendList=new ArrayList<User>();
 		friendList=query.list();
+		session.close();
 		return friendList;
 	}
 	@Override
-	public boolean deleteFriend(String userMail, User friend) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteFriend(String userMail, String friendMail) {		
+		session=sessionFactory.openSession();		
+		String sql="delete from friends where user_mail=? and friend_mail=?";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, userMail);
+		query.setString(1, friendMail);
+		if(query.executeUpdate()>0){
+			session.close();
+			return true;
+		}
+		else{
+			session.close();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean checkFriend(String userMail, String friendMail) {
+		session=sessionFactory.openSession();
+		String sql="select * from friends where user_mail=? and friend_mail=?";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, userMail);
+		query.setString(1,friendMail);
+		if(query.list().size()>0){
+			session.close();
+			return true;
+		}else{
+			session.close();
+			return false;
+		}
+		
 	}
 }

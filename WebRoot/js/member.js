@@ -15,7 +15,8 @@ function send_message(){
              type:"POST",  
              data:params,  
              dataType:"json",  
-             success:function(data){             	            	     
+             success:function(data){    
+            	 alert(data.flag);
                if(data.flag==true){            	            	               	            	 
             	   $('.alert').html('发布成功！').addClass('alert-success').show().delay(1500).fadeOut();            	  
             	   $("textarea[name=content]").val("");
@@ -190,8 +191,8 @@ function pagingFriends(t){
 					          "</div>"+                    
 			               "</div>"+
 			               " <div name='hoverbutton' style='float:right;display: none'>"+
-			                  	"<a class='hoverbutton greenbutton'>私信</a>"+			                      	  	
-			                    "<a class='hoverbutton graybutton'>删除</a>"+
+			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> 私信</a>	"+			                      	  	
+			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> 删除</a>"+
 			               "</div>"+
                       "</div><hr>";         		
          		$("selection").append(str);
@@ -232,4 +233,35 @@ function pagingFriends(t){
 	
         })
 }
-
+function checkLogin(t){
+	var user=$("input[name=userMail]").val();
+	var friend=$("input[name=friendMail]").val();
+	if(user==''){
+		alert("请登录以后再进行此项操作！")
+	}else{
+		
+	}
+}
+function deleFriend(t){
+	var friendMail=$(t).attr("name");
+	var userMail=$("input[name=userMail]").val();
+	if(confirm("确认将此用户从好友列表中移除吗？")){		
+		 $.ajax({  
+             url:"deleFriends?userMail="+userMail+"&friendMail="+friendMail,  
+             type:"POST",            
+             dataType:"json",  
+             success:function(data){
+            	if(data.flag==true){
+            		$(t).parents(".media").fadeOut();
+            		$(t).parents(".media").next("hr").fadeOut();
+            		$("#currentPage").trigger("click");            
+            		if(data.friendSum==0){
+            			$("#friednpagefoot").remove();
+            			$("#myFriends>selection").remove();
+            			$("#myFriends").append("<h4>未添加任何好友</h4>")
+            		}
+            	}
+             }
+             })
+	}
+}

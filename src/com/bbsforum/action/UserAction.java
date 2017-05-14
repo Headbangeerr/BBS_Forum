@@ -7,6 +7,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bbsforum.biz.FriendsBiz;
 import com.bbsforum.biz.MessageBiz;
 import com.bbsforum.biz.PageViewBiz;
 import com.bbsforum.biz.UserBiz;
@@ -20,8 +21,15 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	private String mailAddress;
 	private String password;
 	private int errorFlag;//登录时用于标记错误信息，为0时表示用户不存在，为2时表示密码错误
+	private boolean friendFlag;
 	
 	
+	public boolean getFriendFlag() {
+		return friendFlag;
+	}
+	public void setFriendFlag(boolean friendFlag) {
+		this.friendFlag = friendFlag;
+	}
 	public int getErrorFlag() {
 		return errorFlag;
 	}
@@ -101,6 +109,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public PageViewBiz getPageViewBiz() {
 		return pageViewBiz;
 	}
+	@Autowired
+	private FriendsBiz friendsBiz;
+	public FriendsBiz getFriendsBiz() {
+		return friendsBiz;
+	}
 	
 	@Action(value="chaeckUserByUrl",results={
 			@Result(name="others",location="/member.jsp"),
@@ -111,7 +124,6 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		//如果要查看的用户与此时已登录的用户是同一个人，则跳转至用户的个人资料修改页面
 		User check;
 		//List<Message> messageList=messageBiz.getMessageByReceiverMail(mailAddress);
-		logger.info("mailAddress"+mailAddress);
 		pageBean=pageViewBiz.showMessageBypage(1, 4, mailAddress);
 		getRequest().put("pageBean", pageBean);
 		if(null==user||!mailAddress.equals(user.getMailAddress())){
@@ -119,6 +131,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			logger.info("查看其他用户   被查看的用户账号："+mailAddress+"  用户名"+check.getUsername());
 			getRequest().put("checkedUser", check);
 			postBean=pageViewBiz.showPostBypage(1, 5, mailAddress, check.getPosts().size());
+			friendFlag=false;
+			if(null!=user){			
+				friendFlag=friendsBiz.checkFriend(user.getMailAddress(), mailAddress);
+			}
+			logger.info("friendFlag:"+friendFlag);
 			return "others";
 		}
 		else{

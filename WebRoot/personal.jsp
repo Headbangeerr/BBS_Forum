@@ -12,19 +12,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
 <style type="text/css">
 .greenbutton {
-	color: #3e5706;
-	background: #a5cd4e;
+	color: #fff; 
+	background: #5cb85c;
 }
 
 /* Blue Color */
-.graybutton {
-	color: #515151;
-	background: #d3d3d3;
+.redbutton {
+	color: #fff;
+	background: #d9534f;
 }
 .hoverbutton {
 	display: inline-block;
 	position: relative;
-	margin: 5px;
+	margin-top: 3px;
 	padding: 0 20px;
 	text-align: center;
 	text-decoration: none;
@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                  	<div role="tabpanel" class="tab-pane active" id="myArticle">
 	                  		<input type="hidden" name="publisherMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
 		                  <s:if test='#request.postBean.list.size()==0'>
-	                    	  <h4><span name="nopost"  class="title">未发布任何帖子。</span></h4>         
+	                    	  <h4>未发表任何帖子。</h4>         
 	                    </s:if>
 	                    <s:else>	                    	
 	                    	<s:iterator value="#request.postBean.list" var="post">
@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	                    <div role="tabpanel" class="tab-pane" id="myCollection">
 	                     <s:if test='#request.pageBean.list.size()==0'>
-	                    	  <h4><span name="nomessage"  class="title">留言板空空如也。</span></h4>         
+	                    	  <h4>留言板空空如也。</h4>         
 	                    </s:if>
 	                    <s:else>
 	                    	<s:iterator value="#request.pageBean.list" var="message">
@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <div role="tabpanel" class="tab-pane" id="myFriends">
 	                  	  <input type="hidden" name="userMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
 		                  <s:if test='#request.friendsBean.list.size()==0'>
-	                    	  <h4><span name="nofriends"  class="title">你还没有添加任何好友。</span></h4>         
+	                    	 <h4>未添加任何好友。</h4>     
 	                   	  </s:if>
 	                   	  <s:else>	 
 	                   	  	<selection  class="widget bg-white post-comments">                  
@@ -195,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                            <a class="pull-left" href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress }">
 			                            	<img class="media-object avatar avatar-sm" src="${user.photoUrl}" alt="${user.username }">
 			                            </a>
-			                            <div class="comment" style="width: 450px;float: left"> 
+			                            <div class="comment" style="width: 525px;float: left"> 
 					                         <div class="comment-author h6 no-margin">
 					                        	<a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress}">${user.username}</a>
 					                        </div>
@@ -204,8 +204,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                       	</div>                    
 			                      	  </div>
 			                      	  <div name="hoverbutton" style="float:right;display: none">
-			                      	  	<a class="hoverbutton greenbutton">私信</a>			                      	  	
-			                      	  	<a class="hoverbutton graybutton">删除</a>
+			                      	  	<a class="hoverbutton greenbutton"><i class="fa fa-envelope-o"></i> 私信</a>			                      	  	
+			                      	  	<br><a onclick="deleFriend(this)" name="${user.mailAddress }" class="hoverbutton redbutton"><i class="fa fa-user-times"></i> 删除</a>
 			                      	  </div>		                          	                            
 			                        </div>
 			                        <hr>			                       
@@ -219,9 +219,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                     		</c:when>
 			                     		<c:otherwise>
 			                     			<li><a onclick="pagingFriends(this)" href="javascript:void(0);" name="showFriendsList?page=${pageNum}&userMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
-			                     		</c:otherwise>		                     		                     			                     
+			                     		</c:otherwise>			                            			                     
 			                      	</c:choose>		                     			                     		                     	
 			                     </c:forEach>
+			                     <a  id="currentPage" onclick="pagingFriends(this)"  name="showFriendsList?page=<s:property value="#request.friendsBean.currentPage"/>&userMail=<s:property value="#request.checkedUser.mailAddress"/>"></a>		                     		              
 			                     <c:choose>
 		                     		<c:when test="${friendsBean.currentPage eq friendsBean.totalPage}">	                     		
 		                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	

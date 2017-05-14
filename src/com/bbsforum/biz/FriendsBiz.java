@@ -5,8 +5,8 @@ import java.util.List;
 import com.bbsforum.entity.User;
 
 public interface FriendsBiz {
-public boolean addFriends(User sender,User receiver);
-	
-	public List getFriendList(User user);
-	public boolean deleteFriend(User user,String friendMail);
+	public boolean addFriends(String userMail,String friendMail);
+
+	public boolean deleteFriend(String userMail,String friendMail);
+	public boolean checkFriend(String userMail,String friendMail);
 }

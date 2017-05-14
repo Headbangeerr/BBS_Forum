@@ -65,7 +65,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        <i class="fa fa-clock-o"></i>&nbsp;注册日期：<s:date name="#request.checkedUser.registerDate" format="yyyy-MM-dd " />
 	                    </li>
 	                </ul>
-	                <a href="#" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
+	                <input type="hidden" name="userMail" value='<s:property value="#session.user.mailAddress"/>'>
+	                <input type="hidden" name="friendMail" value='<s:property value="#request.checkedUser.mailAddress"/>'>
+	                <s:if test='friendFlag==true'>
+	                	 <a href="javascript:void(0);" class="btn btn-default infos">&nbsp;Ta已经是你的好友</a>
+	                </s:if>
+	                <s:else>
+	                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
+	                </s:else>
+	                
+	                
+	                
 	            </div>
 	            
 	        </div>

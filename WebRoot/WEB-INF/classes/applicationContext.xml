@@ -93,6 +93,7 @@
 	<bean id="pageViewBiz" class="com.bbsforum.bizimpl.PageViewBizImpl">
 	</bean>
 	<bean id="friendsDao" class="com.bbsforum.daoimpl.FriendsDaoImpl"></bean>
+	<bean id="friendsBiz" class="com.bbsforum.bizimpl.FriendsBizImpl"></bean>
 </beans>
 	
 	

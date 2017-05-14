@@ -99,8 +99,8 @@ public class MessageAction extends BaseAction {
 	@Action(value="addMessage",results={
 			@Result(name="success",type="json",params={
 					"excludeProperties", "messages\\[\\d+\\]\\.publisherMail.posts,"
-							+"messages\\[\\d+\\]\\.publisherMail.friendss,"
-							+"messages\\[\\d+\\]\\.receiverMail.friendss,"
+							+"messages\\[\\d+\\]\\.publisherMail.friends,"
+							+"messages\\[\\d+\\]\\.receiverMail.friends,"
 							+ "messages\\[\\d+\\]\\.receiverMail.posts"})
 	})
 	public String addMessage(){
@@ -124,6 +124,7 @@ public class MessageAction extends BaseAction {
 		else{
 			flag=false;
 		}
+		logger.info("flag:"+flag);
 		return SUCCESS;
 	}
 	
