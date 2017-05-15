@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50627
 File Encoding         : 65001
 
-Date: 2017-05-08 17:55:48
+Date: 2017-05-15 21:10:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,7 +59,6 @@ DROP TABLE IF EXISTS `friends`;
 CREATE TABLE `friends` (
   `user_mail` char(20) NOT NULL,
   `friend_mail` char(20) NOT NULL,
-  `add_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_mail`,`friend_mail`),
   KEY `friend_mail` (`friend_mail`),
   CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_mail`) REFERENCES `user` (`mail_address`),
@@ -69,6 +68,11 @@ CREATE TABLE `friends` (
 -- ----------------------------
 -- Records of friends
 -- ----------------------------
+INSERT INTO `friends` VALUES ('0000', '2222');
+INSERT INTO `friends` VALUES ('0000', '3333');
+INSERT INTO `friends` VALUES ('0000', '4444');
+INSERT INTO `friends` VALUES ('0000', '5555');
+INSERT INTO `friends` VALUES ('0000', '6666');
 
 -- ----------------------------
 -- Table structure for `message`
@@ -85,7 +89,7 @@ CREATE TABLE `message` (
   KEY `reciver_mail` (`receiver_mail`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`publisher_mail`) REFERENCES `user` (`mail_address`),
   CONSTRAINT `message_ibfk_2` FOREIGN KEY (`receiver_mail`) REFERENCES `user` (`mail_address`)
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of message
@@ -98,7 +102,16 @@ INSERT INTO `message` VALUES ('145', '1111', '0000', '66666', '2017-05-07 20:43:
 INSERT INTO `message` VALUES ('146', '1111', '0000', '777777', '2017-05-08 14:48:43');
 INSERT INTO `message` VALUES ('147', '1111', '0000', '888888', '2017-05-08 16:14:01');
 INSERT INTO `message` VALUES ('148', '1111', '0000', '9999999', '2017-05-08 17:10:57');
-INSERT INTO `message` VALUES ('149', '0000', '1111', 'hello呀\r\n', '2017-05-08 17:52:22');
+INSERT INTO `message` VALUES ('150', '1111', '0000', '34534534534', '2017-05-14 17:13:27');
+INSERT INTO `message` VALUES ('151', '1111', '0000', '34534534534', '2017-05-14 17:13:32');
+INSERT INTO `message` VALUES ('152', '1111', '0000', '34534534534', '2017-05-14 17:13:35');
+INSERT INTO `message` VALUES ('153', '1111', '0000', '34534534534', '2017-05-14 17:13:35');
+INSERT INTO `message` VALUES ('154', '1111', '0000', '34534534534', '2017-05-14 17:13:35');
+INSERT INTO `message` VALUES ('155', '1111', '0000', '34534534534', '2017-05-14 17:13:35');
+INSERT INTO `message` VALUES ('157', '1111', '0000', '2', '2017-05-14 17:17:26');
+INSERT INTO `message` VALUES ('159', '1111', '0000', '234234324', '2017-05-14 17:23:14');
+INSERT INTO `message` VALUES ('160', '1111', '0000', '234234324', '2017-05-14 17:24:28');
+INSERT INTO `message` VALUES ('161', '1111', '0000', '77777', '2017-05-14 17:27:00');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -190,3 +203,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 INSERT INTO `user` VALUES ('0000', 'user001', '1111', '女', '2017-05-01 16:04:09', 'upload/headicon/default_icon.jpg', '1', '还未设置个人签名。', '0');
 INSERT INTO `user` VALUES ('1111', 'Headbanger', '123456', '男', '2017-04-28 14:26:01', 'upload/headicon/default_icon.jpg', '1', 'NO PAIN,NO GAIN.', '0');
+INSERT INTO `user` VALUES ('2222', 'user002', '1111', '男', '2017-05-11 09:29:41', 'upload/headicon/default_icon.jpg', '1', '还未设置个人签名。', '0');
+INSERT INTO `user` VALUES ('3333', 'user003', '1111', '男', '2017-05-11 09:29:50', 'upload/headicon/default_icon.jpg', '1', '还未设置个人签名。', '0');
+INSERT INTO `user` VALUES ('4444', 'user004', '1111', '男', '2017-05-11 09:29:59', 'upload/headicon/default_icon.jpg', '1', '还未设置个人签名。', '0');
+INSERT INTO `user` VALUES ('5555', 'user005', '1111', '男', '2017-05-11 09:30:11', 'upload/headicon/default_icon.jpg', '1', '还未设置个人签名。', '0');
+INSERT INTO `user` VALUES ('6666', 'user006', '1111', '男', '2017-05-11 09:30:19', 'upload/headicon/default_icon.jpg', '1', '还未设置个人签名。', '0');
