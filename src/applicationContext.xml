@@ -94,6 +94,8 @@
 	</bean>
 	<bean id="friendsDao" class="com.bbsforum.daoimpl.FriendsDaoImpl"></bean>
 	<bean id="friendsBiz" class="com.bbsforum.bizimpl.FriendsBizImpl"></bean>
+	<bean id="searchDao" class="com.bbsforum.daoimpl.SearchDaoImpl"></bean>
+	<bean id="searchBiz" class="com.bbsforum.bizimpl.SearchBizImpl"></bean>
 </beans>
 	
 	

@@ -57,11 +57,6 @@ $(function(){
 			$(".searchbox ul li").eq(0).find("a").removeClass("style1");
 			$(".searchbox ul li").eq(2).find("a").removeClass("style3");
 		}
-		if(index==2){
-			$(this).find("a").addClass("style3");
-			$(".searchbox ul li").eq(0).find("a").removeClass("style1");
-			$(".searchbox ul li").eq(1).find("a").removeClass("style2");
-		}
 		var index=$(this).index();
 		$(".bodys p").eq(index).show().siblings().hide();
 	});
@@ -133,29 +128,41 @@ $(function(){
 	
 	$("#search_submit").click(function(){
 		$(".error_cuo").hide();
+		var regu = "^[ ]+$";
+		var re = new RegExp(regu);
 		if($("*[name='search_boardlist']").val()==0||$("select[name='search_childboardlist']").val()==0){
 			$("#boardlist_error1").show();
 		}
-		if($("input[name='search_keyword1']").val()==""){
+		else if($("input[name='search_keyword1']").val()==""||re.test($("input[name='search_keyword1']").val())){
 			$("#boardlist_error2").show();
+		}else//输入无误通过板块名搜索帖子
+		{
+			$("#searchByBoard").submit();
+			iniForm();
 		}
 		
 	})
 	$("#search_submit1").click(function(){
 		$(".error_cuo").hide();
-		if($("*[name='search_username']").val()==""){
+		var regu = "^[ ]+$";
+		var re = new RegExp(regu);
+		if($("*[name='search_username']").val()==""||re.test($("*[name='search_username']").val())){
 			$("#boardlist_error3").show();
 		}
-		if($("input[name='search_keyword2']").val()==""){
+		else if($("input[name='search_keyword2']").val()==""||re.test($("*[name='search_username']").val()))
+		{
 			$("#boardlist_error4").show();
+		}else//输入无误开始通过用户名搜索帖子
+		{
+			$("#searchByUser").submit();
+			iniForm();
 		}
 		
 	})
 	
-	
 	function iniForm(){
-		$("*[name='searchByBoard']")[0].reset();
-		$("*[name='searchByUser']")[0].reset();
+		$("#searchByUser")[0].reset();		
+		$("#searchByBoard")[0].reset();
 	}
 	
 	$("#changto_user").click(function(){
@@ -168,3 +175,27 @@ $(function(){
 	})
 	
 });
+
+function submitSearch(t){		
+	var keyword=$("input[name='keyword']").val();
+	var username=$("input[name='username']").val();
+	var regu = "^[ ]+$";
+	var re = new RegExp(regu);
+	if($(t).attr("class")=="one1"){
+		$("input[name='searchFlag']").val(1);
+		if(keyword.length==0||re.test(keyword)){
+			alert("请输入关键字！")
+		}else{		
+			$("#commonSearch").submit();
+		}
+	}else{
+		$("input[name='searchFlag']").val(2);
+		if(username.length==0||re.test(username)){
+			alert("请输入用户名！")
+		}else{
+			$("#commonSearch").submit();
+		}
+	}
+	$("input[name='keyword']").val("");
+	$("input[name='username']").val("");
+}

@@ -30,7 +30,6 @@ public class Post implements java.io.Serializable {
 	private Timestamp publishTime;
 	private Childboard childboardId;
 	private Integer pageView;
-
 	// Constructors
 
 	/** default constructor */

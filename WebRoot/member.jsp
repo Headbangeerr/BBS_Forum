@@ -174,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<a id="showLastPage" style="display: none" onclick="paging(this)"  name=''></a>
 	                     <form id="messageForm">
 	                     <div class="alert"></div>	            
-	                     <input type="hidden" name="publisherMail" value="<s:property value="#session.user.username"/>">
+	                     <input type="hidden" id="publisherMail" value="<s:property value="#session.user.username"/>">
 	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
 		                    <textarea name="content"  class="form-control" name="mailAddress" style="height: 70px; margin-top: 5px;" placeholder="对Ta说点啥"></textarea>	                  
 		                     <a onclick="send_message()" style="width: 175px;float: right;" class="btn btn-success btn-outline btn-block" id="send_message" >
