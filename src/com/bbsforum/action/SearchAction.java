@@ -22,12 +22,12 @@ public class SearchAction extends BaseAction {
 	private String search_keyword1;
 	private String search_keyword2;
 	private int search_childboardlist;//要搜索的子版块id
-	
+	private PageBean resultBean;
 	@Action(value="search",results={
 			@Result(name="success",location="/searchresult.jsp")
 	})
 	public String Search(){		
-		PageBean resultBean=new PageBean();
+		resultBean=new PageBean();
 		logger.info("正在进行搜索…… 搜索标志位："+searchFlag);
 		switch (searchFlag) {//为1代表普通搜索帖子，为2代表普通搜索用户,为3代表通过子版块名与关键字搜索帖子，为4代表通过用户名与关键字搜索帖子
 		case 1:
@@ -50,6 +50,12 @@ public class SearchAction extends BaseAction {
 	
 
 	
+	public PageBean getResultBean() {
+		return resultBean;
+	}
+	public void setResultBean(PageBean resultBean) {
+		this.resultBean = resultBean;
+	}
 	public String getSearch_keyword1() {
 		return search_keyword1;
 	}

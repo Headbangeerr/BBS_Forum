@@ -127,6 +127,7 @@ $(function(){
 	});
 	
 	$("#search_submit").click(function(){
+		$("input[name='searchFlag']").val(3);
 		$(".error_cuo").hide();
 		var regu = "^[ ]+$";
 		var re = new RegExp(regu);
@@ -143,6 +144,7 @@ $(function(){
 		
 	})
 	$("#search_submit1").click(function(){
+		$("input[name='searchFlag']").val(4);
 		$(".error_cuo").hide();
 		var regu = "^[ ]+$";
 		var re = new RegExp(regu);

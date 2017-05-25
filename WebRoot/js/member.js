@@ -15,8 +15,7 @@ function send_message(){
              type:"POST",  
              data:params,  
              dataType:"json",  
-             success:function(data){    
-            	 alert(data.flag);
+             success:function(data){                	
                if(data.flag==true){            	            	               	            	 
             	   $('.alert').html('发布成功！').addClass('alert-success').show().delay(1500).fadeOut();            	  
             	   $("textarea[name=content]").val("");
