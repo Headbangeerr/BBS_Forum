@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50627
 File Encoding         : 65001
 
-Date: 2017-05-15 21:10:29
+Date: 2017-05-25 19:12:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -89,7 +89,7 @@ CREATE TABLE `message` (
   KEY `reciver_mail` (`receiver_mail`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`publisher_mail`) REFERENCES `user` (`mail_address`),
   CONSTRAINT `message_ibfk_2` FOREIGN KEY (`receiver_mail`) REFERENCES `user` (`mail_address`)
-) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of message
@@ -112,6 +112,7 @@ INSERT INTO `message` VALUES ('157', '1111', '0000', '2', '2017-05-14 17:17:26')
 INSERT INTO `message` VALUES ('159', '1111', '0000', '234234324', '2017-05-14 17:23:14');
 INSERT INTO `message` VALUES ('160', '1111', '0000', '234234324', '2017-05-14 17:24:28');
 INSERT INTO `message` VALUES ('161', '1111', '0000', '77777', '2017-05-14 17:27:00');
+INSERT INTO `message` VALUES ('162', '1111', '0000', '77777', '2017-05-19 15:23:39');
 
 -- ----------------------------
 -- Table structure for `news`
@@ -145,7 +146,7 @@ CREATE TABLE `post` (
   `publisher_mail` char(20) NOT NULL,
   `publish_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `childboard_id` int(11) NOT NULL,
-  `page_view` int(11) DEFAULT NULL,
+  `page_view` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `publisher_mail` (`publisher_mail`),
   KEY `childboardId` (`childboard_id`),
