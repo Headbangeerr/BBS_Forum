@@ -23,28 +23,32 @@ public class SearchAction extends BaseAction {
 	private String search_keyword2;
 	private int search_childboardlist;//要搜索的子版块id
 	private PageBean resultBean;
+	private int page;
 	@Action(value="search",results={
 			@Result(name="success",location="/searchresult.jsp")
 	})
 	public String Search(){		
 		resultBean=new PageBean();
+		if(page==0){
+			page=1;
+		}
 		logger.info("正在进行搜索…… 搜索标志位："+searchFlag);
 		switch (searchFlag) {//为1代表普通搜索帖子，为2代表普通搜索用户,为3代表通过子版块名与关键字搜索帖子，为4代表通过用户名与关键字搜索帖子
 		case 1:
-			resultBean=searchBiz.SearchPostByKeyword(keyword, 1, 10);			
+			resultBean=searchBiz.SearchPostByKeyword(keyword, page, 10);			
 			break;
 		case 2:
-			resultBean=searchBiz.SearchUserByUsername(username, 1, 10);			
+			resultBean=searchBiz.SearchUserByUsername(username, page, 10);			
 			break;
 		case 3:
-			resultBean=searchBiz.SearchPostByChildboardId(search_keyword1, search_childboardlist, 1, 10);
+			resultBean=searchBiz.SearchPostByChildboardId(search_keyword1, search_childboardlist, page, 10);
 			break;
 		case 4:
-			resultBean=searchBiz.SearchPostByUsername(search_username,search_keyword2 , 1, 10);
+			resultBean=searchBiz.SearchPostByUsername(search_username,search_keyword2 , page, 10);
 		default:
 			break;
-		}
-		logger.info("search_keyword1:"+search_keyword1+"   search_keyword2:"+search_keyword2+"   search_childboardlist:"+search_childboardlist);
+		}		
+		logger.info("search_keyword1:"+search_keyword1+"   search_keyword2:"+search_keyword2+"   search_childboardlist:"+search_childboardlist +"page"+page);
 		return SUCCESS;
 	}
 	
@@ -97,6 +101,18 @@ public class SearchAction extends BaseAction {
 	}
 	public void setSearch_username(String search_username) {
 		this.search_username = search_username;
+	}
+
+
+
+	public int getPage() {
+		return page;
+	}
+
+
+
+	public void setPage(int page) {
+		this.page = page;
 	}
 	
 	

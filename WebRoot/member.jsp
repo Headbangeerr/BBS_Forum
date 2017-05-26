@@ -73,6 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <s:else>
 	                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
 	                </s:else>
+	                  <a href="#" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
 	                
 	                
 	                

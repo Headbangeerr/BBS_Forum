@@ -6,6 +6,7 @@ $(function(){
         success:function(data){
                	$.each(data.lastestPostList,function(index,post){  
                		var str;
+               		$("#loading").remove();
                		str="<div class='media'>"+
 							"<a class='pull-left' href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'>"+
 								"<img class='media-object avatar avatar-sm' src='"+post.publisherMail.photoUrl+"' alt='sjswc'>"+

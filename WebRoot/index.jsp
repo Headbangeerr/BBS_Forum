@@ -34,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="tab-pane active" id="home">
 					<section id="LastestPostList" class="widget bg-white post-comments">
+						<center id="loading"><img src="img/loading.gif"></center>
 					</section>								
 				</div>			
             </ul>
