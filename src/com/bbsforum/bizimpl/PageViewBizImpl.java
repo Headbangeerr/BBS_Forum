@@ -98,5 +98,25 @@ public class PageViewBizImpl implements PageViewBiz {
 		pageBean.init();
 		return pageBean;
 	}
+	
+	@Override
+	public PageBean showChoosePostBypage(int pageIndex, int pageSize, int bid) {
+		// TODO Auto-generated method stub
+		int itemSum=postDao.getChoosePostListForPage1(bid).size();
+		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
+		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
+		final int length=pageSize;//每页的记录数
+		final int currentPage=PageBean.countCurrentPage(pageIndex);
+		List<Post> posts=postDao.getChoosePostListForPage(offset, pageSize, bid);
+		PageBean pageBean=new PageBean();
+		pageBean.setPageSize(pageSize);
+		pageBean.setCurrentPage(pageIndex);
+		pageBean.setAllRow(itemSum);
+		pageBean.setTotalPage(totalPage);
+		pageBean.setList(posts);
+		pageBean.init();
+		return pageBean;
+	}
+
 
 }

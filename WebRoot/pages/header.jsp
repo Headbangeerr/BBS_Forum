@@ -82,10 +82,10 @@ function getBoardList(){//通过ajax从后台获取板块列表
 		url:"getBoardList",
 		dataType:"json",
         success:function(data){
-               	$.each(data.boardList,function(idnex,board){        
+               	$.each(data.boardList,function(index,board){        
         			var str;
         			str="<li>";
-        			str+="<a href='#'>"+board.name+"</a>";
+        			str+="<a href='checkPostByUrl?bid="+board.id+"'>"+board.name+"</a>";
         			str+="</li>"
         			str+="<li class='divider'></li>";
         			$("#boardlist").append(str);

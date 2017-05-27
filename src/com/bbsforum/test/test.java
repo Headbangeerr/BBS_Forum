@@ -1,6 +1,7 @@
 package com.bbsforum.test;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -24,12 +25,14 @@ import com.bbsforum.bizimpl.BoardBizImpl;
 import com.bbsforum.bizimpl.UserBizImpl;
 import com.bbsforum.dao.BoardDao;
 import com.bbsforum.dao.MessageDao;
+import com.bbsforum.dao.PostDao;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.daoimpl.BoardDaoImpl;
 import com.bbsforum.entity.Board;
 import com.bbsforum.entity.Childboard;
 import com.bbsforum.entity.Message;
 import com.bbsforum.entity.Post;
+import com.bbsforum.entity.Reply;
 import com.bbsforum.entity.User;
 
 public class test {
@@ -55,7 +58,17 @@ public class test {
 //		UserDao userDao=(UserDao) context.getBean("userDao");
 //		User user=userDao.findUserByMailAddress("0000");
 //		logger.info("0000的好友个数："+user.getFriends().size());
-		
+		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+		PostDao userDao=(PostDao) context.getBean("postDao");
+		Timestamp d = new Timestamp(System.currentTimeMillis());
+		Reply reply=new Reply();
+		reply.setId(21321);
+		reply.setContent("sfdsfsa");
+		reply.setPostId("sdrw");
+		reply.setSenderMail("wer");
+		reply.setSendtime(d);
+		userDao.addReply(reply);
+
 	}
 
 	

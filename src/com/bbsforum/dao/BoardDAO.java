@@ -3,6 +3,8 @@ package com.bbsforum.dao;
 import java.util.List;
 import java.util.Set;
 
+import com.bbsforum.entity.Childboard;
+
 /**
  * 
  * @author 颜磊
@@ -16,4 +18,6 @@ public interface BoardDao {
 	public Set getChildBoardListByParentBoardId(int ParentBoardId);
 	//删除指定id的子版块
 	public boolean deleteChildBoard(int ChildBoardId);
+	
+	public Childboard getChildboard(int id);
 }

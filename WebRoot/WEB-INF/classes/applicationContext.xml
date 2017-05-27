@@ -21,9 +21,10 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver">
 		</property>
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/bbs_forum">
+			value="jdbc:mysql://localhost:3306/bbs_forum?characterEncoding=utf8">
 		</property>
 		<property name="username" value="root"></property>
+		<property name="password" value="8957246"></property>
 	</bean>
 	
 	

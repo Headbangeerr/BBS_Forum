@@ -6,6 +6,7 @@ $(function(){
         success:function(data){
                	$.each(data.lastestPostList,function(index,post){  
                		var str;
+               		//alert(post.id)
                		str="<div class='media'>"+
 							"<a class='pull-left' href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'>"+
 								"<img class='media-object avatar avatar-sm' src='"+post.publisherMail.photoUrl+"' alt='sjswc'>"+
@@ -15,7 +16,7 @@ $(function(){
 									"<div class='comment-meta small'>"+
 										"<a class='badge-comment'>"+post.pageView+"</a>"+
 									"</div>"+
-									"<a href='#'>"+post.title+"</a>"+
+									"<a href='serchPost?pid="+post.id+"'>"+post.title+"</a>"+
 								"</div>"+
 								"<div class='comment-bt'>"+
 									"<span class='label label-default'><a href='#'>"+post.childboardId.name+"</a></span> &nbsp;•&nbsp;"+

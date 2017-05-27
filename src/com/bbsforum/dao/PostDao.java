@@ -6,6 +6,7 @@ import java.util.Set;
 import org.jboss.logging.Param;
 
 import com.bbsforum.entity.Post;
+import com.bbsforum.entity.Reply;
 
 /**
  * 帖子的数据库访问接口
@@ -27,7 +28,15 @@ public interface PostDao {
 	 * @param PublisherMail 发布人的邮箱地址
 	 * @return 返回一个页面的帖子列表
 	 */
+	public boolean addPost(Post post);
+	
 	public List<Post> getPostListForPage(int offset,int PageSize,String PublisherMail);
 	
+	public List<Post> getChoosePostListForPage(int offset, int PageSize,int bid);
 	
+	public List<Post> getChoosePostListForPage1(int bid);
+	
+	public Post getPost(String id);
+	
+	public boolean addReply(Reply reply);
 }

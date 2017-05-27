@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span class="h5 bold"><s:property value='#session.user.username'/></span>
 							<p></p>
 							<div class="w150 center-block mt10">
-								<a class="btn btn-success btn-outline btn-block" href="#">
+								<a class="btn btn-success btn-outline btn-block" href="<%=path+"/publish_post.jsp"%>">
 									<span>发布新帖子</span>
 								</a>
 							</div>

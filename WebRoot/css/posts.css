@@ -1,0 +1,103 @@
+html {
+}
+body {
+	font-size:12px;
+	font-family:"ËÎÌו"
+}
+#doc {
+	width:1000px;
+	margin:auto
+}
+#doc #bd {
+	padding-bottom:10px
+}
+#main {
+	padding:10px 0;
+	float:left;
+	_margin-left:0
+}
+#left {
+	width:150px;
+	padding:10px 0;
+	margin-right:10px;
+	float:left
+}
+#right {
+	width:210px;
+	padding:15px 0;
+	float:right
+}
+
+.fatieArea {
+	width:796px;
+	border:0;
+	margin-top:10px
+}
+.fatieArea .titleDesc {
+	font-size:14px;
+	font-weight:700
+}
+.fatieArea tr td {
+	padding-bottom:12px;
+	font-size:14px
+}
+.fatieArea .bbsTitle {
+	margin-right:15px;
+	height:17px;
+	line-height:14px;
+	vertical-align:bottom;
+	width:60%;
+	border:1px solid #d5dadf;
+	float:left;
+	*height:20px;
+	*line-height:20px;
+	height:20px\9;
+	line-height:20px\9;
+	_height:20px
+}
+.titleItem {
+	width:50px;
+	text-align:left;
+	vertical-align:middle;
+	font-size:14px
+}
+.item {
+	text-align:left;
+	vertical-align:middle
+}
+#BBS_BLOCK .common-submitBtn:hover {
+    background: #2965b1;
+}
+#BBS_BLOCK .common-submitBtn {
+    color: #fff;
+    background: #4986d0;
+    border-radius: 5px;
+    padding: 0 12px;
+    height: 30px;
+    border: 1px solid #4986d0;
+    cursor: pointer;
+    line-height:26px;
+}
+#BBS_BLOCK .textAreaContainer {
+	height:400px;
+	width:728px
+}
+#BBS_BLOCK .textAreaContainer,#bbsPost .textAreaContainer {
+	font-family:"ËÎÌו";
+	*position:relative;
+	*margin-top:-1px;
+	padding:4px
+}
+#bbs_area #BBS_BLOCK .textAreaContainer {
+	width:552px;
+	height:300px
+}
+#BBS_BLOCK .bbsTitle {
+	font-family:"ËÎÌו"
+}
+
+
+#left {
+	height:200px
+}
+
