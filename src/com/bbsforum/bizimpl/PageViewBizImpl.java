@@ -10,6 +10,7 @@ import com.bbsforum.biz.PageViewBiz;
 import com.bbsforum.dao.FriendsDao;
 import com.bbsforum.dao.MessageDao;
 import com.bbsforum.dao.PostDao;
+import com.bbsforum.dao.ReplyDao;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.Message;
 import com.bbsforum.entity.PageBean;
@@ -29,6 +30,11 @@ public class PageViewBizImpl implements PageViewBiz {
 	PostDao postDao;
 	public PostDao getPostDao() {
 		return postDao;
+	}
+	@Autowired
+	ReplyDao replyDao;
+	public ReplyDao getReplyDao(){
+		return replyDao;
 	}
 	@Autowired
 	FriendsDao friendsDao;
@@ -122,12 +128,12 @@ public class PageViewBizImpl implements PageViewBiz {
 	@Override
 	public PageBean showReplyBypage(int pageIndex, int pageSize, String pid) {
 		// TODO Auto-generated method stub
-		int itemSum=postDao.getReplyListForPage1(pid).size();
+		int itemSum=replyDao.getReplyListForPage1(pid).size();
 		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
 		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
 		final int length=pageSize;//每页的记录数
 		final int currentPage=PageBean.countCurrentPage(pageIndex);
-		List<Reply> replys=postDao.getReplyListForPage(offset, pageSize, pid);
+		List<Reply> replys=replyDao.getReplyListForPage(offset, pageSize, pid);
 		PageBean pageBean=new PageBean();
 		pageBean.setPageSize(pageSize);
 		pageBean.setCurrentPage(pageIndex);

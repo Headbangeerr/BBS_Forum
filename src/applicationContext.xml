@@ -96,6 +96,13 @@
 	</bean>
 	<bean id="friendsDao" class="com.bbsforum.daoimpl.FriendsDaoImpl"></bean>
 	<bean id="friendsBiz" class="com.bbsforum.bizimpl.FriendsBizImpl"></bean>
+	
+	<bean id="replyDao" class="com.bbsforum.daoimpl.ReplyDaoImpl">
+	</bean>
+	<bean id="replyBiz" class="com.bbsforum.bizimpl.ReplyBizImpl">
+	</bean>
+	<bean id="replyAction" class="com.bbsforum.action.ReplyAction">
+	</bean>
 </beans>
 	
 	

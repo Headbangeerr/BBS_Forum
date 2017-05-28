@@ -95,6 +95,62 @@ function pagingPost(t){
         	}	
         })
 }
+
+function pagingReply(t){
+	var bid=$("input[name=bids]").val();
+	var url=$(t).attr("name");	
+	$.ajax({
+		type:"post",
+		url:url,
+		dataType:"json",
+        success:function(data){
+        	var str;
+        	var date;
+        	//alert(data.pageBean.list)
+        	$("#myArticle>.art-row").remove();
+        	$("#postpagefoot").remove();        	
+        	$.each(data.pageBean.list,function(index,reply){    
+        	//alert(post.id)
+          	   date=reply.sendtime.substring(0,10);
+       		   date+=" "+reply.sendtime.substring(11,16);	 
+          		str="<div  class='art-row'>"	                           
+                      +"<h4><a href='serchPost?pid="+reply.id+"' class='title'>"+reply.content+"</a></h4>"+       
+                       "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+reply.senderMail.mailAddress+"'class='author'>"+
+                       "<i class='fa fa-user'></i>&nbsp;<span>"+reply.senderMail.username+"</span></a> <a  class='time'>" +
+                       "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" 	                          
+                 +"</div>";     
+          		$("#myArticle").append(str);
+         	});
+        	var pageBean=data.pageBean;
+        	var currentPage=pageBean.currentPage;
+        	var pre=currentPage-1;
+        	var next=currentPage+1;         
+        	str="<ul id='postpagefoot' class='pager'>";
+        	if(currentPage==1){
+        		str+="<li class='disabled'><a>&laquo;</a></li>";        
+        	}else{
+        		str+="<li><a onclick='pagingReply(this)'  href='javascript:void(0);' name='showReplyByPage?page="+pre+"'>&laquo;</a></li>";        
+        	}            	
+        	for(var i=1;i<pageBean.totalPage+1;i++){
+        		if(i==currentPage){
+        			str+="<li ><a >"+i+"</a></li>";
+        		}
+        		else{
+        			str+="<li><a  href='javascript:void(0);' onclick='pagingReply(this)' name='showReplyByPage?page="+i+"'>"+i+"</a></li>";
+        		}        		
+        	}
+        	if(currentPage==pageBean.totalPage){
+        		str+="<li class='disabled'><a>&raquo;</a></li>"+		   
+	             "</ul>";	        
+        	}else{
+        		str+="<li ><a onclick='pagingReply(this)' href='javascript:void(0);' name='showReplyByPage?page="+next+"'>&raquo;</a></li>"+		   
+	             "</ul>";	 
+        	}	                
+        	$("#myArticle>.art-row:last").after(str);           	
+        	}	
+        })
+}
+
 $(function(){
 	$.ajax({//获取搜索框中的板块列表
 		type:"post",

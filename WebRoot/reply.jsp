@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <div class="user-right-n clearfix">
 	                <ul id="right-tab" class="nav nav-tabs">
 	                    <li role="presentation" class="active">
-	                        <a href="#myArticle" id="home-tab1" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;帖子信息</a>
+	                        <a href="#myArticle1" id="home-tab1" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;帖子信息</a>
 	                    </li>    
 	                </ul>
 	                <div class="user-right-n clearfix tab-content">
@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	  <h4>未发表任何帖子。</h4>         
 		                    </s:if>
 		                    <s:else>	                    	
-			                    	<div class="art-row">	                           
+			                    	<div id="tem" class="art-row">	                           
 			                            <h4><a href="" class="title">${post.title} </a></h4>	                          
 			                            <span class="label label-default"><a href="">${post.childboardId.name}</a></span>
 			                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                     			<li class="active"><a>${pageNum}</a></li>
 				                     		</c:when>
 				                     		<c:otherwise>
-				                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showChoosePostByPage?page=${pageNum}&bid=<%=session.getAttribute("bid")%>">${pageNum}</a></li>
+				                     			<li><a onclick="pagingReply(this)" href="javascript:void(0);" name="showReplyByPage?page=${pageNum}">${pageNum}</a></li>
 				                     		</c:otherwise>		                     		                     			                     
 				                     	</c:choose>		                     			                     		                     	
 				                     </c:forEach>
@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
 			                     		</c:when>
 			                     		<c:otherwise>
-			                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageBean.currentPage+1}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
+			                     			<li><a onclick="pagingReply(this)" href="javascript:void(0);" name="showReplyByPage?page=${pageBean.currentPage+1}"/>">&raquo;</a></li>			                     		
 			                     		</c:otherwise>
 			                     	</c:choose>	                        		                      	   
 								</ul>										 
