@@ -50,7 +50,8 @@
 				<value>com.bbsforum.entity.Board</value>
 				<value>com.bbsforum.entity.Childboard</value>
 				<value>com.bbsforum.entity.Post</value>
-				<value>com.bbsforum.entity.Message</value>				
+				<value>com.bbsforum.entity.Message</value>
+				<value>com.bbsforum.entity.Reply</value>				
 			</list>
 		</property></bean>
 	<bean id="transactionManager"

@@ -39,4 +39,8 @@ public interface PostDao {
 	public Post getPost(String id);
 	
 	public boolean addReply(Reply reply);
+	
+	public List<Reply> getReplyListForPage(int offset, int PageSize,String pid);
+	
+	public List<Reply> getReplyListForPage1(String pid);
 }

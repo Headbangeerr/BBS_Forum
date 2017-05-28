@@ -4,13 +4,19 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  * Reply entity. @author MyEclipse Persistence Tools
@@ -22,7 +28,7 @@ public class Reply implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String senderMail;
+	private User senderMail;
 	private Timestamp sendtime;
 	private String content;
 	private String postId;
@@ -34,16 +40,14 @@ public class Reply implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Reply(String senderMail, String content, String postId) {
-		this.senderMail = senderMail;
+	public Reply( String content, String postId) {
 		this.content = content;
 		this.postId = postId;
 	}
 
 	/** full constructor */
-	public Reply(String senderMail, Timestamp sendtime, String content,
+	public Reply(Timestamp sendtime, String content,
 			String postId) {
-		this.senderMail = senderMail;
 		this.sendtime = sendtime;
 		this.content = content;
 		this.postId = postId;
@@ -60,13 +64,15 @@ public class Reply implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	@Column(name = "sender_mail", nullable = false, length = 20)
-	public String getSenderMail() {
-		return this.senderMail;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@Cascade(value={CascadeType.SAVE_UPDATE})
+	@JoinColumn(name="sender_mail")
+	public User getSenderMail() {
+		return senderMail;
 	}
 
-	public void setSenderMail(String senderMail) {
+	public void setSenderMail(User senderMail) {
 		this.senderMail = senderMail;
 	}
 

@@ -39,7 +39,9 @@ public class User implements java.io.Serializable {
 	private String signature;
 	private Set<Post> posts=new HashSet<Post>();
 	private Set<User> friends=new HashSet<User>();
+	private Set<Reply> replys=new HashSet<Reply>();
 	// Constructors
+
 
 	/** default constructor */
 	public User() {
@@ -86,8 +88,16 @@ public class User implements java.io.Serializable {
 	public Set<Post> getPosts() {
 		return posts;
 	}
+	@OneToMany(mappedBy="senderMail")
+	@Cascade(value={CascadeType.DELETE})
+	public Set<Reply> getReplys() {
+		return replys;
+	}
 
-	
+	public void setReplys(Set<Reply> replys) {
+		this.replys = replys;
+	}
+
 	@ManyToMany(fetch=FetchType.EAGER)
 	@Cascade(value={CascadeType.SAVE_UPDATE})
 	@JoinTable(name="friends",

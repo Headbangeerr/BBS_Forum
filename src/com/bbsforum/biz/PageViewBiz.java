@@ -14,4 +14,6 @@ public interface PageViewBiz {
 	public PageBean showFridensByPage(int pageIndex,int pageSize,String userMail);
 	
 	public PageBean showChoosePostBypage(int pageIndex, int pageSize, int bid);
+	
+	public PageBean showReplyBypage(int pageIndex, int pageSize, String pid);
 }

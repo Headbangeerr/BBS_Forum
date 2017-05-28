@@ -62,6 +62,15 @@ public class PostAction extends BaseAction {
 		this.postBean = postBean;
 	}
 	
+	private PageBean replyBean;
+	
+	public PageBean getReplyBean() {
+		return replyBean;
+	}
+	public void setReplyBean(PageBean replyBean) {
+		this.replyBean = replyBean;
+	}
+	
 	private Post post;
 	public Post getPost() {
 		return post;
@@ -156,7 +165,8 @@ public class PostAction extends BaseAction {
 					"excludeProperties","lastestPostList\\[\\d+\\]\\.childboardId.parentBoard,"
 							+ "lastestPostList\\[\\d+\\]\\.childboardId.posts,"
 							+ "lastestPostList\\[\\d+\\]\\.publisherMail.posts,"
-							+ "lastestPostList\\[\\d+\\]\\.publisherMail.friends"})
+							+ "lastestPostList\\[\\d+\\]\\.publisherMail.friends,"
+							+ "lastestPostList\\[\\d+\\]\\.publisherMail.replys"})
 			//这里必须使用正则表达式，具体说明请见错误说明文档
 	})
 	public String  showLastestPostOnIndexPage(){
@@ -179,7 +189,8 @@ public class PostAction extends BaseAction {
 					"excludeProperties", "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
 							+ "pageBean.list\\[\\d+\\]\\.childboardId.posts,"
 							+ "pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
-							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard"})
+							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard,"
+							+ "pageBean.list\\[\\d+\\]\\.publisherMail.replys"})
 	}) 
 	public String showPostByPage(){
 		User publisher=userBiz.getUserByMailAddress(publisherMail);
@@ -205,7 +216,8 @@ public class PostAction extends BaseAction {
 					"excludeProperties", "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
 							+ "pageBean.list\\[\\d+\\]\\.childboardId.posts,"
 							+ "pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
-							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard"})
+							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard,"
+							+"pageBean.list\\[\\d+\\]\\.publisherMail.replys"})
 	}) 
 	public String showChoosePostByPage(){
 		pageBean=pageViewBiz.showChoosePostBypage(page, 5, bid);
@@ -228,7 +240,7 @@ public class PostAction extends BaseAction {
 		post.setContent(content);
 		post.setPublisherMail(publishser);
 		logger.info("发帖者"+publishser.getMailAddress());
-		System.out.println("werwerwerwerwerw"+d);
+		//System.out.println("werwerwerwerwerw"+d);
 		post.setPublishTime(d);
 		post.setChildboardId(childboard);
 		post.setPageView(0);
@@ -252,6 +264,8 @@ public class PostAction extends BaseAction {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String dateString = formatter.format(post.getPublishTime());
 		getSession().put("dateString", dateString);
+		replyBean=pageViewBiz.showReplyBypage(1, 5, pid);
+		getRequest().put("pageBean", pageBean);
 		return "self";
 	}
 	
@@ -259,12 +273,10 @@ public class PostAction extends BaseAction {
 			@Result(name="success",type="json")
 	})
 	public String addReply(){
-		int x=(int)(Math.random()*100);
 		User publishser=(User)getSession().get("user");
 		Timestamp d = new Timestamp(System.currentTimeMillis());
 		Reply reply=new Reply();
-		reply.setId(x);
-		reply.setSenderMail(publishser.getMailAddress());
+		reply.setSenderMail(publishser);
 		reply.setSendtime(d);
 		reply.setContent(content);
 		reply.setPostId(getSession().get("pidshow").toString());

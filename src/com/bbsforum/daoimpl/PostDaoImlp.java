@@ -128,4 +128,33 @@ public class PostDaoImlp implements PostDao {
 		}
 		
 	}
+	@Override
+	public List<Reply> getReplyListForPage(int offset, int PageSize,String pid) {
+		session=sessionFactory.openSession();
+		List<Reply> ReplyPage=new ArrayList<Reply>();
+		String hql="select r from Reply r where r.postId=?";
+		Query query=session.createQuery(hql);
+		query.setString(0, pid);
+		query.setFirstResult(offset);
+		query.setMaxResults(PageSize);
+		ReplyPage=query.list();
+		session.close();
+		return ReplyPage;
+	}
+	@Override
+	public List<Reply> getReplyListForPage1(String pid) {
+		session=sessionFactory.openSession();
+		List<Reply> ReplyPage=new ArrayList<Reply>();
+		String hql="select r from Reply r where r.postId=?";
+		Query query=session.createQuery(hql);
+		query.setString(0, pid);
+		ReplyPage=query.list();
+//		Iterator itor=PostPage.iterator();
+//		while(itor.hasNext()){
+//			Post book=(Post)itor.next();
+//			System.out.println(book.getTitle()+"  "+book.getId());
+//		}
+		session.close();
+		return ReplyPage;
+	}
 }

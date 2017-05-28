@@ -58,16 +58,17 @@ public class test {
 //		UserDao userDao=(UserDao) context.getBean("userDao");
 //		User user=userDao.findUserByMailAddress("0000");
 //		logger.info("0000的好友个数："+user.getFriends().size());
-		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
-		PostDao userDao=(PostDao) context.getBean("postDao");
-		Timestamp d = new Timestamp(System.currentTimeMillis());
-		Reply reply=new Reply();
-		reply.setId(21321);
-		reply.setContent("sfdsfsa");
-		reply.setPostId("sdrw");
-		reply.setSenderMail("wer");
-		reply.setSendtime(d);
-		userDao.addReply(reply);
+		
+//		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+//		PostDao userDao=(PostDao) context.getBean("postDao");
+//		Timestamp d = new Timestamp(System.currentTimeMillis());
+//		Reply reply=new Reply();
+//		reply.setId(21321);
+//		reply.setContent("sfdsfsa");
+//		reply.setPostId("sdrw");
+//		reply.setSenderMail("wer");
+//		reply.setSendtime(d);
+//		userDao.addReply(reply);
 
 	}
 

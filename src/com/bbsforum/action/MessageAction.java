@@ -101,7 +101,9 @@ public class MessageAction extends BaseAction {
 					"excludeProperties", "messages\\[\\d+\\]\\.publisherMail.posts,"
 							+"messages\\[\\d+\\]\\.publisherMail.friends,"
 							+"messages\\[\\d+\\]\\.receiverMail.friends,"
-							+ "messages\\[\\d+\\]\\.receiverMail.posts"})
+							+ "messages\\[\\d+\\]\\.receiverMail.posts,"
+							+ "messages\\[\\d+\\]\\.publisherMail.replys"}
+			)
 	})
 	public String addMessage(){
 		logger.info("receiverMail:"+receiverMail);
@@ -140,7 +142,9 @@ public class MessageAction extends BaseAction {
 					"excludeProperties", "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
 							+"pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
 							+"pageBean.list\\[\\d+\\]\\.receiverMail.friends,"
-							+ "pageBean.list\\[\\d+\\]\\.receiverMail.posts"})
+							+ "pageBean.list\\[\\d+\\]\\.receiverMail.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.publisherMail.replys,"
+							+ "pageBean.list\\[\\d+\\]\\.receiverMail.replys,"})
 	}) 
 	public String showMessageByPage(){
 		logger.info("page:"+page+"receiverMail:"+receiverMail);

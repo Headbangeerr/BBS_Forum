@@ -12,9 +12,9 @@ function add_reply(){
             success:function(data){    
            	 //alert(data.flag);
               if(data.flag==true){            	            	               	            	 
-           	   $('.alert').html('发布成功').addClass('alert-success').show().delay(1500).fadeOut();            	  
+           	   $('.alert').html('回帖成功').addClass('alert-success').show().delay(1500).fadeOut();            	  
               }else{
-           	   $('.alert').html('发布失败').addClass('alert-success').show().delay(1500).fadeOut();  
+           	   $('.alert').html('回帖失败,请输入回帖内容！').addClass('alert-success').show().delay(1500).fadeOut();  
               }
             }
         });  
@@ -36,7 +36,7 @@ function add_post(){
                if(data.flag==true){            	            	               	            	 
             	   $('.alert').html('发布成功').addClass('alert-success').show().delay(1500).fadeOut();            	  
                }else{
-            	   $('.alert').html('发布失败').addClass('alert-success').show().delay(1500).fadeOut();  
+            	   $('.alert').html('发布失败,请补全信息！').addClass('alert-success').show().delay(1500).fadeOut();  
                }
              }
          });  

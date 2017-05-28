@@ -44,4 +44,16 @@ public class PostBizImpl implements PostBiz {
 		// TODO Auto-generated method stub
 		return postDao.addReply(reply);
 	}
+
+	@Override
+	public List<Reply> getReplyListForPage(int offset, int PageSize, String pid) {
+		// TODO Auto-generated method stub
+		return postDao.getReplyListForPage(offset, PageSize, pid);
+	}
+
+	@Override
+	public List<Reply> getReplyListForPage1(String pid) {
+		// TODO Auto-generated method stub
+		return postDao.getReplyListForPage1(pid);
+	}
 }

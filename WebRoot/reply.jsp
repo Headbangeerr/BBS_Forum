@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </ul>
 	                <div class="user-right-n clearfix tab-content">
 	                <!-- 遍历展示Ta的帖子列表 -->
-	                  	<div role="tabpanel" class="tab-pane active" id="myArticle">
+	                  	<div role="tabpanel" class="tab-pane active" id="myArticle1">
 		                    <s:if test='#request.postBean.list.size()==0'>
 	                    	  <h4>未发表任何帖子。</h4>         
 		                    </s:if>
@@ -41,7 +41,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                             <a  class="time"><%=session.getAttribute("dateString")%> View:${post.pageView}</span></a> 	                          	                            
 			                        </div>	                   	                     			                                   		                    									 
 		                    </s:else>	                	                                
-	                    </div>           	                  
+	                    </div>
+	                    <div role="tabpanel" class="tab-pane active" id="myArticle">
+		                    <s:if test='#request.replyBean.list.size()==0'>
+	                    	  <h4>未发表任何帖子。</h4>         
+		                    </s:if>
+		                    <s:else>	                    	
+		                    	<s:iterator value="#request.replyBean.list" var="reply">
+			                    	<div class="art-row">	                           
+			                            <h4><a href="serchPost?pid=${post.id}" class="title">${reply.content} </a></h4>	                          
+			                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="senderMail.mailAddress}"/>"  class="author">
+			                             <i class="fa fa-user"></i>&nbsp;<span>${reply.senderMail.username}</span>
+			                             </a>
+			                             <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="sendtime" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
+			                        </div>	
+		                     	</s:iterator>	
+		                     	<input type="hidden" name="bids" value='<%=session.getAttribute("bid")%>'>                     	                     			                 
+			                     <ul id="postpagefoot" class="pager">	                     	                     	
+			                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
+				                     <c:forEach var="pageNum" begin="1" end="${replyBean.totalPage}">
+				                     	<c:choose>
+				                     		<c:when test="${pageNum == 1}">
+				                     			<li class="active"><a>${pageNum}</a></li>
+				                     		</c:when>
+				                     		<c:otherwise>
+				                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showChoosePostByPage?page=${pageNum}&bid=<%=session.getAttribute("bid")%>">${pageNum}</a></li>
+				                     		</c:otherwise>		                     		                     			                     
+				                     	</c:choose>		                     			                     		                     	
+				                     </c:forEach>
+				                     <c:choose>
+			                     		<c:when test="${postBean.currentPage eq postBean.totalPage}">	                     		
+			                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
+			                     		</c:when>
+			                     		<c:otherwise>
+			                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageBean.currentPage+1}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
+			                     		</c:otherwise>
+			                     	</c:choose>	                        		                      	   
+								</ul>										 
+		                    </s:else>	                	                                
+	                    </div>           	           	                  
 	                </div>
 	                 <div class="user-right-n clearfix tab-content">
 	               		<form id="replyForm">
