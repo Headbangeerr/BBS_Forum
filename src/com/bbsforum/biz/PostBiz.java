@@ -3,6 +3,7 @@ package com.bbsforum.biz;
 import java.util.List;
 
 import com.bbsforum.entity.Post;
+import com.bbsforum.entity.Reply;
 
 public interface PostBiz {
 
@@ -12,5 +13,13 @@ public interface PostBiz {
 	 * @param pageSize	页面大小，即每一页的数据条数
 	 * @return 帖子列表
 	 */
+	public boolean addPost(Post post);
+	
 	public List<Post> getLastestPost(int pageIndex, int pageSize);
+	
+	public List<Post> getChoosePostListForPage(int offset, int PageSize,int bid);
+	
+	public Post getPost(String id);
+	
+
 }

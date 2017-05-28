@@ -3,14 +3,6 @@ package com.bbsforum.daoimpl;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-
-
-
-
-
-
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bbsforum.dao.BoardDao;
 import com.bbsforum.entity.Board;
 import com.bbsforum.entity.Childboard;
+import com.bbsforum.entity.User;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
@@ -78,6 +71,15 @@ public class BoardDaoImpl implements BoardDao {
 			session.close();
 		}
 	}
+	@Override
+	public Childboard getChildboard(int id) {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();
+		Childboard chidboard=(Childboard)session.get(Childboard.class, id);
+		session.close();
+		return chidboard;
+	}
 	
+
 
 }

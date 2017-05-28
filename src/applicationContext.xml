@@ -24,6 +24,7 @@
 			value="jdbc:mysql://localhost:3306/bbs_forum">
 		</property>
 		<property name="username" value="root"></property>
+		<property name="password" value="8957246"></property>
 	</bean>
 	
 	
@@ -49,7 +50,8 @@
 				<value>com.bbsforum.entity.Board</value>
 				<value>com.bbsforum.entity.Childboard</value>
 				<value>com.bbsforum.entity.Post</value>
-				<value>com.bbsforum.entity.Message</value>				
+				<value>com.bbsforum.entity.Message</value>		
+				<value>com.bbsforum.entity.Reply</value>		
 			</list>
 		</property></bean>
 	<bean id="transactionManager"
@@ -96,6 +98,12 @@
 	<bean id="friendsBiz" class="com.bbsforum.bizimpl.FriendsBizImpl"></bean>
 	<bean id="searchDao" class="com.bbsforum.daoimpl.SearchDaoImpl"></bean>
 	<bean id="searchBiz" class="com.bbsforum.bizimpl.SearchBizImpl"></bean>
+	<bean id="replyDao" class="com.bbsforum.daoimpl.ReplyDaoImpl">
+	</bean>
+	<bean id="replyBiz" class="com.bbsforum.bizimpl.ReplyBizImpl">
+	</bean>
+	<bean id="replyAction" class="com.bbsforum.action.ReplyAction">
+	</bean>
 </beans>
 	
 	

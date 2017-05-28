@@ -12,4 +12,9 @@ public interface PageViewBiz {
 	public PageBean showPostBypage(int pageIndex, int pageSize,String publisherMail,int itemSum);
 	
 	public PageBean showFridensByPage(int pageIndex,int pageSize,String userMail);
+	
+	public PageBean showChoosePostBypage(int pageIndex, int pageSize, int bid);
+	
+	public PageBean showReplyBypage(int pageIndex, int pageSize, String pid);
+
 }
