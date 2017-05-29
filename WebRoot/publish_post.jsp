@@ -31,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div id="BBS_BLOCK">
+				<input type="hidden" name="mailAddresss" value='<%=session.getAttribute("mailAddress")%>'>  
 					<form id="postForm">
 						<table class="fatieArea">
 							<colgroup>
@@ -67,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<a onclick="add_post()" style="width: 175px;float: right;" class="common-submitBtn fr" id="send_message" >
 									<i class="fa fa-pencil"></i>&nbsp;<span>发表(Ctrl+Enter)</span>
 								</a>
-								 <div class="alert"></div>		
+								 <div class="alert1"></div>		
 							</td>
 							</tr>
 						</table>

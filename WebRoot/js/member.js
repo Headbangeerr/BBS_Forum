@@ -127,8 +127,8 @@ function pagingPost(t){
          	   date=post.publishTime.substring(0,10);
       		   date+=" "+post.publishTime.substring(11,16);        		 
          		str="<div class='art-row'>"	                           
-                     +"<h4><a href='' class='title'>"+post.title+"</a></h4>"+
-                     "<span class='label label-default'><a href=''>"+post.childboardId.name+"</a></span>"+
+                     +"<h4><a href='serchPost?pid="+post.id+"' class='title'>"+post.title+"</a></h4>"+
+                     "<span class='label label-default'><a href='checkZiPostByUrl?cid="+post.childboardId.id+"'>"+post.childboardId.name+"</a></span>"+
                       "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'class='author'>"+
                       "<i class='fa fa-user'></i>&nbsp;<span>"+post.publisherMail.username+"</span></a> <a  class='time'>" +
                       "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" 	                          

@@ -165,6 +165,45 @@ public class PageViewBizImpl implements PageViewBiz {
 
 	}
 
+	@Override
+	public PageBean showViePostBypage(int pageIndex, int pageSize) {
+		// TODO Auto-generated method stub
+		int i = 4;
+		int itemSum=postDao.getViePostList(i).size();
+		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
+		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
+		final int length=pageSize;//每页的记录数
+		final int currentPage=PageBean.countCurrentPage(pageIndex);
+		List<Post> posts=postDao.getViePostListForPage(offset, pageSize);
+		PageBean pageBean=new PageBean();
+		pageBean.setPageSize(pageSize);
+		pageBean.setCurrentPage(pageIndex);
+		pageBean.setAllRow(itemSum);
+		pageBean.setTotalPage(totalPage);
+		pageBean.setList(posts);
+		pageBean.init();
+		return pageBean;
+	}
+
+	@Override
+	public PageBean showZiPostBypage(int pageIndex, int pageSize, int cid) {
+		// TODO Auto-generated method stub
+		int itemSum=postDao.getZiPostListForPage1(cid).size();
+		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
+		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
+		final int length=pageSize;//每页的记录数
+		final int currentPage=PageBean.countCurrentPage(pageIndex);
+		List<Post> posts=postDao.getZiPostListForPage(offset, pageSize, cid);
+		PageBean pageBean=new PageBean();
+		pageBean.setPageSize(pageSize);
+		pageBean.setCurrentPage(pageIndex);
+		pageBean.setAllRow(itemSum);
+		pageBean.setTotalPage(totalPage);
+		pageBean.setList(posts);
+		pageBean.init();
+		return pageBean;
+	}
+
 
 
 }

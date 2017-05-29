@@ -17,11 +17,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link type="text/css" rel="stylesheet" href="css/postshow.css"> 
 </head>
 <body>
-<jsp:include page="pages/header.jsp"></jsp:include>
+<jsp:include page="header.jsp"></jsp:include>
 <script type="text/javascript" src="<%=basePath%>js/posts.js" charset="UTF-8"></script>
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 帖子列表</div>
-	    <div class="user-cont clearfix" style="width: 850px;float: left;height: 700px">
+	    <div class="user-cont clearfix" style="width: 850px;float: left;height: 420px">
 	    	<div class="col-md-8 user-right" style="width: 100%;height: 100%">
 	            <div class="user-right-n clearfix">
 	                <ul id="right-tab" class="nav nav-tabs">
@@ -32,11 +32,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <div class="user-right-n clearfix tab-content">
 	                <!-- 遍历展示Ta的帖子列表 -->
 	                  	<div role="tabpanel" class="tab-pane active" id="myArticle">
-		                    <s:if test='#request.postBean.list.size()==0'>
+		                    <s:if test='#request.postJH.size()==0'>
 	                    	  <h4>该板块无人发帖。</h4>         
 		                    </s:if>
 		                    <s:else>	                    	
-		                    	<s:iterator value="#request.postBean.list" var="post">
+		                    	<s:iterator value="#request.postJH" var="post">
 			            
 			                    	
 			                    	<div   class="media">
@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                    	</div>
 					                    	<div class="comment-bt">
 						                    	<span class="label label-default">
-							                    	<a href="#">${post.childboardId.name}</a>
+							                    	<a href="checkZiPostByUrl?cid=${post.childboardId.id }">${post.childboardId.name}</a>
 							                    </span> &nbsp;•&nbsp;
 							                    <strong>
 							                    	<a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=3333">${post.publisherMail.username}</a>
@@ -64,29 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     
 			                                                 
 			                        </div>	
-		                     	</s:iterator>	
-		                     	<input type="hidden" name="bids" value='<%=session.getAttribute("bid")%>'>                     	                     			                 
-			                     <ul id="postpagefoot" class="pager">	                     	                     	
-			                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
-				                     <c:forEach var="pageNum" begin="1" end="${postBean.totalPage}">
-				                     	<c:choose>
-				                     		<c:when test="${pageNum == 1}">
-				                     			<li class="active"><a>${pageNum}</a></li>
-				                     		</c:when>
-				                     		<c:otherwise>
-				                     			<li><a onclick="pagingAllPost(this)" href="javascript:void(0);" name="showAllPostByPage?page=${pageNum}">${pageNum}</a></li>
-				                     		</c:otherwise>		                     		                     			                     
-				                     	</c:choose>		                     			                     		                     	
-				                     </c:forEach>
-				                     <c:choose>
-			                     		<c:when test="${postBean.currentPage eq postBean.totalPage}">	                     		
-			                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
-			                     		</c:when>
-			                     		<c:otherwise>
-			                     			<li><a onclick="pagingAllPost(this)" href="javascript:void(0);" name="showAllPostByPage?page=${pageBean.currentPage+1}">&raquo;</a></li>			                     		
-			                     		</c:otherwise>
-			                     	</c:choose>	                        		                      	   
-								</ul>										 
+		                     	</s:iterator>					 
 		                    </s:else>	                	                                
 	                    </div>           	                  
 	                </div>

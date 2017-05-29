@@ -47,6 +47,27 @@ public class PostBizImpl implements PostBiz {
 
 	}
 
+	@Override
+	public List<Post> getViePostListForPage(int offset, int PageSize) {
+		// TODO Auto-generated method stub
+		List  postList=postDao.getViePostListForPage(offset, PageSize);
+		return postList;
+	}
+
+	@Override
+	public List<Post> getJHPost(int i) {
+		// TODO Auto-generated method stub
+		List  postList=postDao.getJHPost(i);
+		return postList;
+	}
+
+	@Override
+	public List<Post> getZiPostListForPage(int offset, int PageSize, int cid) {
+		// TODO Auto-generated method stub
+		List  postList=postDao.getZiPostListForPage(offset, PageSize, cid);
+		return postList;
+	}
+
 
 
 

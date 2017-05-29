@@ -40,9 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </ul>
             
          </li>
-          <li><a href="">论坛热帖</a></li>
-          <li><a href="">论坛新帖</a></li>
-          <li><a href="">精华帖</a></li>
+          <li><a href="checkViePostByUrl">论坛热帖</a></li>
+          <li><a href="<%=path+"/index.jsp"%>">论坛新帖</a></li>
+          <li><a href="checkJHPostByUrl">精华帖</a></li>
       </ul>
    </div>
    

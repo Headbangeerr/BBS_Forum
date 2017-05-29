@@ -65,6 +65,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public String login(){//µÇÂ½
 		logger.info("login¡­¡­   useraddress:"+mailAddress);
 		User user=userBiz.getUserByMailAddress(mailAddress);
+		getSession().put("mailAddress", mailAddress);
 		if(user==null){
 			errorFlag=0;
 			return LOGIN;

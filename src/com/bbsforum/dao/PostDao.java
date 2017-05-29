@@ -41,5 +41,16 @@ public interface PostDao {
 	public List<Post> getAllPostListForPage(int offset,int PageSize);
 
 	public List getAllPostList(int i);
+	
+	public List<Post> getViePostListForPage(int offset,int PageSize);
+	
+	public List getViePostList(int i);
+	
+	public List<Post> getJHPost(int i);
+	
+	public boolean updaPost(Post post);
 
+	public List<Post> getZiPostListForPage(int offset, int PageSize,int cid);
+	
+	public List<Post> getZiPostListForPage1(int cid);
 }

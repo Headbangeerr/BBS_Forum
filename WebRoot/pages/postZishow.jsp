@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link type="text/css" rel="stylesheet" href="css/postshow.css"> 
 </head>
 <body>
-<jsp:include page="pages/header.jsp"></jsp:include>
+<jsp:include page="header.jsp"></jsp:include>
 <script type="text/javascript" src="<%=basePath%>js/posts.js" charset="UTF-8"></script>
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 帖子列表</div>
@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                    	</div>
 					                    	<div class="comment-bt">
 						                    	<span class="label label-default">
-							                    	<a href="#">${post.childboardId.name}</a>
+							                    	<a href="checkZiPostByUrl?cid=${post.childboardId.id }">${post.childboardId.name}</a>
 							                    </span> &nbsp;•&nbsp;
 							                    <strong>
 							                    	<a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=3333">${post.publisherMail.username}</a>
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                                                 
 			                        </div>	
 		                     	</s:iterator>	
-		                     	<input type="hidden" name="bids" value='<%=session.getAttribute("bid")%>'>                     	                     			                 
+		                     	<input type="hidden" name="cids" value='<%=session.getAttribute("cidtt")%>'>                     	                     			                 
 			                     <ul id="postpagefoot" class="pager">	                     	                     	
 			                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
 				                     <c:forEach var="pageNum" begin="1" end="${postBean.totalPage}">
@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                     			<li class="active"><a>${pageNum}</a></li>
 				                     		</c:when>
 				                     		<c:otherwise>
-				                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showChoosePostByPage?page=${pageNum}&bid=<%=session.getAttribute("bid")%>">${pageNum}</a></li>
+				                     			<li><a onclick="pagingZiPost(this)" href="javascript:void(0);" name="showZiPostByPage?page=${pageNum}&cid=<%=session.getAttribute("cidtt")%>">${pageNum}</a></li>
 				                     		</c:otherwise>		                     		                     			                     
 				                     	</c:choose>		                     			                     		                     	
 				                     </c:forEach>
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
 			                     		</c:when>
 			                     		<c:otherwise>
-			                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageBean.currentPage+1}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
+			                     			<li><a onclick="pagingZiPost(this)" href="javascript:void(0);" name="showZiPostByPage?page=${pageBean.currentPage+1}&cid=<%=session.getAttribute("cidtt")%>">&raquo;</a></li>			                     		
 			                     		</c:otherwise>
 			                     	</c:choose>	                        		                      	   
 								</ul>										 

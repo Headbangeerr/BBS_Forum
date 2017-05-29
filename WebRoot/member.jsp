@@ -101,8 +101,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <s:else>
 	                    	<s:iterator value="#request.postBean.list" var="post">
 		                    	<div class="art-row">	                           
-		                            <h4><a href="" class="title">${post.title} </a></h4>	                          
-		                            <span class="label label-default"><a href="">${post.childboardId.name}</a></span>
+		                            <h4><a href="serchPost?pid=${post.id}" class="title">${post.title} </a></h4>	                          
+		                            <span class="label label-default"><a href="checkZiPostByUrl?cid=${post.childboardId.id }">${post.childboardId.name}</a></span>
 		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
 		                             <i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span>
 		                             </a>
