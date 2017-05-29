@@ -22,29 +22,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="js/bootstrap.min.js"></script>
 </head>
   <body onload="getBoardList()">
-  <nav class="navbar navbar-inverse" role="navigation">
+  <nav class="navbar navbar-inverse "   role="navigation">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">BBS技术论坛</a>
             </div>
             
             <div>
-      <ul class="nav navbar-nav">
-         <li><a href="<%=path%>/index.jsp">首页</a></li>
-         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               精选板块 <b class="caret"></b>
-            </a>
-           
-            <ul id="boardlist" class="dropdown-menu">
-            	
-            </ul>
-            
-         </li>
-          <li><a href="">论坛热帖</a></li>
-          <li><a href="">论坛新帖</a></li>
-          <li><a href="">精华帖</a></li>
-      </ul>
-   </div>
+		      	<ul class="nav navbar-nav">
+			         <li><a href="<%=path%>/index.jsp">首页</a></li>
+			         <li class="dropdown">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			               精选板块 <b class="caret"></b>
+			            </a>
+			           
+			            <ul id="boardlist" class="dropdown-menu">
+			            	
+			            </ul>
+			            
+			         </li>
+			          <li><a href="">论坛热帖</a></li>
+			          <li><a href="">论坛新帖</a></li>
+			          <li><a href="">精华帖</a></li>
+		      </ul>
+  		 </div>
    
    
    <s:if test='#session.user==null'>
@@ -70,7 +70,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </li>
                 </ul>
                  <p class="navbar-text navbar-right">尊敬的用户您好！</p>
-   
    </s:elseif>     
     </nav>   
   </body>

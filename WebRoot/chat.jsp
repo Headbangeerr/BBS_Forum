@@ -16,8 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body>
-   	<jsp:include page="pages/header.jsp"></jsp:include>
+  <body>   
    	<div class="message_right" style="min-height: 600px;">
     <div class="message-main">
     <div class="message-title group-title-3">我的私信</div>

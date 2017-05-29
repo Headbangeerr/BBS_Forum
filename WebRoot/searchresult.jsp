@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                			<div class="comment" style="width: 525px;float: left"> 
 					                         <div class="comment-author h6 no-margin" >
 					                        	<a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress}">${user.username}</a>					                        						                        						                        
-					                        	
+					                        	&nbsp;&nbsp;<span class="label label-success">Level:${user.level }</span>
 					                        	&nbsp;&nbsp;<span style="cursor:pointer" class="hoverbutton bluebutton"><i class="fa fa-envelope-o"></i> 私信</span>
 					                        	
 					                        </div>
