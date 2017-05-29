@@ -24,7 +24,7 @@
 			value="jdbc:mysql://localhost:3306/bbs_forum">
 		</property>
 		<property name="username" value="root"></property>
-		<property name="password" value="8957246"></property>
+		
 	</bean>
 	
 	
