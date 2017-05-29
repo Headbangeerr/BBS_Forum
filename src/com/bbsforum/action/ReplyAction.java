@@ -72,17 +72,24 @@ public class ReplyAction  extends BaseAction{
 		User publishser=(User)getSession().get("user");
 		Timestamp d = new Timestamp(System.currentTimeMillis());
 		Reply reply=new Reply();
+		//System.out.println("asrfewrwerewrwerewrwerewrwerewrwe"+content+"sdfasfadsfasdfadsf");
 		reply.setSenderMail(publishser);
 		reply.setSendtime(d);
 		reply.setContent(content);
 		reply.setPostId(getSession().get("pidshow").toString());
 		logger.info("mai:"+publishser.getMailAddress()+"tim£º"+d+"cont"+content+"pid"+getSession().get("pidshow").toString());
-		if(replyBiz.addReply(reply)){
-			flag=true;
-		}
-		else{
+		if(content.equals("ÇëÊäÈë»ØÌûÄÚÈİ")){
 			flag=false;
+		}else{
+			
+			if(replyBiz.addReply(reply)){
+				flag=true;
+			}
+			else{
+				flag=false;
+			}
 		}
+
 		logger.info("flag:"+flag);
 		return SUCCESS;
 	}

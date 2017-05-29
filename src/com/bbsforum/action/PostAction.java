@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.PageViewBiz;
 import com.bbsforum.biz.PostBiz;
+import com.bbsforum.biz.ReplyBiz;
 import com.bbsforum.biz.UserBiz;
 import com.bbsforum.dao.BoardDao;
+import com.bbsforum.dao.ReplyDao;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.daoimpl.PostDaoImlp;
 import com.bbsforum.entity.Childboard;
@@ -159,6 +161,7 @@ public class PostAction extends BaseAction {
 	public void setBoardDao(BoardDao boardDao){
 		this.boardDao=boardDao;
 	}
+
 	
 	@Action(value="showLastestPostOnIndexPage",results={
 			@Result(name="success",type="json",params={
@@ -269,6 +272,30 @@ public class PostAction extends BaseAction {
 		return "self";
 	}
 	
+	@Action(value="showAllPostByPage",results={
+			@Result(name="success",type="json",params={
+					"excludeProperties",  "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.childboardId.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
+							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard,"
+							+"pageBean.list\\[\\d+\\]\\.publisherMail.replys"})
+	}) 
+	public String showAllPostByPage(){
+		pageBean=pageViewBiz.showAllPostBypage(page, 5);
+		logger.info("成功获取到帖子页面…… 页面中的帖子条数为："+pageBean.getList().size());
+		return SUCCESS;
+	}
+	
+	@Action(value="checkAllPostByUrl",results={
+			@Result(name="self",location="/postAllshow.jsp")
+	})
+	public String checkAllPostByUrl(){
+		postBean=pageViewBiz.showAllPostBypage(1, 5);
+		getRequest().put("pageBean", pageBean);
+		return "self";
+	}
+
+
 
 
 }

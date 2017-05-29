@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 	<jsp:include page="pages/header.jsp"></jsp:include>
-	<script type="text/javascript" src="<%=basePath%>js/posts.js" charset="gb2312"></script>
+	<script type="text/javascript" src="<%=basePath%>js/posts.js" charset="UTF-8"></script>
 	<div id="bbsdoc" class="bbsdoc">
 	    <div class="clearfix"></div><!--兼容个别浏览器强制改变最小字号而导致的页面错乱-->
 	    <div id="hd"></div>
@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td valign="top">内容：</td>
 								<td id="textAreaWrap">
 									<div id="editorToolBar"></div>
-									<textarea id="textAreaContainer" name="content" class="textAreaContainer"></textarea>
+									<textarea onfocus="this.value=''" id="textAreaContainer" name="content" class="textAreaContainer">请输入内容</textarea>
 									<div class="ty_bbs_preview_area"></div>
 								</td>
 							</tr>

@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                     			<li class="active"><a>${pageNum}</a></li>
 				                     		</c:when>
 				                     		<c:otherwise>
-				                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showChoosePostByPage?page=${pageNum}&bid=<%=session.getAttribute("bid")%>">${pageNum}</a></li>
+				                     			<li><a onclick="pagingAllPost(this)" href="javascript:void(0);" name="showAllPostByPage?page=${pageNum}">${pageNum}</a></li>
 				                     		</c:otherwise>		                     		                     			                     
 				                     	</c:choose>		                     			                     		                     	
 				                     </c:forEach>
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
 			                     		</c:when>
 			                     		<c:otherwise>
-			                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageBean.currentPage+1}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
+			                     			<li><a onclick="pagingAllPost(this)" href="javascript:void(0);" name="showAllPostByPage?page=${pageBean.currentPage+1}">&raquo;</a></li>			                     		
 			                     		</c:otherwise>
 			                     	</c:choose>	                        		                      	   
 								</ul>										 

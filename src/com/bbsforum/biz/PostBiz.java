@@ -21,5 +21,7 @@ public interface PostBiz {
 	
 	public Post getPost(String id);
 	
+	public List<Post> getAllPostListForPage(int offset,int PageSize);
 
+	
 }

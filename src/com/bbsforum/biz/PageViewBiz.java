@@ -17,4 +17,7 @@ public interface PageViewBiz {
 	
 	public PageBean showReplyBypage(int pageIndex, int pageSize, String pid);
 
+	public PageBean showAllPostBypage(int pageIndex, int pageSize);
+
+
 }

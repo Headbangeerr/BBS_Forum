@@ -39,5 +39,15 @@ public class PostBizImpl implements PostBiz {
 		return postDao.getPost(id);
 	}
 
+	@Override
+	public List<Post> getAllPostListForPage(int offset, int PageSize) {
+		// TODO Auto-generated method stub
+		List postList=postDao.getAllPostListForPage(offset, PageSize);
+		return postList;
+
+	}
+
+
+
 
 }

@@ -108,5 +108,34 @@ public class PostDaoImlp implements PostDao {
 		session.close();
 		return post;
 	}
+	@Override
+	public List<Post> getAllPostListForPage(int offset, int PageSize) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		List<Post> PostPage=new ArrayList<Post>();
+		String hql="from Post";
+		Query query=session.createQuery(hql);
+		query.setFirstResult(offset);
+		query.setMaxResults(PageSize);
+		PostPage=query.list();
+		session.flush();
+		session.close();
+		return PostPage;
+
+	}
+	@Override
+	public List getAllPostList(int i) {
+		// TODO Auto-generated method stub
+		Session  session=sessionFactory.openSession();
+		String hql="from Post";
+		Query query=session.createQuery(hql);
+		List postList=query.list();
+		session.flush();
+		session.close();
+		return postList;
+
+	}
+
+
 
 }
