@@ -1,5 +1,7 @@
 package com.bbsforum.bizimpl;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,6 +22,14 @@ public class UserBizImpl implements UserBiz {
 	@Override
 	public User getUserByMailAddress(String mailAddress) {
 		User user=userDao.findUserByMailAddress(mailAddress);
+		return user;
+	}
+
+
+	@Override
+	public List getAllUserList(int offset, int pageSize) {
+		// TODO Auto-generated method stub
+		List user=userDao.getAllUserList(offset, pageSize);
 		return user;
 	}
 

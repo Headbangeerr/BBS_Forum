@@ -232,6 +232,74 @@ function pagingFriends(t){
 	
         })
 }
+function pagingUser(t){
+	var url=$(t).attr("name");	
+	var publisherMail=$("#myFriends>[name=userMail]").val();
+	$.ajax({
+		type:"post",
+		url:url,
+		dataType:"json",
+        success:function(data){
+        	var str;
+        	$("#Userss>.media").remove();
+        	$("selection>hr").remove();
+        	$("#friednpagefoot").remove();        	
+        	$.each(data.pageBean.list,function(index,user){           		
+         		str="<div class='media'>"+	                           
+			             "<a class='pull-left' href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+user.mailAddress+"'>"+
+			                     "<img class='media-object avatar avatar-sm' src='"+user.photoUrl+"' alt='"+user.username+"'>"+
+			              "</a>"+
+			              "<div class='comment' style='width: 450px;float: left'>"+ 
+					         "<div class='comment-author h6 no-margin'>"+
+					            "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+user.mailAddress+"'>"+user.username+"</a>"+
+					          "</div>"+
+					          "<div class='comment-bt'>"+
+					             "<span>"+user.signature+"</span>"+
+					          "</div>"+                    
+			               "</div>"+
+			               " <div name='hoverbutton' style='float:right;display: none'>"+
+			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> к╫пе</a>	"+			                      	  	
+			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> и╬ЁЩ</a>"+
+			               "</div>"+
+                      "</div><hr>";         		
+         		$("#Userss").append(str);
+         	});
+        	var pageBean=data.pageBean;
+        	var currentPage=pageBean.currentPage;
+        	var pre=currentPage-1;
+        	var next=currentPage+1;         
+        	str="<ul id='friednpagefoot' class='pager'>";      
+        	if(currentPage==1){
+        		str+="<li class='disabled'><a>&laquo;</a></li>";        
+        	}else{
+        		str+="<li><a onclick='pagingUser(this)'  href='javascript:void(0);' name='showAllUser?page="+pre+"'>&laquo;</a></li>";        
+        	}            	
+        	for(var i=1;i<pageBean.totalPage+1;i++){
+        		if(i==currentPage){
+        			str+="<li ><a >"+i+"</a></li>";
+        		}
+        		else{
+        			str+="<li><a  href='javascript:void(0);' onclick='pagingUser(this)' name='showAllUser?page="+i+"'>"+i+"</a></li>";
+        		}        		
+        	}
+        	if(currentPage==pageBean.totalPage){
+        		str+="<li class='disabled'><a>&raquo;</a></li>"+		   
+	             "</ul>";	        
+        	}else{
+        		str+="<li ><a onclick='pagingUser(this)' href='javascript:void(0);' name='showAllUser?page="+next+"'>&raquo;</a></li>"+		   
+	             "</ul>";	 
+        	}	       
+        	$("#Userss>.media:last").after(str);           	
+        	$(".media").on("mouseenter",function(){        		
+        		$(this).children("div[name=hoverbutton]").show();
+        	});
+        	$(".media").on("mouseleave",function(){        	
+        		$(this).children("div[name=hoverbutton]").hide();
+        	});
+        	}
+	
+        })
+}
 function checkLogin(t){
 	var user=$("input[name=userMail]").val();
 	var friend=$("input[name=friendMail]").val();

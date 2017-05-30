@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							                    	<a href="checkZiPostByUrl?cid=${post.childboardId.id }">${post.childboardId.name}</a>
 							                    </span> &nbsp;•&nbsp;
 							                    <strong>
-							                    	<a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=3333">${post.publisherMail.username}</a>
+							                    	<a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${post.publisherMail.mailAddress }">${post.publisherMail.username}</a>
 							                    </strong>&nbsp;•&nbsp;
 						                    	 <span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span>
 					                    	 </div>
