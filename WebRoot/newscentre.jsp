@@ -110,6 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					<div class="tab-pane fade" id="news" >
 						<div class="message-title group-title-3">我的私信</div>
+						<jsp:include page="pages/chat.jsp"></jsp:include>
 					</div>
 					<div class="tab-pane fade" id="system" >
 						<div class="message-title group-title-3">系统消息</div>

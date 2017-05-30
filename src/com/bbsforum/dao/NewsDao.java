@@ -3,6 +3,7 @@ package com.bbsforum.dao;
 import java.util.List;
 
 import com.bbsforum.entity.News;
+import com.bbsforum.entity.User;
 
 public interface NewsDao {
 
@@ -34,4 +35,18 @@ public interface NewsDao {
 	 * @return   消息集合，里面只包含好友请求
 	 */
 	public List<News> getFriRequestListByReceiverMail(String reciverMail);
+	/**
+	 * 用户获取私信页面中左边的最近联系人列表
+	 * @param userMail 登陆者的邮箱地址
+	 * @return 返回用户列表
+	 */
+	public List<User> getLastestSender(String userMail);
+	/**
+	 * 获取针对某个发送者的未读消息的条数
+	 * @param senderMail  发送者邮箱地址
+	 * @param receiverMail  接受者邮箱地址
+	 * @return 未读条数
+	 */
+	public int getUnreadSumBySender(String senderMail,String receiverMail);
+	
 }

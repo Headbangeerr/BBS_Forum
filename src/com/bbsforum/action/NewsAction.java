@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbsforum.biz.FriendsBiz;
 import com.bbsforum.biz.NewsBiz;
 import com.bbsforum.dao.UserDao;
+import com.bbsforum.entity.LastestSenderJSON;
 import com.bbsforum.entity.News;
 import com.bbsforum.entity.User;
 
@@ -25,6 +26,7 @@ public class NewsAction extends BaseAction {
 	private int type;
 	private boolean flag;
 	private List<News> news;
+	private List<LastestSenderJSON> lastestUsers;
 	private boolean operate;
 	private String newsId;
 	@Autowired
@@ -95,12 +97,30 @@ public class NewsAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	@Action(value="showLastestSender",results={
+			@Result(name="success",type="json",params={
+					"excludeProperties", "lastestUsers\\[\\d+\\]\\.user.posts,"
+							+"lastestUsers\\[\\d+\\]\\.user.friends,"						
+							+"lastestUsers\\[\\d+\\]\\.user.replys"})
+	})
+	public String showLastestSender(){
+		User user=(User)getSession().get("user");		
+		lastestUsers=newsBiz.getLastestSenders(user.getMailAddress());
+		return SUCCESS;
+	}
 	
 	
 	
 	
 	
 	
+
+	public List<LastestSenderJSON> getLastestUsers() {
+		return lastestUsers;
+	}
+	public void setLastestUsers(List<LastestSenderJSON> lastestUsers) {
+		this.lastestUsers = lastestUsers;
+	}
 	public String getNewsId() {
 		return newsId;
 	}

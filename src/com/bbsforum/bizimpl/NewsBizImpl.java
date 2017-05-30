@@ -1,5 +1,6 @@
 package com.bbsforum.bizimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbsforum.biz.NewsBiz;
 import com.bbsforum.dao.NewsDao;
 import com.bbsforum.dao.UserDao;
+import com.bbsforum.entity.LastestSenderJSON;
 import com.bbsforum.entity.News;
 import com.bbsforum.entity.User;
 
@@ -58,6 +60,22 @@ public class NewsBizImpl implements NewsBiz {
 	public List<News> getFriRequestListByReceiverMail(String reciverMail) {
 		logger.info("用户邮箱： ["+reciverMail+"]正在查看自己的好友请求列表");
 		return newsDao.getFriRequestListByReceiverMail(reciverMail);
+	}
+
+	@Override
+	public List<LastestSenderJSON> getLastestSenders(String receiverMail) {
+		logger.info("用户:【"+receiverMail+"】正在获取最近联系人列表…………");
+		List<User> lastestSenders=newsDao.getLastestSender(receiverMail);		
+		List<LastestSenderJSON> lastestSendersJson=new ArrayList<LastestSenderJSON>();
+		logger.info("已经获取到最近联系人数："+lastestSenders.size());
+		for (User sender : lastestSenders) {
+			LastestSenderJSON jsonTemp=new LastestSenderJSON();
+			jsonTemp.setUser(sender);
+			logger.info("联系人邮箱地址为："+jsonTemp.getUser().getMailAddress());
+			jsonTemp.setUnread(newsDao.getUnreadSumBySender(sender.getMailAddress(),receiverMail));
+			lastestSendersJson.add(jsonTemp);
+		}
+		return lastestSendersJson;
 	}
 
 	
