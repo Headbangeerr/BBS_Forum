@@ -1,0 +1,92 @@
+package com.bbsforum.daoimpl;
+
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bbsforum.dao.NewsDao;
+import com.bbsforum.entity.News;
+
+public class NewsDaoImpl implements NewsDao {
+	private static Logger logger=Logger.getLogger(MessageDaoImpl.class);
+	@Autowired
+	SessionFactory sessionFactory;
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	Session session;
+	Transaction tr;
+	@Override
+	public boolean sendNews(News news) {
+		session=sessionFactory.openSession();	
+		tr=session.beginTransaction();
+		try{
+			session.save(news);
+			tr.commit();
+			session.close();
+			return true;
+		}catch (Exception e){
+			e.printStackTrace();
+			session.close();
+			return false;
+		}
+		
+	}
+	@Override
+	public boolean handleFriendRequest(String newsId,boolean operate) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		tr=session.beginTransaction();
+		News news=(News) session.get(News.class, newsId);
+		if(operate){//如果接受了好友请求
+			news.setState(1);
+		}else{//拒绝了好友请求
+			news.setState(2);
+		}
+		
+		try{
+			session.update(news);
+			tr.commit();
+			session.close();
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			session.close();
+			return false;
+		}
+		
+	}
+	@Override
+	public boolean checkFriRequestExist(String senderMail, String receiverMail) {
+		session=sessionFactory.openSession();
+		String sql="select* from news where sender_mail=? and receiver_mail=? and type=1";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, senderMail);
+		query.setString(1, receiverMail);
+		if(query.list().size()>0){
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+	}
+	@Override
+	public List<News> getFriRequestListByReceiverMail(String reciverMail) {
+		session=sessionFactory.openSession();
+		String hql="from News where receiverMail=? and type=1 and state=0";
+		Query query=session.createQuery(hql);
+		query.setString(0, reciverMail);
+		List<News> news=query.list();
+		session.close();
+		return news;
+	}
+
+}

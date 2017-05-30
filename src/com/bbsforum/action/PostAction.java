@@ -177,9 +177,6 @@ public class PostAction extends BaseAction {
 	
 	@Autowired
 	private PageViewBiz pageViewBiz;
-	public PageViewBiz getPageViewBiz() {
-		return pageViewBiz;
-	}
 	public void setPageViewBiz(){
 		this.pageViewBiz=pageViewBiz;
 	}

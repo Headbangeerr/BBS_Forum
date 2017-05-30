@@ -64,6 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <ul class="dropdown-menu">
                             <li><a href="chaeckUserByUrl?mailAddress=<s:property value="#session.user.mailAddress"/>">我的信息</a></li>                            
                             <li><a href="<%=path+"/publish_post.jsp"%>">我要发帖</a></li>
+                             <li><a href="<%=path+"/newscentre.jsp"%>">消息中心</a></li>
                             <li class="divider"></li>
                             <li><a href="<%=path+"/logout.action"%>">退出登陆</a></li>
                         </ul>

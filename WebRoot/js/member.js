@@ -15,9 +15,9 @@ function send_message(){
              type:"POST",  
              data:params,  
              dataType:"json",  
-             success:function(data){                	
-               if(data.flag==true){            	            	               	            	 
-            	   $('.alert').html('发布成功！').addClass('alert-success').show().delay(1500).fadeOut();            	  
+             success:function(data){                	 
+               if(data.flag==true){                	   
+            	   $(".alert").html('发布成功！').addClass("alert-success").show().delay(1500).fadeOut();            	  
             	   $("textarea[name=content]").val("");
             	   if($("#myCollection>.art-row").size()==4){
            			  var totalpage=$("#pagefoot>li").size()-2;
@@ -232,13 +232,37 @@ function pagingFriends(t){
 	
         })
 }
-function checkLogin(t){
-	var user=$("input[name=userMail]").val();
-	var friend=$("input[name=friendMail]").val();
-	if(user==''){
+function checkLogin(t){	
+	var userMail=$("input[name=userMail]").val();
+	var friendMail=$("input[name=friendMail]").val();	
+	if(userMail==""||userMail==null){
 		alert("请登录以后再进行此项操作！")
-	}else{
-		
+	}else{		
+		$.ajax({  
+            url:"checkFriRequestExist?senderMail="+userMail+"&receiverMail="+friendMail,  
+            type:"POST",            
+            dataType:"json",  
+            success:function(data){            	
+            	if(data.flag==true){                		
+            		 $('.alert').html('您已经发送过好友请求了，请等待对方回复。').addClass('alert-success').show().delay(1500).fadeOut();  
+            	}
+            	else{
+            		$.ajax({  
+                        url:"sendFriendrequest?senderMail="+userMail+"&receiverMail="+friendMail,  
+                        type:"POST",            
+                        dataType:"json",  
+                        success:function(data){
+                        	if(data.flag==true){                        		
+                        		 $('.alert').html('已成功发送好友邀请！').addClass('alert-success').show().delay(1500).fadeOut();  
+                        	}
+                        	else{
+                        		 $('.alert').html('发送失败！').addClass('alert-success').show().delay(1500).fadeOut();  
+                        	}
+                        }
+                    })
+            	}
+            }
+        })
 	}
 }
 function deleFriend(t){

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.dao.MessageDao;
@@ -35,13 +36,18 @@ public class MessageDaoImpl implements MessageDao {
 	@Override
 	public boolean addMessage(Message message) {
 		session=sessionFactory.openSession();
+		Transaction tr=session.beginTransaction();
+		
 		try {
-			session.save(message);
+			session.merge(message);
+			tr.commit();
 			session.close();
+			logger.info("留言发布成功！");
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
 			session.close();
+			logger.info("留言发布失败！");
 			return false;
 		}
 		

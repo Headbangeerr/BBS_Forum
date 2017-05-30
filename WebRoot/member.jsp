@@ -39,6 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
   <body>
     <jsp:include page="pages/header.jsp"></jsp:include>
+     <div class="alert"></div>	   
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 用户信息</div>
 	    <div class="user-cont clearfix">
@@ -173,8 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    </s:else>	
 	                                        	                 
 						<a id="showLastPage" style="display: none" onclick="paging(this)"  name=''></a>
-	                     <form id="messageForm">
-	                     <div class="alert"></div>	            
+	                     <form id="messageForm">	                            
 	                     <input type="hidden" id="publisherMail" value="<s:property value="#session.user.username"/>">
 	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
 		                    <textarea name="content"  class="form-control" name="mailAddress" style="height: 70px; margin-top: 5px;" placeholder="对Ta说点啥"></textarea>	                  

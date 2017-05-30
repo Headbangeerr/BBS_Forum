@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
+      <%@taglib uri="/struts-tags" prefix="s" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="zh-CN">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">   <%-- 在IE运行最新的渲染模式 --%>
@@ -46,11 +47,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				transition: all 0.15s ease;
 			} 
   		</style>
-	
+		<script type="text/javascript" charset="GBK" src="js/newscentre.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<title>消息中心</title>
 	</head>
 	
 	<body id="message_center">
+		<input type="hidden" id="userMail" value="<s:property value="#session.user.mailAddress" />">
 		<jsp:include page="pages/header.jsp"></jsp:include>
 		<div id="message_center_box">
 			<div id="message_left" style="margin-top: 52px">
@@ -99,32 +102,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="message-title group-title-3">好友请求</div>
 					
 						</div>
+						<center><img name="loading" alt="载入中" src="img/loading.gif"></center>
 						<ul class="message-main-lists"> 
-						    <li class="message-main-list">
-						        <img class="message-source-logo" src="//i2.hdslb.com/u_user/31ce8733288c19be92d7ce9cb83462dc.png" alt="主站" title="主站">
-						        <div class="message-main-left">
-						            <a target="_blank" class="medium-pic round" href="//space.bilibili.com/3454387" title="杀手简">
-						                <img src="//i1.hdslb.com/bfs/face/9fdfb73e86105e216efaf9f6c42f2094bcfa2800.jpg" alt="杀手简">
-						            </a>
-						        </div>
-						        <div class="message-main-right">
-						            <a class="message-username" href="//space.bilibili.com/3454387" title="杀手简">
-						                	杀手简
-						            </a>
-						            <span class="message-source-time">
-						                2017-03-29 17:04:38
-						            </span>
-						            <div class="message-content-title">
-						                <a target="_blank" >向您发送了好友请求</a>
-						            </div>
-						            <div class="message-content-wrapper">
-						                <div class="message-content">
-						                    		<a class="hoverbutton greenbutton" style="" ><i class="fa fa-envelope-o"></i> <font color="FFFFFF">接受</font></a>
-						                    		<a class="hoverbutton redbutton"><i class="fa fa-envelope-o"></i> <font color="FFFFFF">拒绝</font></a> 
-						                </div>				                
-						            </div>
-						        </div>
-						    </li>			
+						    
 						</ul>
 					</div>
 					
@@ -143,3 +123,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</body>
 	</body>
 </html>
+<script>
+$(function(){
+	var receiverMail=$("#userMail").val();	
+	var str="";
+	$.ajax({
+		type:"post",
+		url:"getFriRequestListByReceiverMail?receiverMail="+receiverMail,
+		dataType:"json",
+        success:function(data){        	
+        	$("img[name=loading]").remove()
+        	if(data.news.length==0){
+        		$("#friend ul").append("<center><li  class='message-main-list' >没有待处理的好友请求。</li></center>")
+        	}else{
+        		$.each(data.news,function(index,news){           			
+        			str+="<li class='message-main-list'>"+					        
+					        "<div class='message-main-left'>"+
+					            "<a target='_blank' class='medium-pic round' href='' title='"+news.senderMail.username+"'>"+
+					                "<img src='"+news.senderMail.photoUrl+"' alt='"+news.senderMail.username+"'>"+
+					            "</a>"+
+					        "</div>"+
+					        "<div class='message-main-right'>"+
+					            "<a class='message-username' href='' title='"+news.senderMail.username+"'>"+
+					           		 news.senderMail.username+
+					            "</a>"+
+					            "<span class='message-source-time'>"+
+					                "2017-03-29 17:04:38"+
+					            "</span>"+	
+					            "<div class='message-content-title' name='newsContent'>"+
+				               		 "<a target='_blank' href=''>"+news.content+"</a>"+
+					            "</div>"+
+					            "<div class='message-content-wrapper'>"+
+					                "<div class='message-content'>"+
+					                	"<input type='hidden' name='senderMail' value='"+news.senderMail.mailAddress+"'>"+
+					                	"<input type='hidden' name='newsId' value='"+news.id+"'>"+
+					                    "<a onclick='handleRequest(this)' name='yes' class='hoverbutton greenbutton'><font color='#FFFFFF'>接受</font></a>	"+
+					                    "&nbsp;&nbsp;&nbsp;<a onclick='handleRequest(this)' name='no' class='hoverbutton redbutton'><font color='#FFFFFF'>拒绝</font></a>"+
+					                "</div>"+
+					            "</div>"+
+				       		"</div>"+
+				    "</li>";				  			  				          
+				    $("#friend ul").append(str);
+            	});	
+        	}        	
+        }
+	})
+})
+</script>

@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
 		session=sessionFactory.openSession();
 		User user=(User) session.get(User.class,mailAddress);
 		logger.info("posts.size:"+user.getPosts().size());
-		session.close();
+		session.close();	
 		return user;
 	}
 }

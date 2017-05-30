@@ -10,8 +10,9 @@
   http://www.springframework.org/schema/tx
   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
   http://www.springframework.org/schema/aop
-  http://www.springframework.org/schema/aop/spring-aop-3.0.xsdx
-  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     <context:annotation-config/>
 
 
@@ -26,8 +27,24 @@
 		<property name="username" value="root"></property>
 		
 	</bean>
-	
-	
+	<!-- 解决getCurrentSession不能获取session的问题 
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.bbsforum.biz.*.*(..))" id="bizMethods"/>
+		<aop:pointcut expression="execution(* com.bbsforum.dao.*.*(..))" id="daoMethods"/>
+		<aop:pointcut expression="execution(* com.bbsforum.daoimpl.*.*(..))" id="daoImplMethods"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoMethods"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="bizMethods"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoImplMethods"/>
+	</aop:config>
+	-->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" autowire="byName">
 		<property name="dataSource">
@@ -51,14 +68,11 @@
 				<value>com.bbsforum.entity.Childboard</value>
 				<value>com.bbsforum.entity.Post</value>
 				<value>com.bbsforum.entity.Message</value>		
-				<value>com.bbsforum.entity.Reply</value>		
+				<value>com.bbsforum.entity.Reply</value>	
+				<value>com.bbsforum.entity.News</value>	
 			</list>
 		</property></bean>
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<tx:annotation-driven/>
+	<!--  	<tx:annotation-driven/>-->
 	
 	
 	
@@ -104,6 +118,9 @@
 	</bean>
 	<bean id="replyAction" class="com.bbsforum.action.ReplyAction">
 	</bean>
+	
+	<bean id="newsDao" class="com.bbsforum.daoimpl.NewsDaoImpl"></bean>
+	<bean id="newsBiz" class="com.bbsforum.bizimpl.NewsBizImpl"></bean>
 </beans>
 	
 	
