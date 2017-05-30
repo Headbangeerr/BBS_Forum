@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50627
 File Encoding         : 65001
 
-Date: 2017-05-25 19:12:37
+Date: 2017-05-30 15:09:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -68,11 +68,10 @@ CREATE TABLE `friends` (
 -- ----------------------------
 -- Records of friends
 -- ----------------------------
-INSERT INTO `friends` VALUES ('0000', '2222');
-INSERT INTO `friends` VALUES ('0000', '3333');
-INSERT INTO `friends` VALUES ('0000', '4444');
-INSERT INTO `friends` VALUES ('0000', '5555');
-INSERT INTO `friends` VALUES ('0000', '6666');
+INSERT INTO `friends` VALUES ('1111', '0000');
+INSERT INTO `friends` VALUES ('0000', '1111');
+INSERT INTO `friends` VALUES ('3333', '1111');
+INSERT INTO `friends` VALUES ('1111', '3333');
 
 -- ----------------------------
 -- Table structure for `message`
@@ -89,7 +88,7 @@ CREATE TABLE `message` (
   KEY `reciver_mail` (`receiver_mail`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`publisher_mail`) REFERENCES `user` (`mail_address`),
   CONSTRAINT `message_ibfk_2` FOREIGN KEY (`receiver_mail`) REFERENCES `user` (`mail_address`)
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of message
@@ -113,19 +112,39 @@ INSERT INTO `message` VALUES ('159', '1111', '0000', '234234324', '2017-05-14 17
 INSERT INTO `message` VALUES ('160', '1111', '0000', '234234324', '2017-05-14 17:24:28');
 INSERT INTO `message` VALUES ('161', '1111', '0000', '77777', '2017-05-14 17:27:00');
 INSERT INTO `message` VALUES ('162', '1111', '0000', '77777', '2017-05-19 15:23:39');
+INSERT INTO `message` VALUES ('163', '1111', '3333', '22222', '2017-05-29 20:46:59');
+INSERT INTO `message` VALUES ('164', '1111', '3333', '22222', '2017-05-29 20:47:07');
+INSERT INTO `message` VALUES ('165', '1111', '3333', '22222', '2017-05-29 20:48:57');
+INSERT INTO `message` VALUES ('166', '1111', '3333', '1', '2017-05-29 20:56:45');
+INSERT INTO `message` VALUES ('167', '1111', '3333', '1', '2017-05-29 20:57:07');
+INSERT INTO `message` VALUES ('168', '1111', '3333', '1', '2017-05-29 20:57:49');
+INSERT INTO `message` VALUES ('169', '1111', '3333', '3', '2017-05-29 20:57:56');
+INSERT INTO `message` VALUES ('170', '1111', '3333', '4', '2017-05-29 20:59:30');
+INSERT INTO `message` VALUES ('171', '1111', '3333', '5', '2017-05-29 21:13:40');
+INSERT INTO `message` VALUES ('172', '0000', '1111', 'nihaowa', '2017-05-29 09:14:19');
+INSERT INTO `message` VALUES ('173', '1111', '3333', 'nihao', '2017-05-29 22:15:45');
+INSERT INTO `message` VALUES ('174', '1111', '0000', '1', '2017-05-29 22:17:42');
+INSERT INTO `message` VALUES ('175', '1111', '0000', '1', '2017-05-29 22:19:51');
+INSERT INTO `message` VALUES ('176', '1111', '0000', '1', '2017-05-29 22:23:20');
+INSERT INTO `message` VALUES ('177', '1111', '3333', 'nihao111', '2017-05-29 22:23:32');
+INSERT INTO `message` VALUES ('178', '1111', '3333', 'hahahaa', '2017-05-29 22:28:07');
+INSERT INTO `message` VALUES ('179', '1111', '2222', 'nihao', '2017-05-29 22:36:21');
+INSERT INTO `message` VALUES ('180', '1111', '2222', 'hahaha', '2017-05-29 22:37:22');
 
 -- ----------------------------
 -- Table structure for `news`
 -- ----------------------------
 DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news` (
+  `id` char(40) NOT NULL,
   `sender_mail` char(20) NOT NULL,
   `receiver_mail` char(20) NOT NULL,
-  `send_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `content` varchar(255) NOT NULL DEFAULT 'CURRENT_TIMESTAMP',
-  `type` char(5) DEFAULT 'n',
-  `state` int(2) DEFAULT '0',
-  PRIMARY KEY (`sender_mail`,`receiver_mail`),
+  `send_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `content` varchar(255) NOT NULL,
+  `type` int(1) DEFAULT '0' COMMENT '默认为0,0代表一般消息，1代表好友消息，2代表系统消息',
+  `state` int(1) DEFAULT '0' COMMENT '0表示未处理，1表示已接受，2表示已拒绝',
+  PRIMARY KEY (`id`),
+  KEY `sender_mail` (`sender_mail`),
   KEY `receiver_mail` (`receiver_mail`),
   CONSTRAINT `news_ibfk_1` FOREIGN KEY (`sender_mail`) REFERENCES `user` (`mail_address`),
   CONSTRAINT `news_ibfk_2` FOREIGN KEY (`receiver_mail`) REFERENCES `user` (`mail_address`)
@@ -134,6 +153,20 @@ CREATE TABLE `news` (
 -- ----------------------------
 -- Records of news
 -- ----------------------------
+INSERT INTO `news` VALUES ('00001496057280039', '0000', '1111', '2017-05-29 19:28:00', '你好哇', '0', '0');
+INSERT INTO `news` VALUES ('00001496060286081', '0000', '1111', '2017-05-30 15:00:32', '向您发送了好友请求', '1', '1');
+INSERT INTO `news` VALUES ('00001496066689555', '0000', '1111', '2017-05-29 22:04:49', '你好哇', '0', '0');
+INSERT INTO `news` VALUES ('1', '0000', '1111', '2017-05-29 17:50:51', '你好哇', '0', '0');
+INSERT INTO `news` VALUES ('11111496068708129', '1111', '2222', '2017-05-29 22:38:28', '向您发送了好友请求', '1', '0');
+INSERT INTO `news` VALUES ('11111496068848284', '1111', '3333', '2017-05-29 22:40:48', '向您发送了好友请求', '1', '1');
+INSERT INTO `news` VALUES ('11111496126652528', '1111', '0000', '2017-05-30 14:44:12', '该用户拒绝了您的好友请求！', '0', '0');
+INSERT INTO `news` VALUES ('11111496127376935', '1111', '0000', '2017-05-30 14:56:16', '该用户已经同意了您的好友请求！', '0', '0');
+INSERT INTO `news` VALUES ('11111496127634997', '1111', '0000', '2017-05-30 15:00:35', '该用户已经同意了您的好友请求！', '0', '0');
+INSERT INTO `news` VALUES ('2222', '0000', '1111', '2017-05-29 19:44:27', '1190', '0', '0');
+INSERT INTO `news` VALUES ('222222222', '0000', '1111', '2017-05-29 19:46:58', '234234', '0', '0');
+INSERT INTO `news` VALUES ('3', '0000', '1111', '2017-05-29 19:13:22', '你好哇', '0', '0');
+INSERT INTO `news` VALUES ('3333', '0000', '1111', '2017-05-29 19:44:32', '786', '0', '0');
+INSERT INTO `news` VALUES ('33331496127702914', '3333', '1111', '2017-05-30 15:01:42', '该用户已经同意了您的好友请求！', '0', '0');
 
 -- ----------------------------
 -- Table structure for `post`
@@ -157,13 +190,16 @@ CREATE TABLE `post` (
 -- ----------------------------
 -- Records of post
 -- ----------------------------
+INSERT INTO `post` VALUES ('', 'test6', 'i m tired', '2222', '2017-05-26 21:52:32', '4', '2');
 INSERT INTO `post` VALUES ('1', '13243', '242342', '1111', '2017-04-04 10:20:53', '4', '234');
+INSERT INTO `post` VALUES ('10', '11111', 'test', '3333', '2017-05-26 22:07:18', '5', '3');
 INSERT INTO `post` VALUES ('2', 'test', 'testtesetsetset', '0000', '2017-05-01 20:04:08', '4', '12');
 INSERT INTO `post` VALUES ('3', 'test1', 'wertwerwerwer', '0000', '2017-05-08 16:33:23', '5', '34');
 INSERT INTO `post` VALUES ('4', 'test2', '啊哈哈哈哈哈', '0000', '2017-05-08 16:33:36', '5', '33');
-INSERT INTO `post` VALUES ('5', 'test3', 'hello', '0000', '2017-05-08 16:33:55', '4', '234');
+INSERT INTO `post` VALUES ('5', 'test3', 'test hello', '0000', '2017-05-08 16:33:55', '4', '234');
 INSERT INTO `post` VALUES ('6', 'test4', 'hhhhhhh', '0000', '2017-05-08 16:34:12', '5', '44');
-INSERT INTO `post` VALUES ('7', 'test5', 'what?', '0000', '2017-05-08 16:34:36', '4', '22');
+INSERT INTO `post` VALUES ('7', 'test5', 'what?', '0000', '2017-05-08 16:34:36', '5', '22');
+INSERT INTO `post` VALUES ('9', 'test7', 'i mso tired', '3333', '2017-05-26 21:54:32', '5', '3');
 
 -- ----------------------------
 -- Table structure for `reply`
