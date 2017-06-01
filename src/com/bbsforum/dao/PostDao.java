@@ -53,4 +53,6 @@ public interface PostDao {
 	public List<Post> getZiPostListForPage(int offset, int PageSize,int cid);
 	
 	public List<Post> getZiPostListForPage1(int cid);
+	
+	public boolean deletePost(String id);
 }

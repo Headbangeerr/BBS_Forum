@@ -38,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <script type="text/javascript" src="<%=basePath%>js/member.js" charset="gb2312"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
   <body>
+  <div class="alert"></div>	
     <jsp:include page="pages/header.jsp"></jsp:include>
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 用户信息</div>

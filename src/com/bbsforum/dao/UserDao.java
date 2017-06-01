@@ -18,4 +18,6 @@ public interface UserDao {
 	public List getAllUserList1(int i);
 	
 	public boolean updaUser(User user);
+	
+	public List getUser(int i);
 }

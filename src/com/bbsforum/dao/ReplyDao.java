@@ -11,4 +11,6 @@ public interface ReplyDao {
 	public List<Reply> getReplyListForPage(int offset, int PageSize,String pid);
 	
 	public List<Reply> getReplyListForPage1(String pid);
+	
+	public boolean deleteReply(String postid);
 }

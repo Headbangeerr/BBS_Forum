@@ -140,7 +140,6 @@ public class PostAction extends BaseAction {
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
-
 	private int page;
 	@JSON(serialize=false)
 	public int getPage() {
@@ -167,6 +166,11 @@ public class PostAction extends BaseAction {
 	UserBiz userBiz;
 	public void setUserBiz(UserBiz userBiz) {
 		this.userBiz = userBiz;
+	}
+	@Autowired
+	ReplyDao replyDao;
+	public void setReplyDao(ReplyDao replyDao) {
+		this.replyDao = replyDao;
 	}
 	@Autowired
 	BoardDao boardDao;
@@ -370,4 +374,45 @@ public class PostAction extends BaseAction {
 		logger.info("成功获取到帖子页面…… 页面中的帖子条数为："+pageBean.getList().size());
 		return SUCCESS;
 	}
+	@Action(value="deletePost",results={
+			@Result(name="success",type="json")
+	})
+	public String deletePost(){
+		if(postdDao.deletePost(pid)&&replyDao.deleteReply(pid)){
+			flag=true;
+		}
+		else{
+			flag=false;
+		}
+		logger.info("flag:"+flag);
+		return SUCCESS;
+	}
+	
+	@Action(value="serchPost1",results={
+			@Result(name="self",location="/revise_post.jsp")
+	})
+	public String serchPost1(){
+		post=postBiz.getPost(pid);
+		getSession().put("postXG",post);
+		return "self";
+	}
+	
+	@Action(value="updatePost",results={
+			@Result(name="success",type="json")
+	})
+	public String updatePost(){
+		Post posts1=(Post) getSession().get("postXG");
+		posts1.setTitle(title);
+		posts1.setContent(content);
+		//logger.info("开始更新"+posts1.getTitle()+" "+posts1.getContent());
+		if(postdDao.updaPost(posts1)){
+			flag=true;
+		}
+		else{
+			flag=false;
+		}
+		return SUCCESS;
+	}
+
+
 }

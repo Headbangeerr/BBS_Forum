@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                   	  </s:if>
 	                   	  <s:else>	 
 		                   	  	<s:iterator value="#request.userBean1" var="user">
-			                   	  	<s:if test="#request.user.level==1">
+			                   	  	<s:if test="#request.user.type==0">
 			                   	  		<div class="media">	                           
 				                            <a class="pull-left" href="http://localhost:8080/BBS_Forum/checkQXUserByUrl?mailAddress=${user.mailAddress }">
 				                            	<img class="media-object avatar avatar-sm" src="${user.photoUrl}" alt="${user.username }">

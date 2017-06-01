@@ -67,4 +67,20 @@ public class ReplyDaoImpl implements ReplyDao {
 		session.close();
 		return ReplyPage;
 	}
+	@Override
+	public boolean deleteReply(String postid) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();		
+		String sql="delete from Reply where postId=?";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, postid);
+		if(query.executeUpdate()>0){
+			session.close();
+			return true;
+		}
+		else{
+			session.close();
+			return false;
+		}
+	}
 }

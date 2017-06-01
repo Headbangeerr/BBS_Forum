@@ -109,7 +109,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			return LOGIN;
 		}else{
 			if(user.getPassword().endsWith(password)){
-				if(user.getLevel().equals(3)){
+				if(user.getType().equals(2)){
 					getSession().put("user", user);
 					return "superman";
 				}else{
@@ -239,7 +239,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		User check;
 		getSession().put("usermailqx", mailAddress);
 		check=userBiz.getUserByMailAddress(mailAddress);
-		le=check.getLevel();
+		le=check.getType();
 		getRequest().put("checkedUser1", check);
 		return "others";
 	
@@ -249,7 +249,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	})
 	public String upQX(){
 		User userqx=userBiz.getUserByMailAddress(userMail);
-		userqx.setLevel(userqx.getLevel()+1);
+		userqx.setType(userqx.getType()+1);
 		if(userDao.updaUser(userqx)){
 			flag=true;
 		}
@@ -264,7 +264,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	})
 	public String downQX(){
 		User userqx=userBiz.getUserByMailAddress(userMail);
-		userqx.setLevel(userqx.getLevel()-1);
+		userqx.setType(userqx.getType()-1);
 		if(userDao.updaUser(userqx)){
 			flag=true;
 		}

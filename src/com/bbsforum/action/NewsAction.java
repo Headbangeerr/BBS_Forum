@@ -1,5 +1,7 @@
 package com.bbsforum.action;
 
+import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.FriendsBiz;
 import com.bbsforum.biz.NewsBiz;
+import com.bbsforum.dao.NewsDao;
 import com.bbsforum.dao.UserDao;
+import com.bbsforum.entity.Childboard;
 import com.bbsforum.entity.LastestSenderJSON;
 import com.bbsforum.entity.News;
+import com.bbsforum.entity.Post;
 import com.bbsforum.entity.User;
 
 
@@ -33,6 +38,11 @@ public class NewsAction extends BaseAction {
 	NewsBiz newsBiz;
 	public void setNewsBiz(NewsBiz newsBiz) {
 		this.newsBiz = newsBiz;
+	}
+	@Autowired
+	NewsDao newsDao;
+	public void setNewsDao(NewsDao newsDao) {
+		this.newsDao = newsDao;
 	}
 	@Autowired
 	UserDao userDao;
@@ -176,5 +186,34 @@ public class NewsAction extends BaseAction {
 	public void setType(int type) {
 		this.type = type;
 	}
+	@Action(value="sendZDNews",results={
+			@Result(name="success",type="json")
+	})
+	public String sendZDNews(){
+		int x=(int)(Math.random()*100);
+		String a="b"+x;
+		Timestamp d = new Timestamp(System.currentTimeMillis());
+		User publishser=(User)getSession().get("user");
+		int i=2;
+		List<User> tm=userDao.getUser(i);
+		System.out.println(content);
+		Iterator itor=tm.iterator();
+		while(itor.hasNext()){
+			User senduser=(User)itor.next();
+			News news=new News();
+			news.setId(a);
+			news.setSenderMail(publishser);
+			news.setReceiverMail(senduser);
+			news.setSendDate(d);
+			news.setContent("ÉêÇëÖÃ¶¥£¬Ìû×ÓidÎª£º"+content);
+			news.setType(0);
+			news.setState(0);
+			newsDao.sendNews(news);
+		}
+		
+			flag=true;
 	
+		logger.info("flag:"+flag);
+		return SUCCESS;
+	}
 }
