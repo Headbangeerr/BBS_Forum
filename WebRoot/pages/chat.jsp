@@ -8,6 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <link rel="stylesheet" href="css/style.min.css" />
 	<link rel="stylesheet" href="css/base.css" />
     <title>我的私信</title>
@@ -22,14 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <div class="chat_tab_wrapper">
 					            <div class="chat_tab" style="color: #00a1d6;">近期会话</div>
 					        </div>					       
-        					<div class="chat_history_list" style="height: 505px;">
-        						<a class="rname_card active" data-rid="1863a713189a532270206a49e12d43a9" href="#whisper/rid1863a713189a532270206a49e12d43a9">
-    								<img src="//i1.hdslb.com/bfs/face/c5fbd019f7887c7acf701368ad59853b8bfb7102.jpg">
-    								<div class="name">進擊の変態様</div>
-    								<div class="last_msg"></div>
-    								<div class="msg_num" style="display: none">0</div>
-    								<i class="chat_close"></i>	
-        						</a>
+        					<div class="chat_history_list" style="height: 505px;">  
+        					      						
         					</div>					          			
     					</div>
     					<div class="whisper_right" style="width: 550px;display: none;">
@@ -89,4 +84,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			</div>
 		</div>
   </body>
+  <script type="text/javascript">
+  	$(function(){  		
+  		 $.ajax({  
+             url:"showLastestSender",  
+             type:"POST",               
+             dataType:"json",  
+             success:function(data){
+            	 var str;
+            	 if(data.lastestUsers.length==0){
+        			 alert("联系人为0");
+        			 str="<center><h1>空空如也~</h1></center>";
+        			 $(".chat_history_list").append(str);
+        		 }
+            	 else{
+            		 $.each(data.lastestUsers,function(index,sender){
+                		 alert(sender.unread)
+                		 alert(sender.user.username)
+                		 if(sender.length==0){
+                			 alert("联系人为0")
+                			 str="<center><h1>空空如也~</h1></center>";
+                		 }else{
+                			 str="<a class='rname_card'  href=''>"+
+    							"<img src='"+sender.user.photoUrl+"'>"+
+    							"<div class='name'>"+sender.user.username+"</div>"+
+    							"<div class='last_msg'>2423423423423423434534545645634524534534534534534534</div>";
+    						if(sender.unread=='0'){
+    							str+="<div class='msg_num' style='display:none'>"+sender.unread+"</div>"+								
+    							"</a>";	
+    						}	
+    						else{
+    							str+="<div class='msg_num' >"+sender.unread+"</div>"+								
+    							"</a>";	 
+    						}
+                		 }        			 
+    					$(".chat_history_list").append(str);
+                	 }) 
+            	 }            	 
+            }             
+  		 })  		
+  	})   
+  </script>
 </html>
