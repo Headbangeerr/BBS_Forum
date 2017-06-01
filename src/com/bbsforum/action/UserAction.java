@@ -1,3 +1,4 @@
+
 package com.bbsforum.action;
 
 import java.sql.Timestamp;
@@ -274,3 +275,4 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		return SUCCESS;
 	}
 }
+

@@ -1,3 +1,4 @@
+
 package com.bbsforum.biz;
 
 import java.util.List;
@@ -10,3 +11,4 @@ public interface UserBiz {
 	
 	public List getAllUserList(int offset, int pageSize);
 }
+

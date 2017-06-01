@@ -1,3 +1,4 @@
+
 package com.bbsforum.biz;
 
 import java.util.List;
@@ -25,3 +26,4 @@ public interface PageViewBiz {
 	
 	public PageBean showUserBypage(int pageIndex,int pageSize);
 }
+

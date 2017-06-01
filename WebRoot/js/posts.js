@@ -1,3 +1,4 @@
+
 function add_reply(){
 	var content=$("textarea[name=content]").val();
 	var publisherMail=$("input[name=publisherMail]").val();
@@ -434,3 +435,4 @@ $(function(){
 		});	
 	})
 })
+
