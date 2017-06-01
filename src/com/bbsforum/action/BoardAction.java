@@ -53,7 +53,7 @@ public class BoardAction extends BaseAction {
 	@JSON(serialize=false)
 	@Action(value="getBoardList",results={
 			@Result(name="success",type="json",params={
-					"excludeProperties","boardList\\[\\d+\\]\\.childBoard\\[\\d+\\]\\.posts"
+					"excludeProperties","boardList\\[\\d+\\]\\.childBoard\\[\\d+\\]\\.posts,"
 							})
 	})
 	public String  getAllBoard(){

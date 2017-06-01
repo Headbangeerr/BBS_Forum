@@ -1,4 +1,12 @@
+<<<<<<< HEAD
+eclipse.preferences.version=1
+encoding//WebRoot/js/posts.js=UTF-8
+encoding//WebRoot/js/search.js=UTF-8
+encoding//WebRoot/postshow.jsp=UTF-8
+encoding/<project>=GBK
+=======
 eclipse.preferences.version=1
 encoding//WebRoot/js/search.js=UTF-8
 encoding//WebRoot/newscentre.jsp=UTF-8
 encoding/<project>=GBK
+>>>>>>> Headbangeerr/master

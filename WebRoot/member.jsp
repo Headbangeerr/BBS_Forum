@@ -39,7 +39,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
   <body>
     <jsp:include page="pages/header.jsp"></jsp:include>
-     <div class="alert"></div>	   
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 用户信息</div>
 	    <div class="user-cont clearfix">
@@ -102,8 +101,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <s:else>
 	                    	<s:iterator value="#request.postBean.list" var="post">
 		                    	<div class="art-row">	                           
-		                            <h4><a href="" class="title">${post.title} </a></h4>	                          
-		                            <span class="label label-default"><a href="">${post.childboardId.name}</a></span>
+		                            <h4><a href="serchPost?pid=${post.id}" class="title">${post.title} </a></h4>	                          
+		                            <span class="label label-default"><a href="checkZiPostByUrl?cid=${post.childboardId.id }">${post.childboardId.name}</a></span>
 		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
 		                             <i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span>
 		                             </a>
@@ -174,7 +173,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    </s:else>	
 	                                        	                 
 						<a id="showLastPage" style="display: none" onclick="paging(this)"  name=''></a>
-	                     <form id="messageForm">	                            
+	                     <form id="messageForm">
+	                     <div class="alert"></div>	            
 	                     <input type="hidden" id="publisherMail" value="<s:property value="#session.user.username"/>">
 	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
 		                    <textarea name="content"  class="form-control" name="mailAddress" style="height: 70px; margin-top: 5px;" placeholder="对Ta说点啥"></textarea>	                  

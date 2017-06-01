@@ -1,3 +1,4 @@
+
 package com.bbsforum.biz;
 
 import java.util.List;
@@ -17,4 +18,12 @@ public interface PageViewBiz {
 	
 	public PageBean showReplyBypage(int pageIndex, int pageSize, String pid);
 
+	public PageBean showAllPostBypage(int pageIndex, int pageSize);
+
+	public PageBean showViePostBypage(int pageIndex,int pageSize);
+	
+	public PageBean showZiPostBypage(int pageIndex, int pageSize, int cid);
+	
+	public PageBean showUserBypage(int pageIndex,int pageSize);
 }
+

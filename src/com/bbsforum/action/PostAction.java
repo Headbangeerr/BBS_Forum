@@ -3,7 +3,10 @@ package com.bbsforum.action;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -14,8 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.PageViewBiz;
 import com.bbsforum.biz.PostBiz;
+import com.bbsforum.biz.ReplyBiz;
 import com.bbsforum.biz.UserBiz;
 import com.bbsforum.dao.BoardDao;
+import com.bbsforum.dao.PostDao;
+import com.bbsforum.dao.ReplyDao;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.daoimpl.PostDaoImlp;
 import com.bbsforum.entity.Childboard;
@@ -143,7 +149,15 @@ public class PostAction extends BaseAction {
 	public void setPage(int page) {
 		this.page = page;
 	}
-
+	
+	private int cid;
+	@JSON(serialize=false)
+	public int getCid() {
+		return cid;
+	}
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
 	@Autowired
 	PostBiz postBiz;
 	public void setPostBiz(PostBiz postBiz) {
@@ -158,6 +172,11 @@ public class PostAction extends BaseAction {
 	BoardDao boardDao;
 	public void setBoardDao(BoardDao boardDao){
 		this.boardDao=boardDao;
+	}
+	@Autowired
+	PostDao postdDao;
+	public void setPostDao(PostDao postdDao){
+		this.postdDao=postdDao;
 	}
 	
 	@Action(value="showLastestPostOnIndexPage",results={
@@ -177,6 +196,9 @@ public class PostAction extends BaseAction {
 	
 	@Autowired
 	private PageViewBiz pageViewBiz;
+	public PageViewBiz getPageViewBiz() {
+		return pageViewBiz;
+	}
 	public void setPageViewBiz(){
 		this.pageViewBiz=pageViewBiz;
 	}
@@ -197,11 +219,9 @@ public class PostAction extends BaseAction {
 	}
 	
 	@Action(value="checkPostByUrl",results={
-			@Result(name="others",location="/member.jsp"),
-			@Result(name="self",location="/postshow.jsp")
+			@Result(name="self",location="/pages/postshow.jsp")
 	})
 	public String checkPostByUrl(){
-		
 		getSession().put("bid", bid);
 		postBean=pageViewBiz.showChoosePostBypage(1, 5, bid);
 		getRequest().put("pageBean", pageBean);
@@ -256,6 +276,9 @@ public class PostAction extends BaseAction {
 	})
 	public String serchPost(){
 		post=postBiz.getPost(pid);
+		int vie=post.getPageView()+1;
+		post.setPageView(vie);
+		postdDao.updaPost(post);
 		getSession().put("pidshow", pid);
 		post.getPublishTime();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -266,6 +289,85 @@ public class PostAction extends BaseAction {
 		return "self";
 	}
 	
+	@Action(value="showAllPostByPage",results={
+			@Result(name="success",type="json",params={
+					"excludeProperties",  "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.childboardId.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
+							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard,"
+							+"pageBean.list\\[\\d+\\]\\.publisherMail.replys"})
+	}) 
+	public String showAllPostByPage(){
+		pageBean=pageViewBiz.showAllPostBypage(page, 5);
+		logger.info("成功获取到帖子页面…… 页面中的帖子条数为："+pageBean.getList().size());
+		return SUCCESS;
+	}
+	
+	@Action(value="checkAllPostByUrl",results={
+			@Result(name="self",location="/pages/postAllshow.jsp")
+	})
+	public String checkAllPostByUrl(){
+		postBean=pageViewBiz.showAllPostBypage(1, 5);
+		getRequest().put("pageBean", pageBean);
+		return "self";
+	}
 
 
+	@Action(value="showViePostByPage",results={
+			@Result(name="success",type="json",params={
+					"excludeProperties",  "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.childboardId.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
+							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard,"
+							+"pageBean.list\\[\\d+\\]\\.publisherMail.replys"})
+	}) 
+	public String showViePostByPage(){
+		pageBean=pageViewBiz.showViePostBypage(page, 5);
+		logger.info("成功获取到帖子页面…… 页面中的帖子条数为："+pageBean.getList().size());
+		return SUCCESS;
+	}
+	
+	@Action(value="checkViePostByUrl",results={
+			@Result(name="self",location="/pages/postVieshow.jsp")
+	})
+	public String checkViePostByUrl(){
+		postBean=pageViewBiz.showViePostBypage(1, 5);
+		getRequest().put("pageBean", pageBean);
+		return "self";
+	}
+	
+	@Action(value="checkJHPostByUrl",results={
+			@Result(name="self",location="/pages/postJHshow.jsp")
+	})
+	public String checkJHPostByUrl(){
+		List<Post> postJH=new ArrayList<Post>();
+		int i=7;
+		postJH=postBiz.getJHPost(i);
+		getRequest().put("postJH", postJH);
+		return "self";
+	}
+
+	@Action(value="checkZiPostByUrl",results={
+			@Result(name="self",location="/pages/postZishow.jsp")
+	})
+	public String checkZiPostByUrl(){
+		getSession().put("cidtt", cid);
+		postBean=pageViewBiz.showZiPostBypage(1, 5, cid);
+		getRequest().put("pageBean", pageBean);
+		return "self";
+	}
+	
+	@Action(value="showZiPostByPage",results={
+			@Result(name="success",type="json",params={
+					"excludeProperties", "pageBean.list\\[\\d+\\]\\.publisherMail.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.childboardId.posts,"
+							+ "pageBean.list\\[\\d+\\]\\.publisherMail.friends,"
+							+"pageBean.list\\[\\d+\\]\\.childboardId.parentBoard,"
+							+"pageBean.list\\[\\d+\\]\\.publisherMail.replys"})
+	}) 
+	public String showZiPostByPage(){
+		pageBean=pageViewBiz.showZiPostBypage(page, 5, cid);
+		logger.info("成功获取到帖子页面…… 页面中的帖子条数为："+pageBean.getList().size());
+		return SUCCESS;
+	}
 }

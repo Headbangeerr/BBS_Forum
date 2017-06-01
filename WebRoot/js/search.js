@@ -19,7 +19,7 @@ $(function(){
 									"<a href='serchPost?pid="+post.id+"'>"+post.title+"</a>"+
 								"</div>"+
 								"<div class='comment-bt'>"+
-									"<span class='label label-default'><a href='#'>"+post.childboardId.name+"</a></span> &nbsp;•&nbsp;"+
+									"<span class='label label-default'><a href='checkZiPostByUrl?cid="+post.childboardId.id+"'>"+post.childboardId.name+"</a></span> &nbsp;•&nbsp;"+
 									"<strong><a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'>"+post.publisherMail.username+"</a></strong>"+
 									 "&nbsp;•&nbsp; <span>"+post.publishTime+"</span>"+
 								"</div>"+

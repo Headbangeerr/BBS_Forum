@@ -1,6 +1,7 @@
 package com.bbsforum.daoimpl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -108,5 +109,121 @@ public class PostDaoImlp implements PostDao {
 		session.close();
 		return post;
 	}
+	@Override
+	public List<Post> getAllPostListForPage(int offset, int PageSize) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		List<Post> PostPage=new ArrayList<Post>();
+		String hql="from Post";
+		Query query=session.createQuery(hql);
+		query.setFirstResult(offset);
+		query.setMaxResults(PageSize);
+		PostPage=query.list();
+		session.flush();
+		session.close();
+		return PostPage;
+
+	}
+	@Override
+	public List getAllPostList(int i) {
+		// TODO Auto-generated method stub
+		Session  session=sessionFactory.openSession();
+		String hql="from Post";
+		Query query=session.createQuery(hql);
+		List postList=query.list();
+		session.flush();
+		session.close();
+		return postList;
+
+	}
+	@Override
+	public List<Post> getViePostListForPage(int offset, int PageSize) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		List<Post> PostPage=new ArrayList<Post>();
+		String hql="select c from Post c where c.pageView>20";
+		Query query=session.createQuery(hql);
+		query.setFirstResult(offset);
+		query.setMaxResults(PageSize);
+		PostPage=query.list();
+		//session.flush();
+		session.close();
+		return PostPage;
+	}
+	@Override
+	public List getViePostList(int i) {
+		// TODO Auto-generated method stub
+		Session  session=sessionFactory.openSession();
+		String hql="select c from Post c where c.pageView>20";
+		Query query=session.createQuery(hql);
+		List postList=query.list();
+		session.flush();
+		session.close();
+		return postList;
+	}
+	@Override
+	public List<Post> getJHPost(int i) {
+		// TODO Auto-generated method stub
+		Session  session=sessionFactory.openSession();
+		String hql="from Post order by pageView desc";
+		Query query=session.createQuery(hql);
+		query.setFirstResult(0);
+		query.setMaxResults(3);
+		List postList=query.list();
+//		Iterator itor=postList.iterator();
+//		while(itor.hasNext()){
+//			Post book=(Post)itor.next();
+//			System.out.println(book.getTitle()+"  "+book.getId());
+//		}
+		session.flush();
+		session.close();
+		return postList;
+	}
+	@Override
+	public boolean updaPost(Post post) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		Transaction tran = this.session.beginTransaction();
+		try {
+			session.update(post);
+			tran.commit();
+			//System.out.println("更新成功！！！！！！！！");
+			session.close();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			session.close();
+			//System.out.println("更新失败！！！！！！");
+			return false;
+		}
+	}
+	@Override
+	public List<Post> getZiPostListForPage(int offset, int PageSize, int cid) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		List<Post> PostPage=new ArrayList<Post>();
+		String hql="select p from Post p where p.childboardId.id=?";
+		Query query=session.createQuery(hql);
+		query.setInteger(0, cid);
+		query.setFirstResult(offset);
+		query.setMaxResults(PageSize);
+		PostPage=query.list();
+		session.close();
+		return PostPage;
+	}
+	@Override
+	public List<Post> getZiPostListForPage1(int cid) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		List<Post> PostPage=new ArrayList<Post>();
+		String hql="select p from Post p where p.childboardId.id=?";
+		Query query=session.createQuery(hql);
+		query.setInteger(0, cid);
+		PostPage=query.list();
+		session.close();
+		return PostPage;
+	}
+
+
 
 }
