@@ -22,7 +22,7 @@ function send_message(){
 =======
              success:function(data){                	 
                if(data.flag==true){                	   
-            	   $(".alert").html('·¢²¼³É¹¦£¡').addClass("alert-success").show().delay(1500).fadeOut();            	  
+            	   $(".alert").html('ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½').addClass("alert-success").show().delay(1500).fadeOut();            	  
 >>>>>>> Headbangeerr/master
             	   $("textarea[name=content]").val("");
             	   if($("#myCollection>.art-row").size()==4){
@@ -117,6 +117,7 @@ function paging(t){
         }
 	});	
 }
+
 function pagingPost(t){
 	var url=$(t).attr("name");	
 	var publisherMail=$("#myArticle>[name=publisherMail]").val();
@@ -319,7 +320,7 @@ function checkLogin(t){
 	var userMail=$("input[name=userMail]").val();
 	var friendMail=$("input[name=friendMail]").val();	
 	if(userMail==""||userMail==null){
-		alert("ÇëµÇÂ¼ÒÔºóÔÙ½øÐÐ´ËÏî²Ù×÷£¡")
+		alert("ï¿½ï¿½ï¿½Â¼ï¿½Ôºï¿½ï¿½Ù½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
 	}else{		
 		$.ajax({  
             url:"checkFriRequestExist?senderMail="+userMail+"&receiverMail="+friendMail,  
@@ -327,7 +328,7 @@ function checkLogin(t){
             dataType:"json",  
             success:function(data){            	
             	if(data.flag==true){                		
-            		 $('.alert').html('ÄúÒÑ¾­·¢ËÍ¹ýºÃÓÑÇëÇóÁË£¬ÇëµÈ´ý¶Ô·½»Ø¸´¡£').addClass('alert-success').show().delay(1500).fadeOut();  
+            		 $('.alert').html('ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½È´ï¿½ï¿½Ô·ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½').addClass('alert-success').show().delay(1500).fadeOut();  
             	}
             	else{
             		$.ajax({  
@@ -336,10 +337,10 @@ function checkLogin(t){
                         dataType:"json",  
                         success:function(data){
                         	if(data.flag==true){                        		
-                        		 $('.alert').html('ÒÑ³É¹¦·¢ËÍºÃÓÑÑûÇë£¡').addClass('alert-success').show().delay(1500).fadeOut();  
+                        		 $('.alert').html('ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¡').addClass('alert-success').show().delay(1500).fadeOut();  
                         	}
                         	else{
-                        		 $('.alert').html('·¢ËÍÊ§°Ü£¡').addClass('alert-success').show().delay(1500).fadeOut();  
+                        		 $('.alert').html('ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½').addClass('alert-success').show().delay(1500).fadeOut();  
                         	}
                         }
                     })

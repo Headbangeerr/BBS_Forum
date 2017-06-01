@@ -68,4 +68,3 @@ public class MessageDaoImpl implements MessageDao {
 
 	
 }
->>>>>>> Headbangeerr/master
