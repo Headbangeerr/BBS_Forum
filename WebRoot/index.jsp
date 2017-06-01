@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <ul class="list-group">
                 <div class="list-group-item active">
                    	 论坛新帖
-                    <a href="<%=request.getContextPath() %>/more.action?type=-1&&page=1" style="float: right;color: white">更多>></a>
+                    <a href="checkAllPostByUrl" style="float: right;color: white">更多>></a>
                     <!--<p style="float: right"></p>-->
                 </div>
                 <div class="tab-pane active" id="home">
