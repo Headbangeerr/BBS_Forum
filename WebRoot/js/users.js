@@ -11,14 +11,13 @@ function downQX(){
             success:function(data){    
            	 //alert(data.flag);
               if(data.flag==true){            	            	               	            	 
-           	   $('.alert1').html('å·²é™ä¸ºç”¨æˆ·').addClass('alert1-success').show().delay(1500).fadeOut();
+           	   $('.alert1').html('ÒÑ½µÎªÓÃ»§').addClass('alert1-success').show().delay(1500).fadeOut();
            	   var t = setTimeout(function(){window.location.reload();},1550);
               }else{
-           	   $('.alert1').html('å›å¸–å¤±è´¥,è¯·è¾“å…¥å›å¸–å†…å®¹ï¼').addClass('alert1-false').show().delay(1500).fadeOut();  
+           	   $('.alert1').html('»ØÌûÊ§°Ü,ÇëÊäÈë»ØÌûÄÚÈİ£¡').addClass('alert1-false').show().delay(1500).fadeOut();  
               }
             }
        });  
-	
 }
 function upQX(){
 	var content=$("textarea[name=content]").val();
@@ -33,10 +32,10 @@ function upQX(){
             success:function(data){    
            	 //alert(data.flag);
               if(data.flag==true){            	            	               	            	 
-           	   $('.alert1').html('å·²å‡è‡³ç®¡ç†å‘˜').addClass('alert1-success').show().delay(1500).fadeOut();
+           	   $('.alert1').html('ÒÑÉıÖÁ¹ÜÀíÔ±').addClass('alert1-success').show().delay(1500).fadeOut();
            	   var t = setTimeout(function(){window.location.reload();},1550);
               }else{
-           	   $('.alert1').html('å›å¸–å¤±è´¥,è¯·è¾“å…¥å›å¸–å†…å®¹ï¼').addClass('alert1-false').show().delay(1500).fadeOut();  
+           	   $('.alert1').html('»ØÌûÊ§°Ü,ÇëÊäÈë»ØÌûÄÚÈİ£¡').addClass('alert1-false').show().delay(1500).fadeOut();  
               }
         }
 	});  
@@ -68,8 +67,8 @@ function pagingUser(t){
 					          "</div>"+                    
 			               "</div>"+
 			               " <div name='hoverbutton' style='float:right;display: none'>"+
-			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> ç§ä¿¡</a>	"+			                      	  	
-			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> åˆ é™¤</a>"+
+			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> Ë½ĞÅ</a>	"+			                      	  	
+			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> É¾³ı</a>"+
 			               "</div>"+
                       "</div><hr>";         		
          		$("#Userss").append(str);

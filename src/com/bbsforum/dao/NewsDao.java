@@ -48,5 +48,19 @@ public interface NewsDao {
 	 * @return 未读条数
 	 */
 	public int getUnreadSumBySender(String senderMail,String receiverMail);
-	
+	/**
+	 * 通过接受者邮箱与发送者邮箱获取最近两人之间的聊天记录
+	 * @param receiverMail 接收者邮箱地址
+	 * @param pageIndex  页码
+	 * @param pageSize 页面大小
+	 * @return 消息列表
+	 */
+	public List<News> getLastestNewsForReceiver(String senderMail,String receiverMail, int offset,int pageSize);
+	/**
+	 * 获取发送者与接受者之间的聊天记录总数
+	 * @param senderMail
+	 * @param receiverMail
+	 * @return
+	 */
+	public int getSumNewsForReceiver(String senderMail ,String  receiverMail);
 }

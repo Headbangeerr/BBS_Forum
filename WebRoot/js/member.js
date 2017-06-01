@@ -4,9 +4,9 @@ function send_message(){
 	var re = new RegExp(regu);
 	var publisher=$("#publisherMail").val()
 	if(publisher.length==0){
-		alert("è¯·ç™»å½•ä»¥åå†å†ç•™è¨€ï¼")
+		alert("ÇëµÇÂ¼ÒÔºóÔÙÔÙÁôÑÔ£¡")
 	}else if(content.length==0||re.test(content)){
-		alert("ç•™è¨€å†…å®¹ä¸èƒ½ä¸ºç©ºï¼");
+		alert("ÁôÑÔÄÚÈİ²»ÄÜÎª¿Õ£¡");
 	}
 	else{		
 		var params = $("#messageForm").serialize();  
@@ -15,15 +15,9 @@ function send_message(){
              type:"POST",  
              data:params,  
              dataType:"json",  
-<<<<<<< HEAD
              success:function(data){                	
                if(data.flag==true){            	            	               	            	 
-            	   $('.alert').html('å‘å¸ƒæˆåŠŸï¼').addClass('alert-success').show().delay(1500).fadeOut();            	  
-=======
-             success:function(data){                	 
-               if(data.flag==true){                	   
-            	   $(".alert").html('ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½').addClass("alert-success").show().delay(1500).fadeOut();            	  
->>>>>>> Headbangeerr/master
+            	   $('.alert').html('·¢²¼³É¹¦£¡').addClass('alert-success').show().delay(1500).fadeOut();            	  
             	   $("textarea[name=content]").val("");
             	   if($("#myCollection>.art-row").size()==4){
            			  var totalpage=$("#pagefoot>li").size()-2;
@@ -42,15 +36,15 @@ function send_message(){
                                "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" 	                          
                           +"</div>";  	
            			}       	        
-            	   if(data.messages.length==1){//å¦‚æœè¿”å›åçš„ç•™è¨€åˆ—è¡¨çš„é•¿åº¦ä¸º1ï¼Œåˆ™ä»£è¡¨è¿™æ˜¯ç¬¬ä¸€æ¬¡æ·»åŠ ç•™è¨€
-            		   //alert("è¿™æ˜¯ç¬¬ä¸€æ¬¡ç•™è¨€")
+            	   if(data.messages.length==1){//Èç¹û·µ»ØºóµÄÁôÑÔÁĞ±íµÄ³¤¶ÈÎª1£¬Ôò´ú±íÕâÊÇµÚÒ»´ÎÌí¼ÓÁôÑÔ
+            		   //alert("ÕâÊÇµÚÒ»´ÎÁôÑÔ")
             		   $("span[name=nomessage]").remove();            		  
             		   $("#messageForm").before(str);
             	   }else{
             		   $("#myCollection>.art-row:first").before(str);
             	   }            	               	              	  	          
                }else{
-            	   alert("å‘å¸ƒå¤±è´¥ï¼")
+            	   alert("·¢²¼Ê§°Ü£¡")
                }
              }
          });  
@@ -117,7 +111,6 @@ function paging(t){
         }
 	});	
 }
-
 function pagingPost(t){
 	var url=$(t).attr("name");	
 	var publisherMail=$("#myArticle>[name=publisherMail]").val();
@@ -197,8 +190,8 @@ function pagingFriends(t){
 					          "</div>"+                    
 			               "</div>"+
 			               " <div name='hoverbutton' style='float:right;display: none'>"+
-			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> ç§ä¿¡</a>	"+			                      	  	
-			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> åˆ é™¤</a>"+
+			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> Ë½ĞÅ</a>	"+			                      	  	
+			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> É¾³ı</a>"+
 			               "</div>"+
                       "</div><hr>";         		
          		$("selection").append(str);
@@ -239,7 +232,6 @@ function pagingFriends(t){
 	
         })
 }
-<<<<<<< HEAD
 function pagingUser(t){
 	var url=$(t).attr("name");	
 	var publisherMail=$("#myFriends>[name=userMail]").val();
@@ -266,8 +258,8 @@ function pagingUser(t){
 					          "</div>"+                    
 			               "</div>"+
 			               " <div name='hoverbutton' style='float:right;display: none'>"+
-			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> ç§ä¿¡</a>	"+			                      	  	
-			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> åˆ é™¤</a>"+
+			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> Ë½ĞÅ</a>	"+			                      	  	
+			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> É¾³ı</a>"+
 			               "</div>"+
                       "</div><hr>";         		
          		$("#Userss").append(str);
@@ -309,26 +301,19 @@ function pagingUser(t){
         })
 }
 function checkLogin(t){
-	var user=$("input[name=userMail]").val();
-	var friend=$("input[name=friendMail]").val();
-	if(user==''){
-		alert("è¯·ç™»å½•ä»¥åå†è¿›è¡Œæ­¤é¡¹æ“ä½œï¼")
-	}else{
-		
-=======
-function checkLogin(t){	
 	var userMail=$("input[name=userMail]").val();
-	var friendMail=$("input[name=friendMail]").val();	
+	var friendMail=$("input[name=friendMail]").val();		
 	if(userMail==""||userMail==null){
-		alert("ï¿½ï¿½ï¿½Â¼ï¿½Ôºï¿½ï¿½Ù½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
-	}else{		
+		alert("ÇëµÇÂ¼ÒÔºóÔÙ²Ù×÷£¡")
+	}
+	else{
 		$.ajax({  
             url:"checkFriRequestExist?senderMail="+userMail+"&receiverMail="+friendMail,  
             type:"POST",            
             dataType:"json",  
             success:function(data){            	
-            	if(data.flag==true){                		
-            		 $('.alert').html('ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½È´ï¿½ï¿½Ô·ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½').addClass('alert-success').show().delay(1500).fadeOut();  
+            	if(data.flag==true){                		            		
+            		 $(".alert").html("ÄúÒÑ¾­·¢ËÍ¹ıºÃÓÑÇëÇóÁË£¬ÇëµÈ´ı¶Ô·½»Ø¸´").addClass("alert-success").show().delay(1500).fadeOut();  
             	}
             	else{
             		$.ajax({  
@@ -337,23 +322,22 @@ function checkLogin(t){
                         dataType:"json",  
                         success:function(data){
                         	if(data.flag==true){                        		
-                        		 $('.alert').html('ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¡').addClass('alert-success').show().delay(1500).fadeOut();  
+                        		 $(".alert").html("ÄúÒÑ³É¹¦·¢ËÍºÃÓÑÇëÇó£¡").addClass("alert-success").show().delay(1500).fadeOut();  
                         	}
                         	else{
-                        		 $('.alert').html('ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½').addClass('alert-success').show().delay(1500).fadeOut();  
+                        		 $(".alert").html("ºÃÓÑÇëÇó·¢ËÍÊ§°Ü£¡").addClass("alert-success").show().delay(1500).fadeOut();  
                         	}
                         }
                     })
             	}
             }
-        })
->>>>>>> Headbangeerr/master
-	}
+        });
+		}
 }
 function deleFriend(t){
 	var friendMail=$(t).attr("name");
 	var userMail=$("input[name=userMail]").val();
-	if(confirm("ç¡®è®¤å°†æ­¤ç”¨æˆ·ä»å¥½å‹åˆ—è¡¨ä¸­ç§»é™¤å—ï¼Ÿ")){		
+	if(confirm("È·ÈÏ½«´ËÓÃ»§´ÓºÃÓÑÁĞ±íÖĞÒÆ³ıÂğ£¿")){		
 		 $.ajax({  
              url:"deleFriends?userMail="+userMail+"&friendMail="+friendMail,  
              type:"POST",            
@@ -366,7 +350,7 @@ function deleFriend(t){
             		if(data.friendSum==0){
             			$("#friednpagefoot").remove();
             			$("#myFriends>selection").remove();
-            			$("#myFriends").append("<h4>æœªæ·»åŠ ä»»ä½•å¥½å‹</h4>")
+            			$("#myFriends").append("<h4>Î´Ìí¼ÓÈÎºÎºÃÓÑ</h4>")
             		}
             	}
              }

@@ -25,5 +25,7 @@ public interface PageViewBiz {
 	public PageBean showZiPostBypage(int pageIndex, int pageSize, int cid);
 	
 	public PageBean showUserBypage(int pageIndex,int pageSize);
+	
+	public PageBean showLastestNews(int pageIndex,int pageSize,String senderMail,String receiverMail);
 }
 

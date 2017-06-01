@@ -116,4 +116,30 @@ public class NewsDaoImpl implements NewsDao {
 		int unreadSum=Integer.valueOf(sum.toString());
 		return unreadSum;
 	}
+	@Override
+	public List<News> getLastestNewsForReceiver(String senderMail,String receiverMail,
+			int offset, int pageSize) {
+		session=sessionFactory.openSession();
+		String hql="from News where (receiverMail =:senderMail or senderMail=:senderMail or receiverMail=:receiverMail or senderMail=:receiverMail"
+				+ " ) order by sendDate asc";
+		Query query=session.createQuery(hql);
+		query.setString("senderMail", senderMail);
+		query.setString("receiverMail",receiverMail);
+		query.setFirstResult(offset);
+		query.setMaxResults(pageSize);
+		List<News> news=query.list();
+		return news;
+	}
+	@Override
+	public int getSumNewsForReceiver(String senderMail,String receiverMail) {
+		session=sessionFactory.openSession();
+		String hql="select count(*) from News where (senderMail=:senderMail or receiverMail=:senderMail or "
+				+ "senderMail=:receiverMail or receiverMail=:receiverMail) and type=0";
+		Query query=session.createQuery(hql);
+		query.setString("senderMail", senderMail);
+		query.setString("receiverMail", receiverMail);
+		Long sum=(Long) query.uniqueResult();
+		int newsSum=Integer.valueOf(sum.toString());
+		return newsSum;
+	}
 }

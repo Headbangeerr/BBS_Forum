@@ -35,9 +35,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
   </head>
-   <script type="text/javascript" src="<%=basePath%>js/member.js" charset="gb2312"></script>
-    <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
+   <script type="text/javascript" src="js/member.js" charset="gb2312"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
   <body>
+   <div class="alert"></div>	
     <jsp:include page="pages/header.jsp"></jsp:include>
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 用户信息</div>
@@ -174,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                        	                 
 						<a id="showLastPage" style="display: none" onclick="paging(this)"  name=''></a>
 	                     <form id="messageForm">
-	                     <div class="alert"></div>	            
+	                                
 	                     <input type="hidden" id="publisherMail" value="<s:property value="#session.user.username"/>">
 	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
 		                    <textarea name="content"  class="form-control" name="mailAddress" style="height: 70px; margin-top: 5px;" placeholder="对Ta说点啥"></textarea>	                  

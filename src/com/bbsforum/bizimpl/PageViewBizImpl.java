@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbsforum.biz.PageViewBiz;
 import com.bbsforum.dao.FriendsDao;
 import com.bbsforum.dao.MessageDao;
+import com.bbsforum.dao.NewsDao;
 import com.bbsforum.dao.PostDao;
 import com.bbsforum.dao.ReplyDao;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.Message;
+import com.bbsforum.entity.News;
 import com.bbsforum.entity.PageBean;
 import com.bbsforum.entity.Post;
 import com.bbsforum.entity.Reply;
@@ -24,8 +26,7 @@ public class PageViewBizImpl implements PageViewBiz {
 	MessageDao messageDao;
 	public MessageDao getMessageDao() {
 		return messageDao;
-	}
-	
+	}	
 	@Autowired
 	PostDao postDao;
 	public PostDao getPostDao() {
@@ -46,7 +47,11 @@ public class PageViewBizImpl implements PageViewBiz {
 	public UserDao getUserDao() {
 		return userDao;
 	}
-	
+	@Autowired
+	NewsDao newsDao;
+	public NewsDao getNewsDao() {
+		return newsDao;
+	}
 	@Override
 	public PageBean showMessageBypage(int pageIndex, int pageSize,
 			String receiverMail) {
@@ -220,6 +225,25 @@ public class PageViewBizImpl implements PageViewBiz {
 		pageBean.setAllRow(itemSum);
 		pageBean.setTotalPage(totalPage);
 		pageBean.setList(users);
+		pageBean.init();
+		return pageBean;
+	}
+	@Override
+	public PageBean showLastestNews(int pageIndex, int pageSize,String senderMail,
+			String receiverMail) {
+		int itemSum=newsDao.getSumNewsForReceiver(senderMail,receiverMail);
+		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
+		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
+		logger.info("用户：【"+receiverMail+"】与用户：【"+senderMail+"】之间的消息列表长度："+itemSum+"offset:"+offset);
+		final int length=pageSize;//每页的记录数
+		final int currentPage=PageBean.countCurrentPage(pageIndex);
+		List<News> news=newsDao.getLastestNewsForReceiver(senderMail,receiverMail, offset, pageSize);
+		PageBean pageBean=new PageBean();
+		pageBean.setPageSize(pageSize);
+		pageBean.setCurrentPage(pageIndex);
+		pageBean.setAllRow(itemSum);
+		pageBean.setTotalPage(totalPage);
+		pageBean.setList(news);
 		pageBean.init();
 		return pageBean;
 	}

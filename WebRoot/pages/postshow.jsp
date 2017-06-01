@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-<script type="text/javascript" src="<%=basePath%>js/posts.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=basePath%>js/posts.js" charset="gb2312"></script>
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 帖子列表</div>
 	    <div class="user-cont clearfix" style="width: 850px;float: left;height: 700px">

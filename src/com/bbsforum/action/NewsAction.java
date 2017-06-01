@@ -10,16 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.FriendsBiz;
 import com.bbsforum.biz.NewsBiz;
+import com.bbsforum.biz.PageViewBiz;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.LastestSenderJSON;
 import com.bbsforum.entity.News;
+import com.bbsforum.entity.PageBean;
 import com.bbsforum.entity.User;
 
 
 @ParentPackage("json-default")
 public class NewsAction extends BaseAction {
 	private Logger logger=Logger.getLogger(NewsAction.class);
-	
+	private PageBean newsBean;
 	private String senderMail;
 	private String receiverMail;
 	private String content;
@@ -29,6 +31,7 @@ public class NewsAction extends BaseAction {
 	private List<LastestSenderJSON> lastestUsers;
 	private boolean operate;
 	private String newsId;
+	private int page;
 	@Autowired
 	NewsBiz newsBiz;
 	public void setNewsBiz(NewsBiz newsBiz) {
@@ -43,6 +46,11 @@ public class NewsAction extends BaseAction {
 	FriendsBiz friendBiz;
 	public void setFriendBiz(FriendsBiz friendBiz) {
 		this.friendBiz = friendBiz;
+	}
+	@Autowired
+	PageViewBiz pageViewBiz;
+	public void setPageViewBiz(PageViewBiz pageViewBiz) {
+		this.pageViewBiz = pageViewBiz;
 	}
 	@Action(value="sendFriendrequest",results={
 			@Result(name="success",type="json",params={
@@ -109,12 +117,44 @@ public class NewsAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	@Action(value="showLastestNewsForReceiver",results={
+			@Result(name="seccess",type="json",params={
+					"excludeProperties", "newsBean.list\\[\\d+\\]\\.senderMail.posts,"
+							+"newsBean.list\\[\\d+\\]\\.senderMail.friends,"
+							+"newsBean.list\\[\\d+\\]\\.receiverMail.posts,"
+							+"newsBean.list\\[\\d+\\]\\.receiverMail.friends,"
+							+"newsBean.list\\[\\d+\\]\\.receiverMail.replys,"
+							+"newsBean.list\\[\\d+\\]\\.senderMail.replys"})
+	})
+	public String showLastestNewsForReceiver(){
+		User user=(User)getSession().get("user");	
+		PageBean newsBean=pageViewBiz.showLastestNews(1, 5, senderMail, user.getMailAddress());
+		if(page==0){//在page参数为零时也就是默认情况下显示最后一页的未读消息
+			page=newsBean.getTotalPage();
+		}
+		newsBean=pageViewBiz.showLastestNews(page, 5, senderMail, user.getMailAddress());
+		
+		return SUCCESS;
+	}
+	
 	
 	
 	
 	
 	
 
+	public PageBean getNewsBean() {
+		return newsBean;
+	}
+	public void setNewsBean(PageBean newsBean) {
+		this.newsBean = newsBean;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
 	public List<LastestSenderJSON> getLastestUsers() {
 		return lastestUsers;
 	}
