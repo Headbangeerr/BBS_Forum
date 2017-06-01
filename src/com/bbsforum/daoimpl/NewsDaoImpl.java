@@ -96,9 +96,9 @@ public class NewsDaoImpl implements NewsDao {
 		session=sessionFactory.openSession();
 		List<User> users=new ArrayList<User>();
 		String sql="select * from user where mail_address in (select sender_mail  from news where timestampdiff(day,send_date,CURRENT_TIMESTAMP) < 2 and"
-				+ " sender_mail=:userMail or receiver_mail=:userMail AND type=0  union "
+				+ " (sender_mail=:userMail or receiver_mail=:userMail) and type=0  union "
 			+"select  receiver_mail from news where timestampdiff(day,send_date,CURRENT_TIMESTAMP) < 2 and"
-			+ " sender_mail=:userMail or receiver_mail=:userMail and type=0) and  mail_address != :userMail";
+			+ " (sender_mail=:userMail or receiver_mail=:userMail) and type=0) and  mail_address != :userMail";
 		Query query=session.createSQLQuery(sql)
 				.addEntity(User.class);
 		query.setString("userMail", userMail);		
