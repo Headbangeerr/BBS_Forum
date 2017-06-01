@@ -104,7 +104,10 @@
 	</bean>
 	<bean id="replyAction" class="com.bbsforum.action.ReplyAction">
 	</bean>
+		
+	<bean id="newsDao" class="com.bbsforum.daoimpl.NewsDaoImpl"></bean>
+	<bean id="newsBiz" class="com.bbsforum.bizimpl.NewsBizImpl"></bean>
 </beans>
 	
-	
+
 	

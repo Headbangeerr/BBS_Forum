@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -107,4 +108,132 @@
 </beans>
 	
 	
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+  http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  http://www.springframework.org/schema/tx
+  http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+  http://www.springframework.org/schema/aop
+  http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <context:annotation-config/>
+
+
+	<context:component-scan base-package="com.bbsforum.*"/>
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/bbs_forum">
+		</property>
+		<property name="username" value="root"></property>
+		
+	</bean>
+	<!-- 解决getCurrentSession不能获取session的问题 
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.bbsforum.biz.*.*(..))" id="bizMethods"/>
+		<aop:pointcut expression="execution(* com.bbsforum.dao.*.*(..))" id="daoMethods"/>
+		<aop:pointcut expression="execution(* com.bbsforum.daoimpl.*.*(..))" id="daoImplMethods"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoMethods"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="bizMethods"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoImplMethods"/>
+	</aop:config>
+	-->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" autowire="byName">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.current_session_context_class">
+				org.springframework.orm.hibernate4.SpringSessionContext
+				</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.bbsforum.entity.User</value>
+				<value>com.bbsforum.entity.Board</value>
+				<value>com.bbsforum.entity.Childboard</value>
+				<value>com.bbsforum.entity.Post</value>
+				<value>com.bbsforum.entity.Message</value>		
+				<value>com.bbsforum.entity.Reply</value>	
+				<value>com.bbsforum.entity.News</value>	
+			</list>
+		</property></bean>
+	<!--  	<tx:annotation-driven/>-->
+	
+	
+	
+	
+	<bean id="userDao" class="com.bbsforum.daoimpl.UserDaoImpl">
+	</bean>
+	<bean id="userBiz" class="com.bbsforum.bizimpl.UserBizImpl">
+	</bean>
+	<bean id="userAction" class="com.bbsforum.action.UserAction">
+	</bean>
+	
+	
+	<bean id="boardDao" class="com.bbsforum.daoimpl.BoardDaoImpl">
+	</bean>
+	<bean id="boardBiz" class="com.bbsforum.bizimpl.BoardBizImpl">
+	</bean>
+	<bean id="boardAction" class="com.bbsforum.action.BoardAction">
+	</bean>
+	
+	<bean id="postDao" class="com.bbsforum.daoimpl.PostDaoImlp">
+	</bean>
+	<bean id="postBiz" class="com.bbsforum.bizimpl.PostBizImpl">
+	</bean>
+	<bean id="postAction" class="com.bbsforum.action.PostAction" >
+	</bean>
+	
+	<bean id="messageDao" class="com.bbsforum.daoimpl.MessageDaoImpl">
+	</bean>
+	<bean id="messageBiz" class="com.bbsforum.bizimpl.MessageBizImpl">
+	</bean>
+	<bean id="messageAction" class="com.bbsforum.action.MessageAction">
+	</bean>
+	
+	<bean id="pageViewBiz" class="com.bbsforum.bizimpl.PageViewBizImpl">
+	</bean>
+	<bean id="friendsDao" class="com.bbsforum.daoimpl.FriendsDaoImpl"></bean>
+	<bean id="friendsBiz" class="com.bbsforum.bizimpl.FriendsBizImpl"></bean>
+	<bean id="searchDao" class="com.bbsforum.daoimpl.SearchDaoImpl"></bean>
+	<bean id="searchBiz" class="com.bbsforum.bizimpl.SearchBizImpl"></bean>
+	<bean id="replyDao" class="com.bbsforum.daoimpl.ReplyDaoImpl">
+	</bean>
+	<bean id="replyBiz" class="com.bbsforum.bizimpl.ReplyBizImpl">
+	</bean>
+	<bean id="replyAction" class="com.bbsforum.action.ReplyAction">
+	</bean>
+	
+	<bean id="newsDao" class="com.bbsforum.daoimpl.NewsDaoImpl"></bean>
+	<bean id="newsBiz" class="com.bbsforum.bizimpl.NewsBizImpl"></bean>
+</beans>
+	
+	
+>>>>>>> Headbangeerr/master
 	

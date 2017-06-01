@@ -15,9 +15,15 @@ function send_message(){
              type:"POST",  
              data:params,  
              dataType:"json",  
+<<<<<<< HEAD
              success:function(data){                	
                if(data.flag==true){            	            	               	            	 
             	   $('.alert').html('å‘å¸ƒæˆåŠŸï¼').addClass('alert-success').show().delay(1500).fadeOut();            	  
+=======
+             success:function(data){                	 
+               if(data.flag==true){                	   
+            	   $(".alert").html('·¢²¼³É¹¦£¡').addClass("alert-success").show().delay(1500).fadeOut();            	  
+>>>>>>> Headbangeerr/master
             	   $("textarea[name=content]").val("");
             	   if($("#myCollection>.art-row").size()==4){
            			  var totalpage=$("#pagefoot>li").size()-2;
@@ -232,6 +238,7 @@ function pagingFriends(t){
 	
         })
 }
+<<<<<<< HEAD
 function pagingUser(t){
 	var url=$(t).attr("name");	
 	var publisherMail=$("#myFriends>[name=userMail]").val();
@@ -307,6 +314,39 @@ function checkLogin(t){
 		alert("è¯·ç™»å½•ä»¥åŽå†è¿›è¡Œæ­¤é¡¹æ“ä½œï¼")
 	}else{
 		
+=======
+function checkLogin(t){	
+	var userMail=$("input[name=userMail]").val();
+	var friendMail=$("input[name=friendMail]").val();	
+	if(userMail==""||userMail==null){
+		alert("ÇëµÇÂ¼ÒÔºóÔÙ½øÐÐ´ËÏî²Ù×÷£¡")
+	}else{		
+		$.ajax({  
+            url:"checkFriRequestExist?senderMail="+userMail+"&receiverMail="+friendMail,  
+            type:"POST",            
+            dataType:"json",  
+            success:function(data){            	
+            	if(data.flag==true){                		
+            		 $('.alert').html('ÄúÒÑ¾­·¢ËÍ¹ýºÃÓÑÇëÇóÁË£¬ÇëµÈ´ý¶Ô·½»Ø¸´¡£').addClass('alert-success').show().delay(1500).fadeOut();  
+            	}
+            	else{
+            		$.ajax({  
+                        url:"sendFriendrequest?senderMail="+userMail+"&receiverMail="+friendMail,  
+                        type:"POST",            
+                        dataType:"json",  
+                        success:function(data){
+                        	if(data.flag==true){                        		
+                        		 $('.alert').html('ÒÑ³É¹¦·¢ËÍºÃÓÑÑûÇë£¡').addClass('alert-success').show().delay(1500).fadeOut();  
+                        	}
+                        	else{
+                        		 $('.alert').html('·¢ËÍÊ§°Ü£¡').addClass('alert-success').show().delay(1500).fadeOut();  
+                        	}
+                        }
+                    })
+            	}
+            }
+        })
+>>>>>>> Headbangeerr/master
 	}
 }
 function deleFriend(t){
