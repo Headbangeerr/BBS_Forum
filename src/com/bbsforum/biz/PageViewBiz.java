@@ -22,4 +22,6 @@ public interface PageViewBiz {
 	public PageBean showViePostBypage(int pageIndex,int pageSize);
 	
 	public PageBean showZiPostBypage(int pageIndex, int pageSize, int cid);
+	
+	public PageBean showUserBypage(int pageIndex,int pageSize);
 }

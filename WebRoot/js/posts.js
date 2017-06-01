@@ -24,6 +24,32 @@ function add_reply(){
         });  
 	}
 }
+function add_reply(){
+	var content=$("textarea[name=content]").val();
+	var publisherMail=$("input[name=publisherMail]").val();
+	if(publisherMail.length==0){
+		alert("请登陆后回复")
+	}
+	
+	else{
+		var params = $("#replyForm").serialize();  
+		 $.ajax({  
+            url:"addReply",  
+            type:"POST",  
+            data:params,  
+            dataType:"json",  
+            success:function(data){    
+           	 //alert(data.flag);
+              if(data.flag==true){            	            	               	            	 
+           	   $('.alert1').html('回帖成功').addClass('alert1-success').show().delay(1500).fadeOut();
+           	   var t = setTimeout(function(){window.location.reload();},1700);
+              }else{
+           	   $('.alert1').html('回帖失败,请输入回帖内容！').addClass('alert1-false').show().delay(1500).fadeOut();  
+              }
+            }
+        });  
+	}
+}
 function add_post(){	
 	var mailAddresss=$("input[name=mailAddresss]").val();
 	var content=$("textarea[name=content]").val();

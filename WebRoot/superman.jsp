@@ -25,32 +25,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <jsp:include page="/pages/search.jsp"></jsp:include>
 	<div class="container" style="margin-top: 30px;">
     <div class="row">
-        <div class="col-md-9">
-            <ul class="list-group">
-                <div class="list-group-item active">
-                   	 论坛新帖
-                    <a href="checkAllPostByUrl" style="float: right;color: white">更多>></a>
-                    <!--<p style="float: right"></p>-->
-                </div>
-                <div class="tab-pane active" id="home">
-					<section id="LastestPostList" class="widget bg-white post-comments">
-						<center id="loading"><img src="img/loading.gif"></center>
-					</section>								
-				</div>			
-            </ul>
-        </div>
-         <div class="col-md-3">
-            <ul class="list-group">
-                <div class="list-group-item active">
-                    	论坛公告
-                </div>
-                         <span class="list-group-item">23423423</span>
-                         <a href="#" class="list-group-item">23423423</a>
-            </ul>
+    	<div class="col-md-3" style="width: 500px;margin-bottom: 320px;margin-left: 310px">    
           <s:if test='#session.user!=null'>
 	        <ul class="list-group">
 	                <div class="list-group-item active">
-	                    	个人信息
+	                    	超级管理员
 	                </div>
 	        </ul>
 			<div class="panel-body">
@@ -65,24 +44,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span class="h5 bold"><s:property value='#session.user.username'/></span>
 							<p></p>
 							<div class="w150 center-block mt10">
-								<a class="btn btn-success btn-outline btn-block" href="<%=path+"/publish_post.jsp"%>">
-									<span>发布新帖子</span>
+								<a class="btn btn-success btn-outline btn-block" href="getAllUser">
+									<span>查看用户</span>
 								</a>
 							</div>
 						</div>
-						<hr>
-						<ul class="profile-sidebar-item profile-numbers-count">
-							<li><a href="#"><span class="bold">0</span>帖子收藏</a></li>
-							<li><a href="#"><span class="bold">0</span>节点收藏</a></li>
-							<li><a href="#"><span class="bold">0</span>特别关注</a></li>
-						</ul>
 					</div>
 				</div>
-			</div>
-			<div class="panel-footer box">
-				<a href="#"><span id="notice_count">0</span> 条未读提醒</a>
-			</div>
-              </s:if> 
+			 </div>
+          </s:if> 
         </div>
         
        </div>

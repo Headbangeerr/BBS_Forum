@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<input type="hidden" name="publisherMail" value="<s:property value="#session.user.mailAddress"/>">				
 												<tr>
 													<td valign="top">回帖：</td>
-													<td id="textAreaWrap" style="width: 700px">
+													<td id="textAreaWrap" style="width: 700px;float:left; ">
 														<textarea onfocus="this.value=''" id="textAreaContainer" name="content" class="textAreaContainer">请输入回帖内容</textarea>								
 													</td>
 												</tr>

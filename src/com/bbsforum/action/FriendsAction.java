@@ -68,7 +68,8 @@ public class FriendsAction extends BaseAction {
 	@Action(value="showFriendsList",results={
 			@Result(name="success",type="json",params={
 					"excludeProperties", "pageBean.list\\[\\d+\\]\\.posts,"
-					+"pageBean.list\\[\\d+\\]\\.friends,"})
+							+"pageBean.list\\[\\d+\\]\\.friends,"
+							+"pageBean.list\\[\\d+\\]\\.replys"})
 			})
 	public String getFriendsList(){
 		pageBean=pageViewBiz.showFridensByPage(page, 5, userMail);

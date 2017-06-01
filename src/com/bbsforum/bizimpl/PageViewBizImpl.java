@@ -204,6 +204,26 @@ public class PageViewBizImpl implements PageViewBiz {
 		return pageBean;
 	}
 
+	@Override
+	public PageBean showUserBypage(int pageIndex, int pageSize) {
+		// TODO Auto-generated method stub
+		int i = 4;
+		int itemSum=userDao.getAllUserList1(i).size();
+		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
+		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
+		final int length=pageSize;//每页的记录数
+		final int currentPage=PageBean.countCurrentPage(pageIndex);
+		List<User> users=userDao.getAllUserList(offset, pageSize);
+		PageBean pageBean=new PageBean();
+		pageBean.setPageSize(pageSize);
+		pageBean.setCurrentPage(pageIndex);
+		pageBean.setAllRow(itemSum);
+		pageBean.setTotalPage(totalPage);
+		pageBean.setList(users);
+		pageBean.init();
+		return pageBean;
+	}
+
 
 
 }
