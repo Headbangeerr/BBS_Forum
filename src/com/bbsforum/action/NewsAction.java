@@ -1,5 +1,7 @@
 package com.bbsforum.action;
 
+import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbsforum.biz.FriendsBiz;
 import com.bbsforum.biz.NewsBiz;
 import com.bbsforum.biz.PageViewBiz;
+import com.bbsforum.dao.NewsDao;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.LastestSenderJSON;
 import com.bbsforum.entity.News;
@@ -41,6 +44,11 @@ public class NewsAction extends BaseAction {
 	UserDao userDao;
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+	@Autowired
+	NewsDao newsDao;
+	public void setNewsDao(NewsDao newsDao) {
+		this.newsDao = newsDao;
 	}
 	@Autowired
 	FriendsBiz friendBiz;

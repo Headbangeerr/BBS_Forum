@@ -29,7 +29,7 @@ private static final String SUPERMAN = null;
 private static Logger logger=Logger.getLogger(UserAction.class);
 	private String mailAddress;
 	private String password;
-	private int errorFlag;//µÇÂ¼Ê±ÓÃÓÚ±ê¼Ç´íÎóĞÅÏ¢£¬Îª0Ê±±íÊ¾ÓÃ»§²»´æÔÚ£¬Îª2Ê±±íÊ¾ÃÜÂë´íÎó
+	private int errorFlag;//ç™»å½•æ—¶ç”¨äºæ ‡è®°é”™è¯¯ä¿¡æ¯ï¼Œä¸º0æ—¶è¡¨ç¤ºç”¨æˆ·ä¸å­˜åœ¨ï¼Œä¸º2æ—¶è¡¨ç¤ºå¯†ç é”™è¯¯
 	private boolean friendFlag;
 	private int le;
 	boolean flag;
@@ -99,8 +99,8 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			@Result(name="login",location="/login.jsp"),
 			@Result(name="superman",location="/superman.jsp")
 	})
-	public String login(){//µÇÂ½
-		logger.info("login¡­¡­   useraddress:"+mailAddress);
+	public String login(){//ç™»é™†
+		logger.info("loginâ‹¯â‹¯   useraddress:"+mailAddress);
 		User user=userBiz.getUserByMailAddress(mailAddress);
 		getSession().put("mailAddress", mailAddress);
 		if(user==null){
@@ -180,14 +180,14 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	})
 	public String checkUserByUrl(){
 		User user=(User) getSession().get("user");
-		//Èç¹ûÒª²é¿´µÄÓÃ»§Óë´ËÊ±ÒÑµÇÂ¼µÄÓÃ»§ÊÇÍ¬Ò»¸öÈË£¬ÔòÌø×ªÖÁÓÃ»§µÄ¸öÈË×ÊÁÏĞŞ¸ÄÒ³Ãæ
+		//å¦‚æœè¦æŸ¥çœ‹çš„ç”¨æˆ·ä¸æ­¤æ—¶å·²ç™»å½•çš„ç”¨æˆ·æ˜¯åŒä¸€ä¸ªäººï¼Œåˆ™è·³è½¬è‡³ç”¨æˆ·çš„ä¸ªäººèµ„æ–™ä¿®æ”¹é¡µé¢
 		User check;
 		//List<Message> messageList=messageBiz.getMessageByReceiverMail(mailAddress);
 		pageBean=pageViewBiz.showMessageBypage(1, 4, mailAddress);
 		getRequest().put("pageBean", pageBean);
 		if(null==user||!mailAddress.equals(user.getMailAddress())){
 			check=userBiz.getUserByMailAddress(mailAddress);
-			logger.info("²é¿´ÆäËûÓÃ»§   ±»²é¿´µÄÓÃ»§ÕËºÅ£º"+mailAddress+"  ÓÃ»§Ãû"+check.getUsername());
+			logger.info("æŸ¥çœ‹å…¶ä»–ç”¨æˆ·   è¢«æŸ¥çœ‹çš„ç”¨æˆ·è´¦å·ï¼š"+mailAddress+"  ç”¨æˆ·å"+check.getUsername());
 			getRequest().put("checkedUser", check);
 			postBean=pageViewBiz.showPostBypage(1, 5, mailAddress, check.getPosts().size());
 			friendFlag=false;
@@ -198,11 +198,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			return "others";
 		}
 		else{
-			logger.info("±»²é¿´µÄÓÃ»§ÊÇµÇÂ½Õß±¾ÈË£º"+user.getUsername());
+			logger.info("è¢«æŸ¥çœ‹çš„ç”¨æˆ·æ˜¯ç™»é™†è€…æœ¬äººï¼š"+user.getUsername());
 			getRequest().put("checkedUser", user);
 			postBean=pageViewBiz.showPostBypage(1, 5, mailAddress, user.getPosts().size());
 			logger.info(user.getPosts().size());
-			logger.info("Ìû×Ó×ÜÒ³Êı"+postBean.getTotalPage());
+			logger.info("å¸–å­æ€»é¡µæ•°"+postBean.getTotalPage());
 			pageBean=pageViewBiz.showMessageBypage(1, 5, mailAddress);
 			friendsBean=pageViewBiz.showFridensByPage(1, 5, mailAddress);
 			return "self";
@@ -218,7 +218,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	}) 
 	public String showAllUser(){
 		pageBean=pageViewBiz.showUserBypage(page, 5);
-		logger.info("³É¹¦»ñÈ¡µ½Ìû×ÓÒ³Ãæ¡­¡­ Ò³ÃæÖĞµÄÌû×ÓÌõÊıÎª£º"+pageBean.getList().size());
+		logger.info("æˆåŠŸè·å–åˆ°å¸–å­é¡µé¢â€¦â€¦ é¡µé¢ä¸­çš„å¸–å­æ¡æ•°ä¸ºï¼š"+pageBean.getList().size());
 		return SUCCESS;
 	}
 	
