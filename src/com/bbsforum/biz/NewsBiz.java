@@ -8,7 +8,7 @@ import com.bbsforum.entity.User;
 
 public interface NewsBiz {
 
-	public boolean sendMessage(String senderMail,String receiverMail,String content,int type);
+	public boolean sendNews(String senderMail,String receiverMail,String content,int type);
 	
 	public boolean handleFriendRequest(String newsId,boolean operate);
 

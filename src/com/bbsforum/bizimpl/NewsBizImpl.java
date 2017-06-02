@@ -28,9 +28,9 @@ public class NewsBizImpl implements NewsBiz {
 	}
 	
 	@Override
-	public boolean sendMessage(String senderMail, String receiverMail,
+	public boolean sendNews(String senderMail, String receiverMail,
 			String content, int type) {
-		logger.info(" 用户：["+senderMail+"]正在 向   [ "+receiverMail+"]发送好友请求");
+		logger.info(" 用户：["+senderMail+"]正在 向   [ "+receiverMail+"]发送消息");
 		News news=new News();
 		User sender=userDao.findUserByMailAddress(senderMail);
 		User receiver=userDao.findUserByMailAddress(receiverMail);

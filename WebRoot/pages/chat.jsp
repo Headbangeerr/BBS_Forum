@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>我的私信</title>
   </head>
   <body>
-  	<input type="hidden" name="receiverMail" value="${session.user.mailAddress}">   
+  	
    	<div class="message_right" style="min-height: 600px;">
    			<div class="message-main">
     
@@ -22,8 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<div class="whisper">
     					<div class="whisper_left">
 					        <div class="chat_tab_wrapper">
-					            <div class="chat_tab" style="color: #00a1d6;">近期会话</div>
-					            
+					            <div class="chat_tab" style="color: #00a1d6;">近期会话</div>					            
 					        </div>					       
         					<div class="chat_history_list" style="height: 505px;">  
         					      	<center> <img id="user_list_loading" src="img/loading_sm.gif"></center>					
@@ -31,17 +30,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					</div>
     					<div class="whisper_right" style="width: 550px;display: none;">
     						<div class="chat_room_title">
-    							進擊の変態様
+    							
     						</div>
 							<div class="chat_room_content" style="height: 450px;width: 550px">
-								<div class="more_chat_msg"><i></i>查看以往消息</div>
-								
-								
+								<div class="more_chat_msg"><i></i>查看以往消息</div>	
     						</div>
     						<div class="chat_msg_sender">
-    							<form action="sendNews" method="post">  
-								    <textarea id="chat_msg" name="char_msg" class="" placeholder="回复一下吧～" maxlength="800"></textarea>    
-								    <button id="send" type="submit" class="">发送</button>
+    							<form id="sendNews" action="sendNews" method="post">  
+    								<input type="hidden" name="receiverMail" value="${session.user.mailAddress}">
+    								<input type="hidden" name="senderMail" value="">      
+								    <textarea id="chat_msg" name="content" class="" placeholder="回复一下吧～" maxlength="800"></textarea>    
+								    <button id="send" onclick="send_news()" type="button" class="">发送</button>
 								</form>  
 							</div>
     				</div>

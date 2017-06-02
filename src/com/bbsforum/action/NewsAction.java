@@ -58,7 +58,7 @@ public class NewsAction extends BaseAction {
 			})
 	})
 	public String sendFriendrequest(){		
-		flag=newsBiz.sendMessage(senderMail, receiverMail, "向您发送了好友请求", 1);
+		flag=newsBiz.sendNews(senderMail, receiverMail, "向您发送了好友请求", 1);
 		return SUCCESS;
 	}
 	@Action(value="checkFriRequestExist",results={
@@ -94,12 +94,12 @@ public class NewsAction extends BaseAction {
 		User user=(User) getSession().get("user");
 		receiverMail=user.getMailAddress();
 		if(operate){
-			flag=newsBiz.sendMessage(receiverMail, senderMail,"该用户已经同意了您的好友请求！", 0);			
+			flag=newsBiz.sendNews(receiverMail, senderMail,"该用户已经同意了您的好友请求！", 0);			
 			friendBiz.addFriends(senderMail, receiverMail);
 			friendBiz.addFriends(receiverMail, senderMail);
 		}
 		else{
-			flag=newsBiz.sendMessage(receiverMail, senderMail,"该用户拒绝了您的好友请求！", 0);
+			flag=newsBiz.sendNews(receiverMail, senderMail,"该用户拒绝了您的好友请求！", 0);
 		}
 		logger.info("用户：["+receiverMail+"] 对来自用户["+senderMail+"]的好友邀请做出了"+operate+"操作");
 		return SUCCESS;
@@ -135,6 +135,16 @@ public class NewsAction extends BaseAction {
 		logger.info("page:"+page);
 		newsBean=pageViewBiz.showLastestNews(page, 5, senderMail, user.getMailAddress());	
 		logger.info("list.size:"+newsBean.getList().size());
+		return SUCCESS;
+	}
+	
+	@Action(value="sendNews",results={
+			@Result(name="success",type="json",params={
+					"includeProperties","flag"
+			})
+	})
+	public String sendNews(){
+		flag=newsBiz.sendNews(senderMail, receiverMail, content, 0);
 		return SUCCESS;
 	}
 	

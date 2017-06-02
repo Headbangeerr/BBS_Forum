@@ -12,10 +12,10 @@ function checkNews(t){
         success:function(data){
         	var list=data.newsBean.list;        	
         	var str;
+        	$("[name=senderMail]").val(senderMail);
         	$(".other_msg").remove();
         	$(".my_msg").remove();
-        	$.each(list,function(index,news){
-        		alert(index)
+        	$.each(list,function(index,news){        		
         		str="";
         		$(".chat_room_title").text(news.senderMail.username);       		
         		if(news.senderMail==receiverMail){
@@ -36,10 +36,21 @@ function checkNews(t){
 								 "<i class='chat_bubble_arrow' style='top: 16px;'></i>"+
 								 "<div class='chat_bubble' style='margin-top: 6px;'>"+news.content+"</div>"+
 						"</div>"
-					"</div>";
-        		alert(str)
+					"</div>";        		
 	        	$('.chat_room_content').append(str);
         	})		
         }
     })
+}
+function send_news(){
+	var form=$("sendNews");
+	var params=form.serialize();
+	 $.ajax({  
+         url:"sendNews",  
+         type:"POST",  
+         data:params,  
+         dataType:"json",  
+         success:function(data){ 
+         }
+     })
 }
