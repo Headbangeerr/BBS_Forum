@@ -22,10 +22,7 @@ function deletePost(t){
              type:"POST",            
              dataType:"json",  
              success:function(data){
-            	if(data.flag==true){
-            		 var t = setTimeout(function(){window.location.reload();},100);
-
-            	}
+            	 var t = setTimeout(function(){window.location.reload();},1000);
              }
              })
 	}
@@ -51,10 +48,9 @@ function pagingMyPost(t){
                       "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'class='author'>"+
                       "<i class='fa fa-user'></i>&nbsp;<span>"+post.publisherMail.username+"</span></a> <a  class='time'>" +
                       "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" +
-                      
                       "<div name='hoverbutton' style='float:right;display: none'>"+
-                	  	"<a onclick='sqZhiding(this)' class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> 申请置顶</a>"+	                      	  	
-                	 "<a onclick='deleFriend(this)' name='' class='hoverbutton tembutton'><i class='fa fa-user-times'></i>修改 </a>"+
+                	  	"<a onclick='sqZhiding(this)' class='hoverbutton tembutton'><i class='fa fa-envelope-o'></i> 申请置顶</a>"+	                      	  	
+                	 "<a href='serchPost1?pid="+post.id+"' name='"+post.id+"' class='hoverbutton tembutton'><i class='fa fa-user-times'></i>修改 </a>"+
                 	 "<a onclick='deletePost(this)' name='"+post.id+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> 删除</a>"+
 	               "</div></div>";     
          		$("#myArticle").append(str);

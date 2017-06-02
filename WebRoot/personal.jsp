@@ -62,6 +62,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    border: 1px solid transparent;
 	    border-radius: 4px;
 	}
+	.hoverbutton redbutton{
+	
+	}
   
   
   
@@ -138,9 +141,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                             </a>
 		                             <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 	 
 		                           <div name="hoverbutton" style="float:right;display: none">
-			                      	  	<a  onclick="sqZhiding(this)" name="${post.id }" class="hoverbutton greenbutton"><i class="fa fa-envelope-o"></i> 申请置顶</a>			                      	  	
-			                      	 <a  href="serchPost1?pid=${post.id}" name="${post.id }" class="hoverbutton tembutton"><i class="fa fa-user-times"></i>修改 </a>
-			                      	 <a onclick="deletePost(this)" name="${post.id }" class="hoverbutton redbutton"><i class="fa fa-user-times"></i> 删除</a>
+			                      	  	<a  onclick="sqZhiding(this)" name="${post.id }" class="hoverbutton tembutton"><i class="fa fa-envelope-o"></i> 申请置顶</a>			                      	  	
+			                      	 <a  href="serchPost1?pid=${post.id}" name="${post.id }" class="hoverbutton tembutton"><i class="fa fa-legal"></i>修改 </a>
+			                      	 <a onclick="deletePost(this)" name="${post.id }" class="hoverbutton redbutton"><i class="fa  fa-times"></i> 删除</a>
 			                     </div>    
 			                     	                     	                            
 		                        </div>
@@ -168,9 +171,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                     	</c:choose>	                        		                      	   
 							</ul>													 
 	                    </s:else>
-	                    <div class="alert1"></div>  	                	                                
+	                    	                	                                
 	                    </div>
-	
+						<div class="alert1"></div>  
 	                    <div role="tabpanel" class="tab-pane" id="myCollection">
 	                     <s:if test='#request.pageBean.list.size()==0'>
 	                    	  <h4>留言板空空如也。</h4>         

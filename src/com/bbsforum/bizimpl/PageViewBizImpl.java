@@ -72,6 +72,7 @@ public class PageViewBizImpl implements PageViewBiz {
 	public PageBean showPostBypage(int pageIndex, int pageSize,
 			String publisherMail,int itemSum) {
 		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
+		logger.info("总页数"+totalPage);
 		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
 		final int length=pageSize;//每页的记录数
 		final int currentPage=PageBean.countCurrentPage(pageIndex);

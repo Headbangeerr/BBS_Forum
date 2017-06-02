@@ -202,6 +202,8 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			logger.info("被查看的用户是登陆者本人："+user.getUsername());
 			getRequest().put("checkedUser", user);
 			postBean=pageViewBiz.showPostBypage(1, 5, mailAddress, user.getPosts().size());
+			logger.info(user.getPosts().size());
+			logger.info("帖子总页数"+postBean.getTotalPage());
 			pageBean=pageViewBiz.showMessageBypage(1, 5, mailAddress);
 			friendsBean=pageViewBiz.showFridensByPage(1, 5, mailAddress);
 			return "self";

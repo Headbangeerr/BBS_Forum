@@ -111,10 +111,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <form id="qxForm">
 	                 <input type="hidden" name="userMail" value='<%=session.getAttribute("usermailqx")%>'>
 	                <s:if test='le==0'>
-	                	 <a onclick="upQX()" class="btn btn-default1 infos" >&nbsp;提升权限</a>
+	                	 <a onclick="upQX()" class="btn btn-default1 infos" ><i class="fa fa-long-arrow-up"></i> &nbsp;提升权限</a>
 	                </s:if>
 	                <s:else>
-	                	<a onclick="downQX()"  class="btn btn-success1 infos">&nbsp;降低权限</a>
+	                	<a onclick="downQX()"  class="btn btn-success1 infos"><i class="fa fa-long-arrow-down"></i> &nbsp;降低权限</a>
 	                </s:else>   
 	                </form>     
 	                 <div class="alert1"></div>	     
