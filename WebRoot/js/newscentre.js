@@ -28,3 +28,38 @@
              }
          })
 }
+function showNews(){	
+	 $.ajax({  
+         url:"showLastestSender",  
+         type:"POST",               
+         dataType:"json",  
+         success:function(data){       	 
+        	 $("#user_list_loading").remove();
+        	 var str;
+        	 if(data.lastestUsers.length==0){        			 
+    			 str="<center><h1>空空如也~</h1></center>";
+    			 $(".chat_history_list").append(str);
+    		 }
+        	 else{
+        		 $.each(data.lastestUsers,function(index,sender){                	
+            		 if(sender.length==0){                			 
+            			 str="<center><h1>空空如也~</h1></center>";
+            		 }else{
+            			 str="<a class='rname_card' onclick='checkNews(this)'  name='"+sender.user.mailAddress+"'>"+
+							"<img src='"+sender.user.photoUrl+"'>"+
+							"<div class='name'>"+sender.user.username+"</div>";    							
+						if(sender.unread=='0'){
+							str+="<div class='msg_num' style='display:none'>"+sender.unread+"</div>"+								
+							"</a>";	
+						}	
+						else{
+							str+="<div class='msg_num' >"+sender.unread+"</div>"+								
+							"</a>";	 
+						}
+            		 }        			 
+					$(".chat_history_list").append(str);
+            	 }) 
+        	 }            	 
+        }             
+		 })  		
+}

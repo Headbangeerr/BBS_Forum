@@ -118,7 +118,7 @@ public class NewsAction extends BaseAction {
 	}
 	
 	@Action(value="showLastestNewsForReceiver",results={
-			@Result(name="seccess",type="json",params={
+			@Result(name="success",type="json",params={
 					"excludeProperties", "newsBean.list\\[\\d+\\]\\.senderMail.posts,"
 							+"newsBean.list\\[\\d+\\]\\.senderMail.friends,"
 							+"newsBean.list\\[\\d+\\]\\.receiverMail.posts,"
@@ -128,12 +128,13 @@ public class NewsAction extends BaseAction {
 	})
 	public String showLastestNewsForReceiver(){
 		User user=(User)getSession().get("user");	
-		PageBean newsBean=pageViewBiz.showLastestNews(1, 5, senderMail, user.getMailAddress());
+		newsBean=pageViewBiz.showLastestNews(1, 5, senderMail, user.getMailAddress());
 		if(page==0){//在page参数为零时也就是默认情况下显示最后一页的未读消息
 			page=newsBean.getTotalPage();
 		}
-		newsBean=pageViewBiz.showLastestNews(page, 5, senderMail, user.getMailAddress());
-		
+		logger.info("page:"+page);
+		newsBean=pageViewBiz.showLastestNews(page, 5, senderMail, user.getMailAddress());	
+		logger.info("list.size:"+newsBean.getList().size());
 		return SUCCESS;
 	}
 	

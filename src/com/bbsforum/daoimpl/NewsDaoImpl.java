@@ -73,9 +73,11 @@ public class NewsDaoImpl implements NewsDao {
 		query.setString(0, senderMail);
 		query.setString(1, receiverMail);
 		if(query.list().size()>0){
+			session.close();
 			return true;
 		}
 		else{
+			session.close();
 			return false;
 		}
 		
@@ -102,7 +104,8 @@ public class NewsDaoImpl implements NewsDao {
 		Query query=session.createSQLQuery(sql)
 				.addEntity(User.class);
 		query.setString("userMail", userMail);		
-		users=query.list();			
+		users=query.list();
+		session.close();
 		return users;
 	}
 	@Override
@@ -114,32 +117,37 @@ public class NewsDaoImpl implements NewsDao {
 		query.setString(1, receiverMail);
 		Long sum=(Long) query.uniqueResult();
 		int unreadSum=Integer.valueOf(sum.toString());
+		session.close();
 		return unreadSum;
 	}
 	@Override
 	public List<News> getLastestNewsForReceiver(String senderMail,String receiverMail,
 			int offset, int pageSize) {
 		session=sessionFactory.openSession();
-		String hql="from News where (receiverMail =:senderMail or senderMail=:senderMail or receiverMail=:receiverMail or senderMail=:receiverMail"
-				+ " ) order by sendDate asc";
+		String hql="from News where ((receiverMail =:senderMail and senderMail=:receiverMail) or (receiverMail=:receiverMail and senderMail=:senderMail))"
+				+ "and type=:type order by sendDate asc";
 		Query query=session.createQuery(hql);
 		query.setString("senderMail", senderMail);
 		query.setString("receiverMail",receiverMail);
+		query.setInteger("type", 0);
 		query.setFirstResult(offset);
 		query.setMaxResults(pageSize);
 		List<News> news=query.list();
+		session.close();
 		return news;
 	}
 	@Override
 	public int getSumNewsForReceiver(String senderMail,String receiverMail) {
 		session=sessionFactory.openSession();
-		String hql="select count(*) from News where (senderMail=:senderMail or receiverMail=:senderMail or "
-				+ "senderMail=:receiverMail or receiverMail=:receiverMail) and type=0";
+		String hql="select count(*) from News where ((receiverMail =:senderMail and senderMail=:receiverMail) or "
+				+ "(receiverMail=:receiverMail and senderMail=:senderMail)) and type=:type";
 		Query query=session.createQuery(hql);
 		query.setString("senderMail", senderMail);
 		query.setString("receiverMail", receiverMail);
+		query.setInteger("type", 0);
 		Long sum=(Long) query.uniqueResult();
 		int newsSum=Integer.valueOf(sum.toString());
+		session.close();
 		return newsSum;
 	}
 }

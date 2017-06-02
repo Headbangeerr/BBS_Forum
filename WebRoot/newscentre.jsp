@@ -132,7 +132,8 @@ $(function(){
 		type:"post",
 		url:"getFriRequestListByReceiverMail?receiverMail="+receiverMail,
 		dataType:"json",
-        success:function(data){        	
+        success:function(data){
+        	showNews();        	
         	$("img[name=loading]").remove()
         	if(data.news.length==0){
         		$("#friend ul").append("<center><li  class='message-main-list' >没有待处理的好友请求。</li></center>")
@@ -169,5 +170,6 @@ $(function(){
         	}        	
         }
 	})
+
 })
 </script>

@@ -232,12 +232,16 @@ public class PageViewBizImpl implements PageViewBiz {
 	public PageBean showLastestNews(int pageIndex, int pageSize,String senderMail,
 			String receiverMail) {
 		int itemSum=newsDao.getSumNewsForReceiver(senderMail,receiverMail);
+		logger.info("itemSUm"+itemSum);
 		int totalPage=PageBean.countTotalPage(pageSize, itemSum);//计算总页数
 		final int offset=PageBean.countOffset(pageSize, pageIndex);//获取本页第一条记录的下标
 		logger.info("用户：【"+receiverMail+"】与用户：【"+senderMail+"】之间的消息列表长度："+itemSum+"offset:"+offset);
 		final int length=pageSize;//每页的记录数
 		final int currentPage=PageBean.countCurrentPage(pageIndex);
 		List<News> news=newsDao.getLastestNewsForReceiver(senderMail,receiverMail, offset, pageSize);
+		for (News news2 : news) {
+			logger.info(news2.getContent());
+		}
 		PageBean pageBean=new PageBean();
 		pageBean.setPageSize(pageSize);
 		pageBean.setCurrentPage(pageIndex);
