@@ -218,6 +218,7 @@ public class PostAction extends BaseAction {
 	public String showPostByPage(){
 		User publisher=userBiz.getUserByMailAddress(publisherMail);
 		pageBean=pageViewBiz.showPostBypage(page, 5, publisherMail, publisher.getPosts().size());
+		System.out.println("23423423423"+pageBean.getTotalPage());
 		logger.info("成功获取到帖子页面…… 页面中的帖子条数为："+pageBean.getList().size());
 		return SUCCESS;
 	}
