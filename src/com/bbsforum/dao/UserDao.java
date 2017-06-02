@@ -1,4 +1,3 @@
-
 package com.bbsforum.dao;
 
 import java.util.List;
@@ -33,4 +32,5 @@ public interface UserDao {
 	 * @return 返回一个用户信息
 	 */
 	public List getUser(int i);
+
 }
