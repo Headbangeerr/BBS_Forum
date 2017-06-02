@@ -24,6 +24,7 @@ public class SearchAction extends BaseAction {
 	private int search_childboardlist;//ÒªËÑË÷µÄ×Ó°æ¿éid
 	private PageBean resultBean;
 	private int page;
+	
 	@Action(value="search",results={
 			@Result(name="success",location="/searchresult.jsp")
 	})

@@ -24,8 +24,7 @@
 		<property name="url"
 			value="jdbc:mysql://localhost:3306/bbs_forum?useUnicode=true&amp;characterEncoding=UTF-8">
 		</property>
-		<property name="username" value="root"></property>
-		<property name="password" value="8957246"></property>
+		<property name="username" value="root"></property>		
 		
 	</bean>
 	<!-- 解决getCurrentSession不能获取session的问题 
