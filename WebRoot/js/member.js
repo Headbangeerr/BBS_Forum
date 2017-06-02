@@ -4,9 +4,9 @@ function send_message(){
 	var re = new RegExp(regu);
 	var publisher=$("#publisherMail").val()
 	if(publisher.length==0){
-		alert("«Îµ«¬º“‘∫Û‘Ÿ‘Ÿ¡Ù—‘£°")
+		alert("ËØ∑ÁôªÂΩï‰ª•ÂêéÂÜçÂÜçÁïôË®ÄÔºÅ")
 	}else if(content.length==0||re.test(content)){
-		alert("¡Ù—‘ƒ⁄»›≤ªƒ‹Œ™ø’£°");
+		alert("ÁïôË®ÄÂÜÖÂÆπ‰∏çËÉΩ‰∏∫Á©∫ÔºÅ");
 	}
 	else{		
 		var params = $("#messageForm").serialize();  
@@ -17,7 +17,7 @@ function send_message(){
              dataType:"json",  
              success:function(data){                	
                if(data.flag==true){            	            	               	            	 
-            	   $('.alert').html('∑¢≤º≥…π¶£°').addClass('alert-success').show().delay(1500).fadeOut();            	  
+            	   $('.alert').html('ÂèëÂ∏ÉÊàêÂäüÔºÅ').addClass('alert-success').show().delay(1500).fadeOut();            	  
             	   $("textarea[name=content]").val("");
             	   if($("#myCollection>.art-row").size()==4){
            			  var totalpage=$("#pagefoot>li").size()-2;
@@ -36,15 +36,15 @@ function send_message(){
                                "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" 	                          
                           +"</div>";  	
            			}       	        
-            	   if(data.messages.length==1){//»Áπ˚∑µªÿ∫Ûµƒ¡Ù—‘¡–±Ìµƒ≥§∂»Œ™1£¨‘Ú¥˙±Ì’‚ «µ⁄“ª¥ŒÃÌº”¡Ù—‘
-            		   //alert("’‚ «µ⁄“ª¥Œ¡Ù—‘")
+            	   if(data.messages.length==1){//Â¶ÇÊûúËøîÂõûÂêéÁöÑÁïôË®ÄÂàóË°®ÁöÑÈïøÂ∫¶‰∏∫1ÔºåÂàô‰ª£Ë°®ËøôÊòØÁ¨¨‰∏ÄÊ¨°Ê∑ªÂä†ÁïôË®Ä
+            		   //alert("ËøôÊòØÁ¨¨‰∏ÄÊ¨°ÁïôË®Ä")
             		   $("span[name=nomessage]").remove();            		  
             		   $("#messageForm").before(str);
             	   }else{
             		   $("#myCollection>.art-row:first").before(str);
             	   }            	               	              	  	          
                }else{
-            	   alert("∑¢≤º ß∞‹£°")
+            	   alert("ÂèëÂ∏ÉÂ§±Ë¥•ÔºÅ")
                }
              }
          });  
@@ -190,8 +190,8 @@ function pagingFriends(t){
 					          "</div>"+                    
 			               "</div>"+
 			               " <div name='hoverbutton' style='float:right;display: none'>"+
-			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> ÀΩ–≈</a>	"+			                      	  	
-			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> …æ≥˝</a>"+
+			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> ÁßÅ‰ø°</a>	"+			                      	  	
+			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> Âà†Èô§</a>"+
 			               "</div>"+
                       "</div><hr>";         		
          		$("selection").append(str);
@@ -258,8 +258,8 @@ function pagingUser(t){
 					          "</div>"+                    
 			               "</div>"+
 			               " <div name='hoverbutton' style='float:right;display: none'>"+
-			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> ÀΩ–≈</a>	"+			                      	  	
-			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> …æ≥˝</a>"+
+			                  	"<a class='hoverbutton greenbutton'><i class='fa fa-envelope-o'></i> ÁßÅ‰ø°</a>	"+			                      	  	
+			                    "<br><a onclick='deleFriend(this)' name='"+user.mailAddress+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> Âà†Èô§</a>"+
 			               "</div>"+
                       "</div><hr>";         		
          		$("#Userss").append(str);
@@ -304,7 +304,7 @@ function checkLogin(t){
 	var userMail=$("input[name=userMail]").val();
 	var friendMail=$("input[name=friendMail]").val();		
 	if(userMail==""||userMail==null){
-		alert("«Îµ«¬º“‘∫Û‘Ÿ≤Ÿ◊˜£°")
+		alert("ËØ∑ÁôªÂΩï‰ª•ÂêéÂÜçÊìç‰ΩúÔºÅ")
 	}
 	else{
 		$.ajax({  
@@ -313,7 +313,7 @@ function checkLogin(t){
             dataType:"json",  
             success:function(data){            	
             	if(data.flag==true){                		            		
-            		 $(".alert").html("ƒ˙“—æ≠∑¢ÀÕπ˝∫√”—«Î«Û¡À£¨«Îµ»¥˝∂‘∑Ωªÿ∏¥").addClass("alert-success").show().delay(1500).fadeOut();  
+            		 $(".alert").html("ÊÇ®Â∑≤ÁªèÂèëÈÄÅËøáÂ•ΩÂèãËØ∑Ê±Ç‰∫ÜÔºåËØ∑Á≠âÂæÖÂØπÊñπÂõûÂ§ç").addClass("alert-success").show().delay(1500).fadeOut();  
             	}
             	else{
             		$.ajax({  
@@ -322,10 +322,10 @@ function checkLogin(t){
                         dataType:"json",  
                         success:function(data){
                         	if(data.flag==true){                        		
-                        		 $(".alert").html("ƒ˙“—≥…π¶∑¢ÀÕ∫√”—«Î«Û£°").addClass("alert-success").show().delay(1500).fadeOut();  
+                        		 $(".alert").html("ÊÇ®Â∑≤ÊàêÂäüÂèëÈÄÅÂ•ΩÂèãËØ∑Ê±ÇÔºÅ").addClass("alert-success").show().delay(1500).fadeOut();  
                         	}
                         	else{
-                        		 $(".alert").html("∫√”—«Î«Û∑¢ÀÕ ß∞‹£°").addClass("alert-success").show().delay(1500).fadeOut();  
+                        		 $(".alert").html("Â•ΩÂèãËØ∑Ê±ÇÂèëÈÄÅÂ§±Ë¥•ÔºÅ").addClass("alert-success").show().delay(1500).fadeOut();  
                         	}
                         }
                     })
@@ -337,7 +337,7 @@ function checkLogin(t){
 function deleFriend(t){
 	var friendMail=$(t).attr("name");
 	var userMail=$("input[name=userMail]").val();
-	if(confirm("»∑»œΩ´¥À”√ªß¥”∫√”—¡–±Ì÷–“∆≥˝¬£ø")){		
+	if(confirm("Á°ÆËÆ§Â∞ÜÊ≠§Áî®Êà∑‰ªéÂ•ΩÂèãÂàóË°®‰∏≠ÁßªÈô§ÂêóÔºü")){		
 		 $.ajax({  
              url:"deleFriends?userMail="+userMail+"&friendMail="+friendMail,  
              type:"POST",            
@@ -350,7 +350,7 @@ function deleFriend(t){
             		if(data.friendSum==0){
             			$("#friednpagefoot").remove();
             			$("#myFriends>selection").remove();
-            			$("#myFriends").append("<h4>Œ¥ÃÌº”»Œ∫Œ∫√”—</h4>")
+            			$("#myFriends").append("<h4>Êú™Ê∑ªÂä†‰ªª‰ΩïÂ•ΩÂèã</h4>")
             		}
             	}
              }

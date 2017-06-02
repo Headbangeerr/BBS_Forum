@@ -106,6 +106,7 @@ public class PostDaoImlp implements PostDao {
 		// TODO Auto-generated method stub
 		Session session=sessionFactory.openSession();
 		Post post=(Post)session.get(Post.class, id);
+		session.flush();
 		session.close();
 		return post;
 	}
@@ -222,6 +223,22 @@ public class PostDaoImlp implements PostDao {
 		PostPage=query.list();
 		session.close();
 		return PostPage;
+	}
+	@Override
+	public boolean deletePost(String id) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();		
+		String sql="delete from Post where id=?";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, id);
+		if(query.executeUpdate()>0){
+			session.close();
+			return true;
+		}
+		else{
+			session.close();
+			return false;
+		}
 	}
 
 

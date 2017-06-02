@@ -3,6 +3,7 @@ package com.bbsforum.dao;
 import java.util.List;
 import java.util.Set;
 
+import com.bbsforum.entity.Board;
 import com.bbsforum.entity.Childboard;
 
 /**
@@ -22,4 +23,6 @@ public interface BoardDao {
 	
 	public Childboard getChildboard(int id);
 
+	public Board getBoard(int id);
+	
 }

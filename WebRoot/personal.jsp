@@ -42,6 +42,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-ms-transition: all 0.15s ease;
 	transition: all 0.15s ease;
 } 
+	.alert1-false {
+		width:220px;
+	    color: #FFFFFF;
+	    background-color: #FF3030;
+	    border-color: #FFFFFF;
+	}
+	.alert1-success {
+		width:150px;
+	    color: #3c763d;
+	    background-color: #dff0d8;
+	    border-color: #d6e9c6;
+	}
+	.alert1 {
+		text-align:center;
+		margin-left:120px;
+	    padding: 15px;
+	    margin-bottom: 20px;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	}
+	.hoverbutton redbutton{
+	
+	}
   
   
   
@@ -53,6 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link type="text/css" rel="stylesheet" href="css/main.min.css">
   </head>
    <script type="text/javascript" src="<%=basePath%>js/member.js" charset="gb2312"></script>
+    <script type="text/javascript" src="<%=basePath%>js/posts.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
   <body>
     <jsp:include page="pages/header.jsp"></jsp:include>
@@ -107,16 +131,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                  <s:if test='#request.postBean.list.size()==0'>
 	                    	  <h4>未发表任何帖子。</h4>         
 	                    </s:if>
-	                    <s:else>	                    	
+	                    <s:else>	                	
 	                    	<s:iterator value="#request.postBean.list" var="post">
-		                    	<div class="art-row">	                           
+		                    	<div class="art-row">                     
 		                            <h4><a href="serchPost?pid=${post.id}" class="title">${post.title} </a></h4>	                          
 		                            <span class="label label-default"><a href="checkZiPostByUrl?cid=${post.childboardId.id }">${post.childboardId.name}</a></span>
 		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
 		                             <i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span>
 		                             </a>
-		                             <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
-		                        </div>	
+		                             <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 	 
+		                           <div name="hoverbutton" style="float:right;display: none">
+			                      	  	<a  onclick="sqZhiding(this)" name="${post.id }" class="hoverbutton tembutton"><i class="fa fa-envelope-o"></i> 申请置顶</a>			                      	  	
+			                      	 <a  href="serchPost1?pid=${post.id}" name="${post.id }" class="hoverbutton tembutton"><i class="fa fa-legal"></i>修改 </a>
+			                      	 <a onclick="deletePost(this)" name="${post.id }" class="hoverbutton redbutton"><i class="fa  fa-times"></i> 删除</a>
+			                     </div>    
+			                     	                     	                            
+		                        </div>
+			              
 	                     	</s:iterator>	                     	                     			                 
 		                     <ul id="postpagefoot" class="pager">	                     	                     	
 		                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
@@ -126,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                     			<li class="active"><a>${pageNum}</a></li>
 			                     		</c:when>
 			                     		<c:otherwise>
-			                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageNum}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
+			                     			<li><a onclick="pagingMyPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageNum}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
 			                     		</c:otherwise>		                     		                     			                     
 			                     	</c:choose>		                     			                     		                     	
 			                     </c:forEach>
@@ -135,15 +166,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
 		                     		</c:when>
 		                     		<c:otherwise>
-		                     			<li><a onclick="pagingPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageBean.currentPage+1}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
+		                     			<li><a onclick="pagingMyPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageBean.currentPage+1}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
 		                     		</c:otherwise>
 		                     	</c:choose>	                        		                      	   
-							</ul>							
-							                  
-							 
-	                    </s:else>	                	                                
+							</ul>													 
+	                    </s:else>
+	                    	                	                                
 	                    </div>
-	
+						<div class="alert1"></div>  
 	                    <div role="tabpanel" class="tab-pane" id="myCollection">
 	                     <s:if test='#request.pageBean.list.size()==0'>
 	                    	  <h4>留言板空空如也。</h4>         
@@ -153,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    	<div class="art-row">	                           
 		                            <h4><a class="title">${message.content} </a></h4>	                          
 		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
-		                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            
+		                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            	
 		                        </div>	
 	                     	</s:iterator>
 	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">	                    	
@@ -248,6 +278,14 @@ $(function(){
 		$(this).children("div[name=hoverbutton]").show();
 	});
 	$(".media").on("mouseleave",function(){		
+		$(this).children("div[name=hoverbutton]").hide();
+	});
+})
+$(function(){
+	$(".art-row").on("mouseenter",function(){		
+		$(this).children("div[name=hoverbutton]").show();
+	});
+	$(".art-row").on("mouseleave",function(){		
 		$(this).children("div[name=hoverbutton]").hide();
 	});
 })

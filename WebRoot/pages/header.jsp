@@ -72,7 +72,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
                  <p class="navbar-text navbar-right">尊敬的用户您好！</p>
    
-   </s:elseif>     
+   </s:elseif>   
+      <s:elseif test='#session.user.type=="1"'><!-- 判断用户类型，如果为0代表用户为一般用户 -->
+   		<ul class="nav navbar-nav navbar-right user">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <s:property value="#session.user.username"/><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="chaeckUserByUrl?mailAddress=<s:property value="#session.user.mailAddress"/>">我的信息</a></li>                            
+                            <li><a href="<%=path+"/publish_post.jsp"%>">我要发帖</a></li>
+                            <li><a href="<%=path+"/newscentre.jsp"%>">消息中心</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<%=path+"/logout.action"%>">退出登陆</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                 <p class="navbar-text navbar-right">管理员！</p>
+   
+   </s:elseif> 
+      <s:elseif test='#session.user.type=="2"'><!-- 判断用户类型，如果为0代表用户为一般用户 -->
+   		<ul class="nav navbar-nav navbar-right user">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <s:property value="#session.user.username"/><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="chaeckUserByUrl?mailAddress=<s:property value="#session.user.mailAddress"/>">我的信息</a></li>                            
+                            <li><a href="<%=path+"/superman.jsp"%>">查看权限</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<%=path+"/logout.action"%>">退出登陆</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                 <p class="navbar-text navbar-right">超级管理员登录！</p>
+   
+   </s:elseif>  
     </nav>   
   </body>
 </html>

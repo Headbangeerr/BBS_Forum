@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.PageViewBiz;
 import com.bbsforum.biz.ReplyBiz;
+import com.bbsforum.dao.PostDao;
 import com.bbsforum.entity.PageBean;
+import com.bbsforum.entity.Post;
 import com.bbsforum.entity.Reply;
 import com.bbsforum.entity.User;
 @ParentPackage("json-default")
@@ -48,6 +50,7 @@ public class ReplyAction  extends BaseAction{
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	@Autowired
 	ReplyBiz replyBiz;
 	public ReplyBiz getReplyBiz() {
@@ -56,6 +59,7 @@ public class ReplyAction  extends BaseAction{
 	public void setReplyBiz(ReplyBiz replyBiz) {
 		this.replyBiz = replyBiz;
 	}
+
 	@Autowired
 	private PageViewBiz pageViewBiz;
 	public PageViewBiz getPageViewBiz() {
@@ -105,5 +109,6 @@ public class ReplyAction  extends BaseAction{
 		logger.info("成功获取到帖子页面…… 页面中的帖子条数为："+pageBean.getList().size());
 		return SUCCESS;
 	}
+
 		
 }

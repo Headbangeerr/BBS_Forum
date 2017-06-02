@@ -1,30 +1,115 @@
-
-function add_reply(){
-	var content=$("textarea[name=content]").val();
-	var publisherMail=$("input[name=publisherMail]").val();
-	if(publisherMail.length==0){
-		alert("请登陆后回复")
-	}
-	
-	else{
-		var params = $("#replyForm").serialize();  
+function sqZhiding(t){
+	var content=$(t).attr("name");	
+             $.ajax({  
+            	 url:"sendZDNews?content="+content,  
+                 type:"POST",  
+                 dataType:"json",  
+                 success:function(data){    
+                	 //alert(data.flag);
+                   if(data.flag==true){            	            	               	            	 
+                	   $('.alert1').html('置顶申请提交成功').addClass('alert1-success').show().delay(3000).fadeOut();
+                   }else{
+                	   $('.alert1').html('回帖失败,请输入回帖内容！').addClass('alert1-false').show().delay(1500).fadeOut();  
+                   }
+                 }
+             });  
+}
+function deletePost(t){
+	var pid=$(t).attr("name");
+	if(confirm("确认删除该帖？")){		
 		 $.ajax({  
-            url:"addReply",  
+             url:"deletePost?pid="+pid,  
+             type:"POST",            
+             dataType:"json",  
+             success:function(data){
+            	 var t = setTimeout(function(){window.location.reload();},1000);
+             }
+             })
+	}
+}
+function pagingMyPost(t){
+	var url=$(t).attr("name");	
+	var publisherMail=$("#myArticle>[name=publisherMail]").val();
+	$.ajax({
+		type:"post",
+		url:url,
+		dataType:"json",
+        success:function(data){
+        	var str;
+        	var date;
+        	$("#myArticle>.art-row").remove();
+        	$("#postpagefoot").remove();        	
+        	$.each(data.pageBean.list,function(index,post){         
+         	   date=post.publishTime.substring(0,10);
+      		   date+=" "+post.publishTime.substring(11,16);        		 
+         		str="<div class='art-row'>"	                           
+                     +"<h4><a href='serchPost?pid="+post.id+"' class='title'>"+post.title+"</a></h4>"+
+                     "<span class='label label-default'><a href='checkZiPostByUrl?cid="+post.childboardId.id+"'>"+post.childboardId.name+"</a></span>"+
+                      "<a href='http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress="+post.publisherMail.mailAddress+"'class='author'>"+
+                      "<i class='fa fa-user'></i>&nbsp;<span>"+post.publisherMail.username+"</span></a> <a  class='time'>" +
+                      "<i class='fa fa-clock-o'></i>&nbsp;<span>"+date+"</span></a>" +
+                      "<div name='hoverbutton' style='float:right;display: none'>"+
+                	  	"<a onclick='sqZhiding(this)' class='hoverbutton tembutton'><i class='fa fa-envelope-o'></i> 申请置顶</a>"+	                      	  	
+                	 "<a href='serchPost1?pid="+post.id+"' name='"+post.id+"' class='hoverbutton tembutton'><i class='fa fa-user-times'></i>修改 </a>"+
+                	 "<a onclick='deletePost(this)' name='"+post.id+"' class='hoverbutton redbutton'><i class='fa fa-user-times'></i> 删除</a>"+
+	               "</div></div>";     
+         		$("#myArticle").append(str);
+         	});
+        	var pageBean=data.pageBean;
+        	var currentPage=pageBean.currentPage;
+        	var pre=currentPage-1;
+        	var next=currentPage+1;         
+        	str="<ul id='postpagefoot' class='pager'>";
+        	if(currentPage==1){
+        		str+="<li class='disabled'><a>&laquo;</a></li>";        
+        	}else{
+        		str+="<li><a onclick='pagingMyPost(this)'  href='javascript:void(0);' name='showPostByPage?page="+pre+"&publisherMail="+publisherMail+"'>&laquo;</a></li>";        
+        	}            	
+        	for(var i=1;i<pageBean.totalPage+1;i++){
+        		if(i==currentPage){
+        			str+="<li ><a >"+i+"</a></li>";
+        		}
+        		else{
+        			str+="<li><a  href='javascript:void(0);' onclick='pagingMyPost(this)' name='showPostByPage?page="+i+"&publisherMail="+publisherMail+"'>"+i+"</a></li>";
+        		}        		
+        	}
+        	if(currentPage==pageBean.totalPage){
+        		str+="<li class='disabled'><a>&raquo;</a></li>"+		   
+	             "</ul>";	        
+        	}else{
+        		str+="<li ><a onclick='pagingMyPost(this)' href='javascript:void(0);' name='showPostByPage?page="+next+"&publisherMail="+publisherMail+"'>&raquo;</a></li>"+		   
+	             "</ul>";	 
+        	}	                
+        	$("#myArticle>.art-row:last").after(str);           	       	
+        	$(".art-row").on("mouseenter",function(){        		
+        		$(this).children("div[name=hoverbutton]").show();
+        	});
+        	$(".art-row").on("mouseleave",function(){        	
+        		$(this).children("div[name=hoverbutton]").hide();
+        	});
+        	}	
+        })
+}
+function update_post(){
+
+		var params = $("#postForm1").serialize();  
+		 $.ajax({  
+            url:"updatePost",  
             type:"POST",  
             data:params,  
             dataType:"json",  
             success:function(data){    
            	 //alert(data.flag);
               if(data.flag==true){            	            	               	            	 
-           	   $('.alert1').html('回帖成功').addClass('alert1-success').show().delay(1500).fadeOut();
-           	   var t = setTimeout(function(){window.location.reload();},1700);
+           	   $('.alert1').html('修改成功').addClass('alert1-success').show().delay(1500).fadeOut();
+           	   //var t = setTimeout(function(){window.location.reload();},1700);
               }else{
-           	   $('.alert1').html('回帖失败,请输入回帖内容！').addClass('alert1-false').show().delay(1500).fadeOut();  
+           	   $('.alert1').html('修改失败,请检查信息！').addClass('alert1-false').show().delay(1500).fadeOut();  
               }
             }
         });  
-	}
 }
+
 function add_reply(){
 	var content=$("textarea[name=content]").val();
 	var publisherMail=$("input[name=publisherMail]").val();

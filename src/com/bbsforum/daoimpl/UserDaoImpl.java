@@ -74,4 +74,15 @@ public class UserDaoImpl implements UserDao {
 			return false;
 		}
 	}
+	@Override
+	public List getUser(int i) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		List<User> UserPage=new ArrayList<User>();
+		String hql="from User where type=1";
+		Query query=session.createQuery(hql);
+		UserPage=query.list();
+		session.close();
+		return UserPage;
+	}
 }

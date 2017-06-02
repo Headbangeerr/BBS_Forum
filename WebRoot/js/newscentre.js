@@ -1,4 +1,4 @@
-﻿function handleRequest(t){
+function handleRequest(t){
 	var operate=$(t).attr("name");
 	var senderMail=$(t).prevAll("[name=senderMail]").val();
 	var newsId=$(t).prevAll("[name=newsId]").val();

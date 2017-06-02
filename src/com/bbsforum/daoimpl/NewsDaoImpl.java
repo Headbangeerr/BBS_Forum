@@ -151,3 +151,4 @@ public class NewsDaoImpl implements NewsDao {
 		return newsSum;
 	}
 }
+

@@ -64,3 +64,4 @@ public interface NewsDao {
 	 */
 	public int getSumNewsForReceiver(String senderMail ,String  receiverMail);
 }
+

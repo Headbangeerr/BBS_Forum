@@ -1,4 +1,3 @@
-
 package com.bbsforum.biz;
 
 import java.util.List;

@@ -25,6 +25,7 @@ import com.bbsforum.bizimpl.BoardBizImpl;
 import com.bbsforum.bizimpl.UserBizImpl;
 import com.bbsforum.dao.BoardDao;
 import com.bbsforum.dao.MessageDao;
+import com.bbsforum.dao.PostDao;
 import com.bbsforum.dao.SearchDao;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.daoimpl.BoardDaoImpl;
@@ -69,12 +70,12 @@ public class test {
 //			Post temppost=(Post) post;
 //			logger.info("post title:"+temppost.getTitle()+"   content:"+temppost.getContent());
 //		}
-		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
-		SearchDao searchDao=(SearchDao) context.getBean("searchDao");
-		List <Post> temp=searchDao.SearchPostByUsername("user", "test", 0, 5);
-		for (Post post : temp) {
-			logger.info(post.getTitle());
-		}
+		
+		
+//		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+//		BoardDao postdao=(BoardDao) context.getBean("boardDao");
+//		Board tem=postdao.getBoard(1);
+//		System.out.println(tem.getName());
 		//logger.info(searchDao.SearchSumPostByChildboard("test",4));
 		
 		
