@@ -35,14 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
   </head>
-   <script type="text/javascript" src="js/member.js" charset="gb2312"></script>
+   <script type="text/javascript" src="js/member.js" ></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
   <body>
-<<<<<<< HEAD
   <div class="alert"></div>	
-=======
    <div class="alert"></div>	
->>>>>>> Headbangeerr/master
     <jsp:include page="pages/header.jsp"></jsp:include>
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 用户信息</div>
@@ -78,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <s:else>
 	                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
 	                </s:else>
-	                  <a href="#" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+	                  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
 	                
 	                
 	                

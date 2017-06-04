@@ -8,6 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">   <%-- 在IE运行最新的渲染模式 --%>
 		<meta name="viewport" content="width=device-width, initial-scale=1">   <%-- 初始化移动浏览显示 --%>
@@ -47,13 +48,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				transition: all 0.15s ease;
 			} 
   		</style>
-		<script type="text/javascript" charset="GBK" src="js/newscentre.js"></script>
-		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript"  src="js/newscentre.js"></script>
+		<script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js"></script>	
 		<title>消息中心</title>
 	</head>
 	
 	<body id="message_center">
+		<input type="hidden" id="chatFlag" value="<s:property value="#request.flag"/>">
 		<input type="hidden" id="userMail" value="<s:property value="#session.user.mailAddress" />">
+		<input type="hidden" id="chatUsermail" value="<s:property value="#request.chatUser.mailAddress"/>">
+		<input type="hidden" id="chatUsername" value="<s:property value="#request.chatUser.username"/>">
+		<input type="hidden" id="chatUserPhoto" value="<s:property value="#request.chatUser.photoUrl"/>">
 		<jsp:include page="pages/header.jsp"></jsp:include>
 		<div id="message_center_box">
 			<div id="message_left" style="margin-top: 52px">
@@ -81,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   <div id="message_head" style="margin-bottom: 40px">
 					消息中心				
 				</div>
-				<ul class="nav nav-pills nav-stacked">				  
+				<ul class="nav nav-pills nav-stacked" id="myTab">				  
 				  <li class="active">
 				  	<a href="#friend" data-toggle="tab">好友请求</a>
 				  </li>
@@ -124,8 +129,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</body>
 	</body>
 </html>
+<script type="text/javascript" src="<%=basePath%>js/bootstrap.min.js"></script>
 <script>
 $(function(){
+	var chatFlag=$("#chatFlag").val();
+	var chatUsermail=$("#chatUsermail").val();
+	var chatUsername=$("#chatUsername").val();
+	var chatUserPhoto=$("#chatUserPhoto").val();
 	var receiverMail=$("#userMail").val();	
 	var str="";
 	$.ajax({
@@ -133,7 +143,26 @@ $(function(){
 		url:"getFriRequestListByReceiverMail?receiverMail="+receiverMail,
 		dataType:"json",
         success:function(data){
-        	showNews();        	
+        	showNews();
+        	 var chatUsermail=$("#chatUsermail").val();
+        		var chatUsername=$("#chatUsername").val();
+        		var chatUserPhoto=$("#chatUserPhoto").val();
+        		var receiverMail=$("#userMail").val();        
+        		if(chatFlag=="false"&&chatFlag!=""){		
+        			$("#myTab li:eq(1) a").tab("show");        			
+        			str="<a class='rname_card active' onclick='checkNews(this)' name='"+chatUsermail+"'>"+
+        					"<img src='"+chatUserPhoto+"'>"+
+        					"<div class='name'>"+chatUsername+"</div>"+
+        					"<div class='last_msg'></div>"+
+        					"<div class='msg_num' style='display:none'></div>"+		
+        				"</a>";
+        			$(".chat_history_list").append(str);
+        			$("a[name="+chatUsermail+"]").trigger("click");
+        		}else if(chatFlag="true"&&chatFlag!=""){
+        			$("#myTab li:eq(1) a").tab("show");        			
+        			//alert(chatUsermail)
+        			$("a[name="+chatUsermail+"]").trigger("click");	
+        		} 
         	$("img[name=loading]").remove()
         	if(data.news.length==0){
         		$("#friend ul").append("<center><li  class='message-main-list' >没有待处理的好友请求。</li></center>")
@@ -170,6 +199,7 @@ $(function(){
         	}        	
         }
 	})
+	
 
 })
 </script>

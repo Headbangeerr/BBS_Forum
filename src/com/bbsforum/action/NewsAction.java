@@ -29,12 +29,16 @@ public class NewsAction extends BaseAction {
 	private String receiverMail;
 	private String content;
 	private int type;
+	private String userMail;
+	private String friendMail;
 	private boolean flag;
+	private News newsTemp;
 	private List<News> news;
 	private List<LastestSenderJSON> lastestUsers;
 	private boolean operate;
 	private String newsId;
 	private int page;
+	private User chatUser;
 	@Autowired
 	NewsBiz newsBiz;
 	public void setNewsBiz(NewsBiz newsBiz) {
@@ -136,24 +140,72 @@ public class NewsAction extends BaseAction {
 	})
 	public String showLastestNewsForReceiver(){
 		User user=(User)getSession().get("user");	
-		newsBean=pageViewBiz.showLastestNews(1, 5, senderMail, user.getMailAddress());
+		newsBean=pageViewBiz.showLastestNews(1, 5, friendMail, user.getMailAddress());
 		if(page==0){//在page参数为零时也就是默认情况下显示最后一页的未读消息
 			page=newsBean.getTotalPage();
 		}
 		logger.info("page:"+page);
-		newsBean=pageViewBiz.showLastestNews(page, 5, senderMail, user.getMailAddress());	
+		newsBean=pageViewBiz.showLastestNews(page, 5, friendMail, user.getMailAddress());	
 		logger.info("list.size:"+newsBean.getList().size());
 		return SUCCESS;
 	}
 	
 	@Action(value="sendNews",results={
 			@Result(name="success",type="json",params={
+					"excludeProperties", "newsTemp.receiverMail,"					
+							+"newsTemp.senderMail.posts,"
+							+"newsTemp.senderMail.friends,"
+							+"newsTemp.senderMail.replys"							
+						})
+	})
+	public String sendNews(){
+		logger.info("：【"+userMail+"】正在向用户：【"+friendMail+"】发送消息："+content);
+		flag=newsBiz.sendNews(userMail, friendMail, content, 0);
+		newsTemp=newsBiz.getLastestNewsBySender(userMail);	
+		logger.info("发送的最新消息的内容："+newsTemp.getContent());
+		return SUCCESS;
+	}
+	
+	@Action(value="checkUnreadNews",results={
+			@Result(name="success",type="json",params={
 					"includeProperties","flag"
 			})
 	})
-	public String sendNews(){
-		flag=newsBiz.sendNews(senderMail, receiverMail, content, 0);
+	public String checkUnreadNews(){
+		int changeNum=newsBiz.checkReadNews(userMail, friendMail);
+		if(changeNum>0){
+			flag=true;
+		}else{
+			flag=false;
+		}
 		return SUCCESS;
+	}
+	@Action(value="beginChat",results={
+			@Result(name="success",location="/newscentre.jsp"),
+			@Result(name="error",location="/pages/unlogin.jsp")
+	})
+	public String beginChat(){
+		User user=(User)getSession().get("user");
+		if(user==null){
+			return ERROR;
+		}
+		else{
+			userMail=user.getMailAddress();
+			logger.info("用户：【"+userMail+"】向用户：【"+friendMail+"】发起私信");
+			if(newsBiz.checkFriendInUserLastestSender(friendMail, userMail)){
+				chatUser=userDao.findUserByMailAddress(friendMail);
+				logger.info("用户：【"+friendMail+"】已存在与用户：【"+userMail+"】的最近联系人列表中");
+				//如何私信对象已经存在自己的最近联系人中
+				flag=true;
+			}
+			else{
+				chatUser=userDao.findUserByMailAddress(friendMail);
+				logger.info("用户：【"+friendMail+"】不在用户：【"+userMail+"】的最近联系人列表中");
+				flag=false;
+			}
+			return SUCCESS;
+		}
+		
 	}
 	
 	
@@ -162,6 +214,31 @@ public class NewsAction extends BaseAction {
 	
 	
 
+	
+	public User getChatUser() {
+		return chatUser;
+	}
+	public void setChatUser(User chatUser) {
+		this.chatUser = chatUser;
+	}
+	public News getNewsTemp() {
+		return newsTemp;
+	}
+	public void setNewsTemp(News newsTemp) {
+		this.newsTemp = newsTemp;
+	}
+	public String getUserMail() {
+		return userMail;
+	}
+	public void setUserMail(String userMail) {
+		this.userMail = userMail;
+	}
+	public String getFriendMail() {
+		return friendMail;
+	}
+	public void setFriendMail(String friendMail) {
+		this.friendMail = friendMail;
+	}
 	public PageBean getNewsBean() {
 		return newsBean;
 	}
@@ -235,9 +312,11 @@ public class NewsAction extends BaseAction {
 	public void setType(int type) {
 		this.type = type;
 	}
+	
+	@Action(value="sendZDNews",results={
+			@Result(name="success",type="json")
+	})
 	public String sendZDNews(){
-		int x=(int)(Math.random()*100);
-		String a="b"+x;
 		Timestamp d = new Timestamp(System.currentTimeMillis());
 		User publishser=(User)getSession().get("user");
 		int i=2;
@@ -245,6 +324,8 @@ public class NewsAction extends BaseAction {
 		System.out.println(content);
 		Iterator itor=tm.iterator();
 		while(itor.hasNext()){
+			int x=(int)(Math.random()*100);
+			String a="b"+x;
 			User senduser=(User)itor.next();
 			News news=new News();
 			news.setId(a);

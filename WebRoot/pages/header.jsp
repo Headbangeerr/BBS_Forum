@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="<%=basePath%>css/bootstrap.min.css">
 	<!-- <link rel="stylesheet" type="text/css" href="<%=basePath%>css/titlebar.css">-->
 	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="<%=basePath %>js/bootstrap.min.js"></script>
 </head>
   <body onload="getBoardList()">
   <nav class="navbar navbar-inverse" role="navigation">

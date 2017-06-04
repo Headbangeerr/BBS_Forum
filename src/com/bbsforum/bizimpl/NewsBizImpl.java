@@ -78,6 +78,25 @@ public class NewsBizImpl implements NewsBiz {
 		return lastestSendersJson;
 	}
 
+	@Override
+	public int checkReadNews(String userMail, String friendMail) {
+		
+		return newsDao.chenkReadNews(userMail, friendMail);
+	}
+
+	@Override
+	public News getLastestNewsBySender(String userMail) {
+		
+		return newsDao.getLastestNewsBySender(userMail);
+	}
+
+	@Override
+	public boolean checkFriendInUserLastestSender(String friendMail,
+			String userMail) {
+		
+		return newsDao.checkFriendInUserLastestSender(friendMail, userMail);
+	}
+
 	
 }
 

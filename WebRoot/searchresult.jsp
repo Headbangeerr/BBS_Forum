@@ -74,11 +74,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </div>	  		               		       
 			    <s:if test="#request.searchFlag==2">
 			    	<div class="tab-pane active">
-                	<s:if test="#request.resultBean.list.size()==0">
+                	<s:if test="#request.resultBean.allRow==0">
                 		<h2>搜索结果为空</h2>
                 	</s:if>
                 	<s:else>
-                		<section  class="widget bg-white post-comments">
+                		<selection  class="widget bg-white post-comments">
 	                		<s:iterator value="#request.resultBean.list" var="user">
 	                			<div class="media">
 		                			<a class="pull-left" href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress}">
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                         <div class="comment-author h6 no-margin" >
 					                        	<a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress}">${user.username}</a>					                        						                        						                        
 					                        	&nbsp;&nbsp;<span class="label label-success">Level:${user.level }</span>
-					                        	&nbsp;&nbsp;<span style="cursor:pointer" class="hoverbutton bluebutton"><i class="fa fa-envelope-o"></i> 私信</span>
+					                        	&nbsp;&nbsp;<span style="cursor:pointer" class="hoverbutton bluebutton" onclick="beginChat(this)" name="beginChat?friendMail=${user.mailAddress}"><i class="fa fa-envelope-o"></i> 私信</span>
 					                        	
 					                        </div>
 					                        <div class="comment-bt">
@@ -103,17 +103,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                			</div>
 		                		</div>				                		
 	                		</s:iterator>			                					                		
-	                	</section>
+	                	</selection>
 	            </s:else>
 			    
 			    </s:if>
 			    <s:else>
 		    	<div class="tab-pane active">
-                	<s:if test="#request.resultBean.list.size()==0">
+                	<s:if test="#request.resultBean.allRow==0">
                 		<h2>搜索结果为空</h2>
                 	</s:if>
                 	<s:else>
-                		<section  class="widget bg-white post-comments">
+                		<selection  class="widget bg-white post-comments">
 	                		<s:iterator value="#request.resultBean.list" var="post">
 	                			<div class="media">
 		                			<a class="pull-left" href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${post.publisherMail.mailAddress}">
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                		</div>	
 		                		<hr>			                		
 	                		</s:iterator>			                					                		
-	                	</section>
+	                	</selection>
                 	</s:else>		                	
                 </div>  						    			
 		    </s:else> 	
@@ -181,3 +181,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
   </body>
 </html>
+<script>
+function beginChat(t){
+	var url=$(t).attr("name");
+	window.location.href=url;
+}
+</script>

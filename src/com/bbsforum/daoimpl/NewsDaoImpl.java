@@ -150,5 +150,57 @@ public class NewsDaoImpl implements NewsDao {
 		session.close();
 		return newsSum;
 	}
+	@Override
+	public int chenkReadNews(String userMail, String friendMail) {
+		session=sessionFactory.openSession();
+		Transaction tr=session.beginTransaction();
+		String hql="update News set state=1 where senderMail=? and receiverMail=? and type=0 and state=0";
+		Query query=session.createQuery(hql);
+		query.setString(0, friendMail);
+		query.setString(1, userMail);
+		int checkNum=query.executeUpdate();
+		tr.commit();
+		session.close();
+		return checkNum;
+	}
+	@Override
+	public News getLastestNewsBySender(String userMail) {
+		session=sessionFactory.openSession();
+		String hql=" select * from news order by send_date desc limit 1";
+		Query query=session.createSQLQuery(hql)
+				.addEntity(News.class);
+		List<News> news=query.list();
+		if(news.size()==1){
+			session.close();	
+			return news.get(0);
+		}
+		else{
+			session.close();	
+			return null;
+		}
+		
+	}
+	@Override
+	public boolean checkFriendInUserLastestSender(String friendMail,
+			String userMail) {
+		session=sessionFactory.openSession();
+		List<User> users=new ArrayList<User>();
+		String sql="select * from user where mail_address in (select sender_mail  from news where timestampdiff(day,send_date,CURRENT_TIMESTAMP) < 2 and"
+				+ " (sender_mail=:userMail or receiver_mail=:userMail) and type=0  union "
+			+"select  receiver_mail from news where timestampdiff(day,send_date,CURRENT_TIMESTAMP) < 2 and"
+			+ " (sender_mail=:userMail or receiver_mail=:userMail) and type=0) and  mail_address != :userMail and mail_address=:friendMail";
+		Query query=session.createSQLQuery(sql);
+		query.setString("userMail", userMail);
+		query.setString("friendMail", friendMail);
+		users=query.list();
+		session.close();
+		if(users.size()>0){
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+	}
 }
 

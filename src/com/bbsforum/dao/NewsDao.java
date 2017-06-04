@@ -63,5 +63,26 @@ public interface NewsDao {
 	 * @return
 	 */
 	public int getSumNewsForReceiver(String senderMail ,String  receiverMail);
+	/**
+	 * 将未读消息置为已读
+	 * @param userMail 登陆的用户邮箱
+	 * @param friendMail  被查看的还有邮箱
+	 * @return 修改成功的消息条数
+	 */
+	public int chenkReadNews(String userMail,String friendMail);
+	
+	/**
+	 * 获取发送者最新发送的消息
+	 * @param userMail 发送者邮箱地址
+	 * @return 一个消息实例
+	 */
+	public News getLastestNewsBySender(String userMail);
+	/**
+	 * 查看在用户是否已存在与登陆用户的最近联系人列表中
+	 * @param friendMail 好友邮箱
+	 * @param userMail  登陆者邮箱
+	 * @return true：存在于最近联系人中，flase：不存在于
+	 */
+	public boolean checkFriendInUserLastestSender(String friendMail,String userMail);
 }
 

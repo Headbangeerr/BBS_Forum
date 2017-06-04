@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,7 +14,7 @@ import com.bbsforum.dao.SearchDao;
 import com.bbsforum.entity.Post;
 
 public class SearchDaoImpl implements SearchDao {
-
+	private Logger logger=Logger.getLogger(SearchDaoImpl.class);
 	@Autowired
 	SessionFactory sessionFactory;
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -84,6 +85,7 @@ public class SearchDaoImpl implements SearchDao {
 		query.setMaxResults(pageSize);
 		query.setInteger(0, childboardId);
 		posts=query.list();
+		logger.info("list .size"+posts.size());
 		session.close();
 		return posts;	
 	}

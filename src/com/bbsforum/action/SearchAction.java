@@ -49,6 +49,7 @@ public class SearchAction extends BaseAction {
 		default:
 			break;
 		}		
+		//logger.info("搜索结果条数："+resultBean.getList().size());
 		logger.info("search_keyword1:"+search_keyword1+"   search_keyword2:"+search_keyword2+"   search_childboardlist:"+search_childboardlist +"page"+page);
 		return SUCCESS;
 	}

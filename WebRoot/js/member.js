@@ -1,4 +1,4 @@
-function send_message(){	
+﻿function send_message(){	
 	var content=$("textarea[name=content]").val();
 	var regu = "^[ ]+$";
 	var re = new RegExp(regu);

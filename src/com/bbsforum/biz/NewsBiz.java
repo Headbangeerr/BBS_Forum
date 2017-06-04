@@ -17,4 +17,8 @@ public interface NewsBiz {
 	public List<News> getFriRequestListByReceiverMail(String reciverMail);
 	
 	public List<LastestSenderJSON> getLastestSenders(String userMail);
+	
+	public int checkReadNews(String userMail, String friendMail);
+	public News getLastestNewsBySender(String userMail);
+	public boolean checkFriendInUserLastestSender(String friendMail,String userMail);
 }

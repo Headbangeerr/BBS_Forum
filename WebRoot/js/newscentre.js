@@ -1,4 +1,4 @@
-function handleRequest(t){
+﻿function handleRequest(t){
 	var operate=$(t).attr("name");
 	var senderMail=$(t).prevAll("[name=senderMail]").val();
 	var newsId=$(t).prevAll("[name=newsId]").val();
@@ -33,8 +33,9 @@ function showNews(){
          url:"showLastestSender",  
          type:"POST",               
          dataType:"json",  
-         success:function(data){       	 
-        	 $("#user_list_loading").remove();
+         success:function(data){ 
+        	 alert("调用了show")
+        	 $("#user_list_loading").parent("center").remove();
         	 var str;
         	 if(data.lastestUsers.length==0){        			 
     			 str="<center><h1>空空如也~</h1></center>";
@@ -58,8 +59,8 @@ function showNews(){
 						}
             		 }        			 
 					$(".chat_history_list").append(str);
-            	 }) 
+            	 }); 
         	 }            	 
         }             
-		 })  		
+		 })
 }

@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
   </head>
-   <script type="text/javascript" src="<%=basePath%>js/users.js" charset="gb2312"></script>
+   <script type="text/javascript" src="<%=basePath%>js/users.js" charset="UTF-8"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
   <body>
     <jsp:include page="header.jsp"></jsp:include>

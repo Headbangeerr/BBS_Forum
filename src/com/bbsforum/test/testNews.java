@@ -46,12 +46,16 @@ public class testNews {
 //		for (LastestSenderJSON lastestSenderJSON : list) {
 //			logger.info(lastestSenderJSON.getUser().getMailAddress()+"     "+lastestSenderJSON.getUnread());
 //		}
+		/*
 		PageBean pagebean=pageBiz.showLastestNews(1, 5, "0000","1111");
 		List<News> news=pagebean.getList();
 		for (News news2 : news) {
 			logger.info(news2.getId());
 		}
-		
+		*/
+//		logger.info("修改的记录条数："+newsDao.chenkReadNews("0000", "1111"));
+//		logger.info("最后一条聊天消息："+newsDao.getLastestNewsBySender("1111").getContent());
+		logger.info(newsDao.checkFriendInUserLastestSender("5555", "0000"));
 		
 	}
 }
