@@ -25,4 +25,12 @@ public interface BoardDao {
 
 	public Board getBoard(int id);
 	
+	
+	public void addBoard(Board board);
+	public void addChildBoard(Childboard childBoard);
+	public Board getBoardById(int id);
+	public void updateBoard(Board board);
+	public void updateChildBoard(Childboard childBoard);
+	public void deleteBoard(int id);
+	public Childboard getChildBoardById(int id);
 }

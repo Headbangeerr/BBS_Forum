@@ -1,5 +1,6 @@
 package com.bbsforum.daoimpl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,4 +130,94 @@ public class UserDaoImpl implements UserDao {
 			return false;
 		}
 	}
+	
+	@Override
+	public List<User> showUserByDate(Date lastLoginDate) {
+		session=sessionFactory.openSession();
+		System.out.println("ÈÕÆÚ"+lastLoginDate);
+		String hql="from User user where user.lastLoginDate<:lastLoginDate and user.status<:status and user.type=:type";
+		Query query=session.createQuery(hql);		
+		query.setDate("lastLoginDate", lastLoginDate);
+		query.setInteger("status", 3);
+		query.setInteger("type", 0);
+		List<User> list = query.list();
+		session.close();
+		return list;
+	}
+	@Override
+	public List<User> getOutdateUserForPage(int offset, int pageSize,
+			Date lastLoginDate) {
+			session=sessionFactory.openSession();
+			List<User> userPage=new ArrayList<User>();
+			Query query=session.createQuery("from User user where user.lastLoginDate<? and user.status<? and user.type=?");
+			query.setDate(0, lastLoginDate);
+			query.setInteger(1, 3);
+			query.setInteger(2, 0);
+			query.setFirstResult(offset);
+			query.setMaxResults(pageSize);
+			userPage=query.list();
+			session.close();
+			return userPage;
+		
+	}
+	@Override
+	public boolean deleteUserByMailAddress(String mailAddress) {
+		    session=sessionFactory.openSession();
+		    Transaction tx=session.beginTransaction();
+			User user=(User) session.get(User.class,mailAddress);
+			user.setStatus(3);
+			   try{
+			session.update(user);
+		    tx.commit();
+			session.close();
+			return true;
+		 }catch(Exception e){
+				   session.close();
+				   System.out.println("Ê§°Ü");
+				   return false;
+			   }
+	}
+	@Override
+	public boolean silenceUserByMailAddress(String mailAddress) {
+	    session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+		User user=(User) session.get(User.class,mailAddress);
+		user.setStatus(2);
+	   try{
+		session.update(user);
+	    tx.commit();
+		session.close();
+		return true;
+	   }catch(Exception e){
+		   session.close();
+		   System.out.println("Ê§°Ü");
+		   return false;
+	   }
+	}
+	@Override
+	public boolean NonsilenceUserByMailAddress(String mailAddress) {
+	    session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+		User user=(User) session.get(User.class,mailAddress);
+		user.setStatus(0);
+		   try{
+		session.update(user);
+	    tx.commit();
+		session.close();
+		return true;
+		   }catch(Exception e){
+			   session.close();
+			   System.out.println("Ê§°Ü");
+			   return false;
+		   }
+	}
+	@Override
+	public void updateUserLastLoginDate(User user) {
+		Session session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+		session.update(user);
+	    tx.commit();
+		session.close();
+	}
+		
 }

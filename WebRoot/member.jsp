@@ -30,7 +30,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    background-color: #dff0d8;
 	    border-color: #d6e9c6;
 	}
-		
+	.alert2333-false {
+		width:220px;
+	    color: #FFFFFF;
+	    background-color: #FF3030;
+	    border-color: #FFFFFF;
+	}
+	.alert2333-success {
+		width:150px;
+	    color: #3c763d;
+	    background-color: #dff0d8;
+	    border-color: #d6e9c6;
+	}
+	.alert2333 {
+		text-align:center;
+		margin-left:120px;
+	    padding: 15px;
+	    margin-bottom: 20px;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	}	
 	</style>
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
@@ -40,9 +59,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <div class="alert"></div>	
    <div class="alert"></div>	
-    <jsp:include page="pages/header.jsp"></jsp:include>
+  <s:if test='#session.user.type==1'>
+        <jsp:include page="pages/header2.jsp"></jsp:include>
+	<div class="container user">
+	    <div class="position clearfix"><a href="<%=basePath%>/manage.jsp">首页</a> / 用户信息</div>
+    </s:if>
+    <s:else>
+     <jsp:include page="pages/header.jsp"></jsp:include>
 	<div class="container user">
 	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 用户信息</div>
+    </s:else>
 	    <div class="user-cont clearfix">
 	        <div class="col-md-4 user-left">
 	            <div class="user-left-n clearfix">
@@ -69,15 +95,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </ul>
 	                <input type="hidden" name="userMail" value='<s:property value="#session.user.mailAddress"/>'>
 	                <input type="hidden" name="friendMail" value='<s:property value="#request.checkedUser.mailAddress"/>'>
-	                <s:if test='friendFlag==true'>
-	                	 <a href="javascript:void(0);" class="btn btn-default infos">&nbsp;Ta已经是你的好友</a>
+
+	                <s:if test='#session.user.type==1'>
+	              <s:if test='#request.checkedUser.status==3'>
+	                	  <a  id="deleteButton" class="btn btn-success infos" style="background-color: grey"><i class="fa fa-user-plus"></i>&nbsp;该用户已被注销</a>
+	             </s:if>
+	              <s:elseif test='#request.checkedUser.status==2'>
+	               <a onclick="nonsilence()" class="btn btn-success infos" style="background-color: grey"><i class="fa fa-user-plus"></i>&nbsp;解除禁言</a>
+	                 <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+	              </s:elseif>
+	               <s:elseif test='friendFlag==true'>	
+	                <a href="javascript:void(0);" class="btn btn-default infos">&nbsp;Ta已经是你的好友</a>
+	                  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+	               	<a onclick="silence()" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
+	               	
+	                </s:elseif>
+                   <s:else>
+	                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
+	                	  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+	                	<!-- <a href="silenceUser.action?user.mailAddress=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
+	                 -->
+	                 <a onclick="silence()" class="btn btn-success infos" ><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
+	                </s:else>
+	                
+	                <div class="alert2333"></div>
 	                </s:if>
 	                <s:else>
-	                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
+		                <s:if test='friendFlag==true'>
+		                  <a href="javascript:void(0);" class="btn btn-default infos">&nbsp;Ta已经是你的好友</a>
+		                    <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+		                </s:if>
+		                <s:else>
+		                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
+		                	  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+		                </s:else>
 	                </s:else>
-	                  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
-	                
-	                
 	                
 	            </div>
 	            

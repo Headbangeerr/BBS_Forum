@@ -2,6 +2,7 @@ package com.bbsforum.biz;
 
 import java.util.List;
 
+import com.bbsforum.entity.PageBean;
 import com.bbsforum.entity.Post;
 import com.bbsforum.entity.Reply;
 
@@ -28,4 +29,6 @@ public interface PostBiz {
 	public List<Post> getJHPost(int i);
 	
 	public List<Post> getZiPostListForPage(int offset, int PageSize,int cid);
+	
+	public PageBean SearchSensitivePost(int PageIndex, int PageSize);
 }

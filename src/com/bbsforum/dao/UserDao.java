@@ -1,5 +1,6 @@
 package com.bbsforum.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Transaction;
@@ -45,4 +46,18 @@ public interface UserDao {
 	 * */
 	public boolean UpdateUser(User user);
 
+	//通过最后登录日期获取所有指定日期前登录的用户列表
+	public List<User> showUserByDate(Date lastLoginDate);
+	//通过分页查询显示最后登录日期获取所有指定日期前登录的用户列表
+	public List<User> getOutdateUserForPage(int offset,int pageSize,Date lastLoginDate);
+	//通过邮箱地址删除用户
+	public boolean deleteUserByMailAddress(String mailAddress);
+	//通过邮箱禁言指定用户
+	public boolean silenceUserByMailAddress(String mailAddress);
+	//通过邮箱解除禁言指定用户
+	public boolean NonsilenceUserByMailAddress(String mailAddress);
+	//更新用户最后登录时间
+	public void updateUserLastLoginDate(User user);
+	
+	
 }

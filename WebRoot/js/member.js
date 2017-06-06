@@ -357,3 +357,81 @@ function deleFriend(t){
              })
 	}
 }
+function silence(){
+	var friendMail=$("input[name=friendMail]").val();
+		 $.ajax({  
+            url:"silenceUser?silenceUserMail="+friendMail,  
+            type:"POST",  
+            dataType:"json",  
+            success:function(data){    
+           	// alert(data.flag);
+              if(data.flag==true){            	            	               	            	 
+           	   $('.alert2333').html('禁言成功').addClass('alert2333-success').show().delay(1500).fadeOut();
+           	   var t = setTimeout(function(){window.location.reload();},1550);
+              }
+            }
+       });  
+	
+}
+
+function nonsilence(){
+	var friendMail=$("input[name=friendMail]").val();
+		 $.ajax({  
+            url:"nonsilenceUser?silenceUserMail="+friendMail,  
+            type:"POST",  
+            dataType:"json",  
+            success:function(data){    
+           	 //alert(data.flag);
+              if(data.flag==true){            	            	               	            	 
+           	   $('.alert2333').html('解除禁言成功').addClass('alert2333-success').show().delay(1500).fadeOut();
+           	   var t = setTimeout(function(){window.location.reload();},1550);
+              }
+            }
+       });  
+	
+}
+function deleteUser(t){
+	var mailAddress=$(t).attr("name");
+		 $.ajax({  
+            url:"deleteUser?mailAddress="+mailAddress,  
+            type:"POST",  
+            dataType:"json",  
+            success:function(data){    
+           	// alert(data.flag);
+              if(data.flag==true){            	            	               	            	 
+           	   $('.alert2333').html('注销成功').addClass('alert2333-success').show().delay(1500).fadeOut();
+           	   var t = setTimeout(function(){window.location.reload();},1550);
+              }
+            }
+       });  
+	
+}
+
+function getChildBoardList(t){
+	var parentboardId=$(t).val();
+	
+		 $.ajax({  
+            url:"getChildBoardListByParentBoardId?parentboardId="+parentboardId,  
+            type:"POST",  
+            dataType:"json",  
+            
+            success:function(data){   
+            	$("#ChildBoardName>.childboardClass").remove();
+             	$.each(data.childBoardList,function(idnex,board){ 
+             	
+               		//alert(board.name);
+        			var str;
+        			str="<a class='childboardClass'><input onclick='showChildBoardName(this)' type='radio' name='board.name' value='"+board.name+"'/>"+board.name+"</input><input type='hidden' value='"+board.id+"'/></a>";
+
+        			$("#ChildBoardName").append(str);
+             	})	
+             	}
+       });  
+	
+}
+
+function showChildBoardName(t){
+	$("#childboard2333").val($(t).val());
+	$("#childboardId").val($(t).next().val());
+
+}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbsforum.biz.PostBiz;
 import com.bbsforum.dao.PostDao;
+import com.bbsforum.entity.PageBean;
 import com.bbsforum.entity.Post;
 import com.bbsforum.entity.Reply;
 
@@ -69,6 +70,23 @@ public class PostBizImpl implements PostBiz {
 	}
 
 
+	@Override
+	public PageBean SearchSensitivePost(int PageIndex, int PageSize) {
+		int itemSum=postDao.SearchSensitiveSumPost();
+		int totalPage=PageBean.countTotalPage(PageSize, itemSum);//计算总页数
+		final int offset=PageBean.countOffset(PageSize, PageIndex);//获取本页第一条记录的下标		
+		final int length=PageSize;//每页的记录数
+		final int currentPage=PageBean.countCurrentPage(PageIndex);
+		List<Post> posts=postDao.SearchSensitivePostForPage(offset, PageSize);
+		PageBean pageBean=new PageBean();
+		pageBean.setPageSize(PageSize);
+		pageBean.setCurrentPage(PageIndex);
+		pageBean.setAllRow(itemSum);
+		pageBean.setTotalPage(totalPage);
+		pageBean.setList(posts);
+		pageBean.init();
+		return pageBean;
 
+	}
 
 }

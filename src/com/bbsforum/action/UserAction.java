@@ -1,6 +1,8 @@
 package com.bbsforum.action;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	private boolean friendFlag;
 	private int le;
 	boolean flag;
+    private String lastLoginDate;
+    private User user;
+
 	private int type;
+	private int status;
 	private String username;
 	private String sex;
 	private String signature;
@@ -65,6 +71,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public void setErrorFlag(int errorFlag) {
 		this.errorFlag = errorFlag;
 	}
+	@JSON(serialize=false)
 	public String getMailAddress() {
 		return mailAddress;
 	}
@@ -115,6 +122,37 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	}
 
 
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	
+	public String getLastLoginDate() {
+		return lastLoginDate;
+	}
+	public void setLastLoginDate(String lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	private String silenceUserMail;
+	@JSON(serialize=false)
+	public String getSilenceUserMail() {
+		return silenceUserMail;
+	}
+	public void setSilenceUserMail(String silenceUserMail) {
+		this.silenceUserMail = silenceUserMail;
+	}
+
 	private int page;
 	@JSON(serialize=false)
 	public int getPage() {
@@ -146,7 +184,8 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	@Action(value="login",results={
 			@Result(name="success",location="/index.jsp"),
 			@Result(name="login",location="/login.jsp"),
-			@Result(name="superman",location="/superman.jsp")
+			@Result(name="superman",location="/superman.jsp"),
+			@Result(name="admin",location="/manage.jsp")
 	})
 	public String login(){//登陆
 		logger.info("login⋯⋯   useraddress:"+mailAddress);
@@ -156,11 +195,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			errorFlag=0;
 			return LOGIN;
 		}else{
-			if((user.getPassword().endsWith(password))&&(user.getType().equals(type))){
+			if((user.getPassword().endsWith(password))&&(user.getType().equals(type))&&!(user.getStatus()).equals(3)){
 				getSession().put("user", user);
 				switch (type) {
 				case 1:
-					return SUCCESS;
+					return "admin";
 				case 2:
 					return "superman";
 				case 0:
@@ -172,7 +211,9 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			}else{
 				if(!user.getType().equals(type)){
 					errorFlag=4;
-				}else{
+				}else if((user.getStatus()).equals(3)){
+					errorFlag=5;
+				}else {
 					errorFlag=2;
 				}
 				return LOGIN;
@@ -196,6 +237,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			user.setSex(sex);
 			user.setType(0);
 			user.setLevel(1);
+			user.setStatus(0);
 			user.setSignature("还未设置个人签名。");
 			if(userBiz.addUser(user)){
 				errorFlag=3;
@@ -210,6 +252,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			@Result(name="success",location="/index.jsp")
 	})
 	public String logout(){
+		User user=(User) getSession().get("user");
+		java.util.Date date=new java.util.Date();
+		java.sql.Date sqldate=new java.sql.Date(date.getTime());
+		user.setLastLoginDate(sqldate);
+		userBiz.updateUserLastLoginDate(user);
 		getSession().put("user", null);
 		return SUCCESS;
 	}
@@ -431,6 +478,71 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			errorFlag=0;
 			return ERROR;
 		}
+	}
+	
+	@Action(value="showOutdateUserByPage",results={
+			@Result(name="success",location="/outdateUsersList.jsp")
+	}) 
+	public String showOutdateUserByPage() throws ParseException{
+		getRequest().put("lastLoginDate", lastLoginDate);
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date lastLoginDate1=sdf.parse(lastLoginDate);
+		java.sql.Date sqldate=new java.sql.Date(lastLoginDate1.getTime());
+		if(page>1){
+			userBean=pageViewBiz.showOutdateUserByPage(page, 4, sqldate);
+		}else{
+			userBean=pageViewBiz.showOutdateUserByPage(1, 4, sqldate);
+		}
+		
+		return SUCCESS;
+	}
+
+
+	
+	@Action(value="deleteUser",results={
+			@Result(name="success",type="json")
+	}) 
+	public String deleteUser() throws ParseException{
+		if(userBiz.deleteUserByMailAddress(mailAddress)){
+			flag=true;
+		}
+		else{
+			flag=false;
+		}
+		logger.info("flag:"+flag);
+		return SUCCESS;
+	}
+	
+	@Action(value="silenceUser",results={
+			@Result(name="success",type="json")
+	}) 
+	public String silenceUser(){
+		if(userBiz.silenceUserByMailAddress(silenceUserMail)){
+			flag=true;
+		}
+		else{
+			flag=false;
+		}
+		logger.info("flag:"+flag);
+		return SUCCESS;
+
+
+	}
+	
+	@Action(value="nonsilenceUser",results={
+			@Result(name="success",type="json")
+	}) 
+	public String nonsilenceUser(){
+		if(userBiz.NonsilenceUserByMailAddress(silenceUserMail)){
+			flag=true;
+		}
+		else{
+			flag=false;
+		}
+		logger.info("flag:"+flag);
+		return SUCCESS;
+
+
 	}
 }
 

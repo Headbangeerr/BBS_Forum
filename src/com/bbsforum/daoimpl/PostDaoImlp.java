@@ -241,6 +241,28 @@ public class PostDaoImlp implements PostDao {
 		}
 	}
 
+	@Override
+	public List SearchSensitivePostForPage(int offset, int PageSize) {
+		session=sessionFactory.openSession();
+		List<Post> PostPage=new ArrayList<Post>();
+		Query query=session.createQuery("from Post p where p.content in(select word from Word)");
+		query.setFirstResult(offset);
+		query.setMaxResults(PageSize);
+		PostPage=query.list();
+		session.close();
+		return PostPage;
+	}
+	@Override
+	public int SearchSensitiveSumPost() {
+		session=sessionFactory.openSession();
+		String hql="select count(*) from Post p where p.content in(select word from Word)";
+		Query query=session.createQuery(hql);
+		Long sumNum=(Long)query.uniqueResult();
+		int sum=sumNum.intValue();
+		session.close();
+		return sum;
+
+	}
 
 
 }

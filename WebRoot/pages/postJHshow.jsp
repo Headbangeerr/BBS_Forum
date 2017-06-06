@@ -17,10 +17,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link type="text/css" rel="stylesheet" href="css/postshow.css"> 
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+
 <script type="text/javascript" src="<%=basePath%>js/posts.js" charset="UTF-8"></script>
+ <s:if test='#session.user.type==1'>
+        <jsp:include page="header2.jsp"></jsp:include>
 	<div class="container user">
-	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 帖子列表</div>
+	    <div class="position clearfix"><a href="<%=basePath%>/manage.jsp">首页</a> / 用户信息</div>
+    </s:if>
+    <s:else>
+     <jsp:include page="header.jsp"></jsp:include>
+	<div class="container user">
+	    <div class="position clearfix"><a href="<%=basePath%>/index.jsp">首页</a> / 用户信息</div>
+    </s:else>
 	    <div class="user-cont clearfix" style="width: 850px;float: left;height: 420px">
 	    	<div class="col-md-8 user-right" style="width: 100%;height: 100%">
 	            <div class="user-right-n clearfix">

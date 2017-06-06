@@ -1,5 +1,6 @@
 package com.bbsforum.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,6 +38,8 @@ public class User implements java.io.Serializable {
 	private Integer type;
 	private Integer level;
 	private String signature;
+	private Date lastLoginDate;
+	private Integer status;
 	private Set<Post> posts=new HashSet<Post>();
 	private Set<User> friends=new HashSet<User>();
 	private Set<Reply> replys=new HashSet<Reply>();
@@ -187,5 +190,21 @@ public class User implements java.io.Serializable {
 		this.signature = signature;
 	}
 
-	
+	@Column(name = "last_login_date")
+	public Date getLastLoginDate() {
+		return lastLoginDate;
+	}
+
+	public void setLastLoginDate(Date lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
+	}
+	@Column(name = "status")
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 }

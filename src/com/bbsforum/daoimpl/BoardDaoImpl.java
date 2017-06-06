@@ -90,6 +90,71 @@ public class BoardDaoImpl implements BoardDao {
 		return board;
 	}
 	
+	@Override
+	public void addBoard(Board board) {
+		Session session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+		session.save(board);
+	    tx.commit();
+		session.close();
+	}
+	@Override
+	public void addChildBoard(Childboard childBoard) {
+		Session session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+		session.save(childBoard);
+	    tx.commit();
+		session.close();
+		
+	}
+	@Override
+	public Board getBoardById(int id) {
+		Session session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+	    Board board=(Board) session.get(Board.class, id);
+	    tx.commit();
+		session.close();
+		return board;
+	}
+	@Override
+	public void updateBoard(Board board) {
+		Session session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+         session.update(board);
+	    tx.commit();
+		session.close();
+		
+	}
+	@Override
+	public void deleteBoard(int id) {
+		Session session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+        Board board=(Board) session.get(Board.class, id);
+        session.delete(board);
+	    tx.commit();
+		session.close();
+		
+	}
+	@Override
+	public void updateChildBoard(Childboard childBoard) {
+		Session session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+        session.update(childBoard);
+	    tx.commit();
+		session.close();
+		
+		
+	}
+	@Override
+	public Childboard getChildBoardById(int id) {
+		Session session=sessionFactory.openSession();
+	    Transaction tx=session.beginTransaction();
+	    Childboard childboard=(Childboard) session.get(Childboard.class, id);
+	    tx.commit();
+		session.close();
+		return childboard;
+	}
+	
 
 
 }

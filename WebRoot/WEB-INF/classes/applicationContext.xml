@@ -71,6 +71,7 @@
 				<value>com.bbsforum.entity.Reply</value>	
 				<value>com.bbsforum.entity.News</value>
 				<value>com.bbsforum.entity.Safety</value>
+				<value>com.bbsforum.entity.Word</value>
 			</list>
 		</property></bean>
 	<!--  	<tx:annotation-driven/>-->

@@ -35,6 +35,9 @@ import com.bbsforum.entity.User;
 public class PostAction extends BaseAction {
 	Logger logger=Logger.getLogger(PostAction.class);
 	private List<Post> lastestPostList;
+	private List<Post> sensitivePostList;
+	private PageBean resultBean;
+
 	public List<Post> getLastestPostList() {
 		return lastestPostList;
 	}
@@ -83,6 +86,19 @@ public class PostAction extends BaseAction {
 	}
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public List<Post> getSensitivePostList() {
+		return sensitivePostList;
+	}
+	public void setSensitivePostList(List<Post> sensitivePostList) {
+		this.sensitivePostList = sensitivePostList;
+	}
+	public PageBean getResultBean() {
+		return resultBean;
+	}
+	public void setResultBean(PageBean resultBean) {
+		this.resultBean = resultBean;
 	}
 
 	private String publisherMail;
@@ -414,6 +430,19 @@ public class PostAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+	@Action(value="showSensitivePost",results={
+			@Result(name="success",location="/sensitivePostList.jsp")})
 
+	public String  showSensitivePost(){
+		resultBean=new PageBean();
+		if(page==0){
+			page=1;
+		}
+			resultBean=postBiz.SearchSensitivePost(page, 10);	
+			System.out.println("resultBean=="+resultBean);
+		return SUCCESS;
+		
+
+	}
 
 }
