@@ -74,10 +74,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
 	<link type="text/css" rel="stylesheet" href="css/main.min.css">
+	<link rel="stylesheet" type="text/css" href="css/search.css">
   </head>
    <script type="text/javascript" src="<%=basePath%>js/member.js" ></script>
     <script type="text/javascript" src="<%=basePath%>js/posts.js" charset="utf-8"></script>
     <script type="text/javascript" src="<%=basePath%>js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
   <body>
     <jsp:include page="pages/header.jsp"></jsp:include>
 	<div class="container user">
@@ -105,11 +107,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        
 	                        <i class="fa fa-clock-o"></i>&nbsp;注册日期：<s:date name="#request.checkedUser.registerDate" format="yyyy-MM-dd " />
 	                    </li>
-	                </ul>
-	               <a href="#" class="btn btn-info"><i class="fa fa-cogs"></i>&nbsp;修改个人资料</a>
-	            </div>
-	            
-	        </div>
+	                	<s:if test='safetyCodeFlag=="0"'>
+							<li class="list-group-item" href="" style="text-align: center;">
+								&nbsp;安全性弱，请<a href="SafetyCode.jsp">设置安全码</a>
+							</li>
+						</s:if>
+						<s:if test='safetyCodeFlag=="1"'>
+							<li class="list-group-item" href="" style="text-align: center;">
+								&nbsp;安全性:强</li>
+						</s:if>
+					</ul>
+					<div class="bodys">
+						<a name="detailSearch" class="btn btn-info"><iclass="fa fa-cogs"></i>&nbsp;修改个人资料</a>
+					</div>
+	       		</div>
+	       	</div>
 	        <div class="col-md-8 user-right">
 	            <div class="user-right-n clearfix">
 	                <ul id="right-tab" class="nav nav-tabs">
@@ -270,6 +282,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </div>
 	    </div>
     </div>
+    <div id="detailedSearch">
+   		<div class="row1">
+          <a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+        </div>
+
+		<div class="nav update">
+			<div class="message">
+				<p>修改个人资料</p>
+				<form id="form1" role="form" action="<%=path%>/updateMessage.action"
+					method="post">
+					<!--<label for="name">用户名:</label>-->
+					<input id="username" required type="text" class="form-control"
+						name="username" style="height: 55px; margin-top: 30px;"
+						value="<s:property value='#request.checkedUser.username'/>">
+					<select id="sex" required class="form-control" name="sex"
+						style="height: 55px;margin-top: 30px;">
+						<option>男</option>
+						<option>女</option>
+					</select> <input id="signature" required type="text" class="form-control"
+						name="signature" style="height: 55px; margin-top: 30px;"
+						value="<s:property value='#request.checkedUser.signature'/>">
+					<div style="height: 100px;width: 100%;margin-top: 30px;">
+						<div style="float:left;width: 50%;padding: 20px;">
+							<input type="submit" class="btn btn-primary" value="确认修改"
+								style="margin:auto;width: 80%;height: 50px;padding: 13px;"></input>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
   </body>
 </html>
 <script type="text/javascript">

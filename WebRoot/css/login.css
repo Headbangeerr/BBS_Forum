@@ -3,7 +3,29 @@ body{
 }
 div.login{
     width: 450px;
-    height: 350px;
+    height: 450px;
+    margin-top: 80px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    padding: 20px;
+    border:2px solid  #ebeaea;
+    background-color: white;
+}
+div.regist{
+    width: 450px;
+    height: 550px;
+    margin-top: 80px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    padding: 20px;
+    border:2px solid  #ebeaea;
+    background-color: white;
+}
+div.safety{
+    width: 450px;
+    height: 300px;
     margin-top: 80px;
     margin-right: auto;
     margin-left: auto;

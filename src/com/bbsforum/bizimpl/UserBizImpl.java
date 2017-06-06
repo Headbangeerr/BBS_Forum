@@ -38,4 +38,10 @@ public class UserBizImpl implements UserBiz {
 	public boolean addUser(User user) {
 		return userDao.addUser(user);
 	}
+
+
+	@Override
+	public boolean updateUser(User user) {
+		return userDao.UpdateUser(user);
+	}
 }
