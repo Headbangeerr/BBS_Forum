@@ -12,5 +12,7 @@ public interface UserBiz {
 	public List getAllUserList(int offset, int pageSize);
 	
 	public boolean addUser(User user);
+	
+	public boolean updateUser(User user);
 }
 

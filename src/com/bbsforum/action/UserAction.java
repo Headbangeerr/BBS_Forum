@@ -15,12 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbsforum.biz.FriendsBiz;
 import com.bbsforum.biz.MessageBiz;
 import com.bbsforum.biz.PageViewBiz;
+import com.bbsforum.biz.SafetyBiz;
 import com.bbsforum.biz.UserBiz;
 import com.bbsforum.dao.UserDao;
 import com.bbsforum.entity.Childboard;
 import com.bbsforum.entity.Message;
 import com.bbsforum.entity.PageBean;
 import com.bbsforum.entity.Post;
+import com.bbsforum.entity.Safety;
 import com.bbsforum.entity.User;
 import com.opensymphony.xwork2.ActionSupport;
 @ParentPackage("json-default")
@@ -34,6 +36,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	private int le;
 	boolean flag;
 	private int type;
+	private String username;
+	private String sex;
+	private String signature;
+	private String safetyCode;
+	private int safetyCodeFlag;
 	public boolean getFlag() {
 		return flag;
 	}
@@ -76,6 +83,37 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public void setType(int type) {
 		this.type = type;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public String getSignature() {
+		return signature;
+	}
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+	public String getSafetyCode() {
+		return safetyCode;
+	}
+	public void setSafetyCode(String safetyCode) {
+		this.safetyCode = safetyCode;
+	}
+	public int getSafetyCodeFlag() {
+		return safetyCodeFlag;
+	}
+	public void setSafetyCodeFlag(int safetyCodeFlag) {
+		this.safetyCodeFlag = safetyCodeFlag;
+	}
+
 
 	private int page;
 	@JSON(serialize=false)
@@ -98,6 +136,11 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	UserBiz userBiz;
 	public void setUserBiz(UserBiz userBiz) {
 		this.userBiz = userBiz;
+	}
+	@Autowired
+	SafetyBiz safetyBiz;
+	public void setSafetyBiz(SafetyBiz safetyBiz) {
+		this.safetyBiz = safetyBiz;
 	}
 	
 	@Action(value="login",results={
@@ -136,7 +179,33 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			}
 		}
 	}
-	
+	//注册
+	@Action(value="regist",results={
+			@Result(name="success",location="/login.jsp"),
+			@Result(name="error",location="/regist.jsp")
+	})
+	public String regist(){
+		User user=new User();
+		if(userBiz.getUserByMailAddress(mailAddress)!=null){
+			errorFlag=0;
+			return ERROR;
+		}else{
+			user.setMailAddress(mailAddress);
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setSex(sex);
+			user.setType(0);
+			user.setLevel(1);
+			user.setSignature("还未设置个人签名。");
+			if(userBiz.addUser(user)){
+				errorFlag=3;
+				return SUCCESS;
+			}else{
+				return ERROR;
+			}
+		}
+	}
+
 	@Action(value="logout",results={
 			@Result(name="success",location="/index.jsp")
 	})
@@ -220,6 +289,15 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			logger.info("帖子总页数"+postBean.getTotalPage());
 			pageBean=pageViewBiz.showMessageBypage(1, 5, mailAddress);
 			friendsBean=pageViewBiz.showFridensByPage(1, 5, mailAddress);
+			//安全码设置
+			Safety safety=new Safety();
+			safety.setMailAddress(user.getMailAddress());
+			List list=safetyBiz.findSafetyByMail(safety);
+			if(list.size()>0){
+				safetyCodeFlag=1;
+			}else{
+				safetyCodeFlag=0;
+			}
 			return "self";
 		}
 	}
@@ -289,6 +367,70 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		}
 		logger.info("flag:"+flag);
 		return SUCCESS;
+	}
+	@Action(value="updateMessage",results={
+			@Result(name="success",location="/index.jsp"),
+			@Result(name="error",location="/index.jsp")
+	})
+	public String updateMessage(){
+		User user=userBiz.getUserByMailAddress(((User) getSession().get("user")).getMailAddress());
+		user.setUsername(username);
+		user.setSex(sex);
+		user.setSignature(signature);
+		if(userBiz.updateUser(user)){
+			getSession().put("user", user);
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	@Action(value="setSafetyCode",results={
+			@Result(name="success",location="/index.jsp"),
+			@Result(name="error",location="/personal.jsp")
+	})
+	public String setSafetyCode(){
+		User user=(User) getSession().get("user");
+		Safety safety=new Safety();
+		safety.setMailAddress(user.getMailAddress());
+		safety.setSafetyCode(safetyCode);
+		if(safetyBiz.addSafety(safety)){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	@Action(value="checkSafetyCode",results={
+			@Result(name="success",location="/updatePwd.jsp"),
+			@Result(name="error",location="/checkSafetyCode.jsp")
+	})
+	public String checkSafetyCode(){
+		Safety safety=new Safety();
+		safety.setMailAddress(mailAddress);
+		safety.setSafetyCode(safetyCode);
+		List list=safetyBiz.findSafetyByMail(safety);
+		if(list.size()>0){
+			getSession().put("mailAddress", safety.getMailAddress());
+			return SUCCESS;
+		}else{
+			errorFlag=0;
+			return ERROR;
+		}
+	}
+	@Action(value="updatePwd",results={
+			@Result(name="success",location="/login.jsp"),
+			@Result(name="error",location="/updatePwd.jsp")
+	})
+	public String updatePwd(){
+		User user=userBiz.getUserByMailAddress((String) getSession().get("mailAddress"));
+		user.setPassword(password);
+		if(userBiz.updateUser(user)){
+			errorFlag=1;
+			getSession().clear();
+			return SUCCESS;
+		}else{
+			errorFlag=0;
+			return ERROR;
+		}
 	}
 }
 

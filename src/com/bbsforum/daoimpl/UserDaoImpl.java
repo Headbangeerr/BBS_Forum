@@ -26,11 +26,20 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findUserByMailAddress(String mailAddress) {
 		//logger.info("mailAddress:"+mailAddress);
+//		session=sessionFactory.openSession();
+//		User user=(User) session.get(User.class,mailAddress);
+//		logger.info("posts.size:"+user.getPosts().size());
+//		session.close();	
+//		return user;
 		session=sessionFactory.openSession();
 		User user=(User) session.get(User.class,mailAddress);
-		logger.info("posts.size:"+user.getPosts().size());
-		session.close();	
-		return user;
+		if(user==null){
+			return user;
+		}else{
+			logger.info("posts.size:"+user.getPosts().size());
+			session.close();
+			return user;
+		}
 	}
 	@Override
 	public List getAllUserList(int offset, int pageSize) {
@@ -85,7 +94,7 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return UserPage;
 	}
-	@Override
+	//添加数据库记录
 	public boolean addUser(User user) {
 		Transaction tx=null;
 		//获取session
@@ -93,6 +102,23 @@ public class UserDaoImpl implements UserDao {
 		try{
 			tx=session.beginTransaction();
 			session.save(user);
+			tx.commit();
+			return true;
+		}catch(Exception e){
+			if(tx!=null){
+				tx.rollback();
+			}
+			e.printStackTrace();
+			return false;
+		}
+	}
+	//修改数据库内容
+	public boolean UpdateUser(User user) {
+		Transaction tx=null;	//声明事务
+		session=sessionFactory.openSession();		//获取session
+		try{
+			tx=session.beginTransaction();
+			session.update(user);
 			tx.commit();
 			return true;
 		}catch(Exception e){

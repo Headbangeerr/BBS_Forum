@@ -38,5 +38,11 @@ public interface UserDao {
 	 * @return 返回一个boolean类型，true 或者 false
 	 * */
 	public boolean addUser(User user);
+	/**
+	 * @param user User类
+	 * @function 修改数据库数据，实现找回密码，修改个人信息等功能
+	 * @return 返回一个boolean类型，true 或者 false
+	 * */
+	public boolean UpdateUser(User user);
 
 }

@@ -69,7 +69,8 @@
 				<value>com.bbsforum.entity.Post</value>
 				<value>com.bbsforum.entity.Message</value>		
 				<value>com.bbsforum.entity.Reply</value>	
-				<value>com.bbsforum.entity.News</value>	
+				<value>com.bbsforum.entity.News</value>
+				<value>com.bbsforum.entity.Safety</value>
 			</list>
 		</property></bean>
 	<!--  	<tx:annotation-driven/>-->
@@ -121,6 +122,8 @@
 	
 	<bean id="newsDao" class="com.bbsforum.daoimpl.NewsDaoImpl"></bean>
 	<bean id="newsBiz" class="com.bbsforum.bizimpl.NewsBizImpl"></bean>
+	<bean id="safetyDao" class="com.bbsforum.daoimpl.SafetyDaoImpl"></bean>
+	<bean id="safetyBiz" class="com.bbsforum.bizimpl.SafetyBizImpl"></bean>
 </beans>
 	
 	

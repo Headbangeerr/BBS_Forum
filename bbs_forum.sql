@@ -308,3 +308,13 @@ INSERT INTO `user` VALUES ('4444', 'user004', '1111', '男', '2017-05-11 09:29:5
 INSERT INTO `user` VALUES ('5555', 'user005', '1111', '男', '2017-05-11 09:30:11', 'upload/headicon/default_icon.jpg', '2', '还未设置个人签名。', '0');
 INSERT INTO `user` VALUES ('6666', 'user006', '1111', '男', '2017-05-11 09:30:19', 'upload/headicon/default_icon.jpg', '1', '还未设置个人签名。', '0');
 INSERT INTO `user` VALUES ('7777', 'muyizifan', '1111', '男', '2017-05-07 23:09:07', 'upload/headicon/default_icon.jpg', '3', 'Focus', '2');
+-- ----------------------------
+-- Table structure for safety
+-- ----------------------------
+DROP TABLE IF EXISTS `safety`;
+CREATE TABLE `safety` (
+  `Id` int(4) NOT NULL AUTO_INCREMENT,
+  `mail_address` varchar(16) NOT NULL COMMENT '登录邮箱',
+  `safetyCode` varchar(16) NOT NULL COMMENT '安全码',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;

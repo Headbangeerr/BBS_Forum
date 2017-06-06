@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 #MyEclipse Hibernate Properties
-#Wed May 03 17:46:13 CST 2017
+#Tue Jun 06 19:40:14 CST 2017
 genBasicCompId=true
 sessionFactoryName=
 profile=
@@ -11,7 +10,7 @@ reStrategyClass=
 detectO2O=false
 springDaoFile=
 useJavaTypes=true
-keyGenerator=
+keyGenerator=native
 genVersionTag=false
 sessionFactoryId=
 basePersistenceClass=
@@ -19,25 +18,3 @@ genAnnotations=true
 reSettingsFile=
 configFile=/BBS_Forum/src/hibernate.cfg.xml
 createConfigFile=true
-=======
-#MyEclipse Hibernate Properties
-#Mon May 29 19:18:28 CST 2017
-genBasicCompId=true
-sessionFactoryName=
-profile=
-daoSFId=
-jndiPath=
-detectM2M=false
-reStrategyClass=
-detectO2O=false
-springDaoFile=
-useJavaTypes=true
-keyGenerator=
-genVersionTag=false
-sessionFactoryId=
-basePersistenceClass=
-genAnnotations=true
-reSettingsFile=
-configFile=/BBS_Forum/src/hibernate.cfg.xml
-createConfigFile=true
->>>>>>> Headbangeerr/master
