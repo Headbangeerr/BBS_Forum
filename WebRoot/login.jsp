@@ -31,17 +31,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <form id="form1" role="form" action="<%=path%>/login.action" method="post">
             <!--<label for="name">用户名:</label>-->
+            
             <input id="username" required type="text" class="form-control" name="mailAddress" style="height: 55px; margin-top: 30px;"
                    placeholder="请输入用户名">
                    <s:if test='errorFlag=="0"'>
-                    <span style="color:red">用户名不存在！</span>
+                    <span style="color:red">用户不存在！
+                    </span>
+                   </s:if>
+                   <s:if test='errorFlag=="1"'>
+                    <span style="color:red">密码找回成功！请使用新密码进行登录！</span>
+                   </s:if>
+                   <s:if test='errorFlag=="3"'>
+                    <span style="color:red">注册成功！</span>
                    </s:if>
                   
             <input type="password" required class="form-control" name="password" style="height: 55px;margin-top: 30px;"
                    placeholder="请输入密码">
                     <s:if test='errorFlag=="2"'>
-                    <span style="color:red">密码输入错误！</span>
+                    <span style="color:red">密码输入错误！<a href="checkSafetyCode.jsp">找回密码</a>
                    </s:if>
+			<select id="type"  required class="form-control" name="type"
+				style="height: 55px;margin-top: 30px;">
+				<option value="0">普通用户</option>
+				<option value="1">管理员</option>
+				<option value="2">超级管理员</option>
+			</select>
+			<s:if test='errorFlag=="4"'>
+                    <span style="color:red">用户类型错误！</a>
+            </s:if>
         <div style="height: 100px;width: 100%;margin-top: 30px;">
             <div style="float:left;width: 50%;padding: 20px;">
                 <input type="submit" class="btn btn-primary" value="登陆"
@@ -59,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div   style="position:absolute; bottom:0;margin-top: 20px;width:100%;   background-color: rgba(0,0,0,0.8);height: 75px;color: darkgray">
 	    <div style="width: 400px;padding-top: 18px;padding-left:40px;padding-right: 40px;margin:auto;">
 	        <div>
-	            	情链接：
+	            	友情链接：
 	            <a href="https://github.com/Headbangeerr/BBS_Forum" style="color: darkgray">&nbsp;github&nbsp;|&nbsp;</a>
 	            <a href="http://www.csdn.net/" style="color: darkgray">csdn&nbsp;|&nbsp;</a>
 	            <a href="http://www.oschina.net/" style="color: darkgray">开源中国&nbsp;|&nbsp;</a>

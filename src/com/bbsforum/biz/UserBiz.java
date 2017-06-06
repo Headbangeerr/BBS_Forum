@@ -10,5 +10,7 @@ public interface UserBiz {
 	public User getUserByMailAddress(String mailAddress);
 	
 	public List getAllUserList(int offset, int pageSize);
+	
+	public boolean addUser(User user);
 }
 

@@ -85,4 +85,22 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return UserPage;
 	}
+	@Override
+	public boolean addUser(User user) {
+		Transaction tx=null;
+		//ªÒ»°session
+		session=sessionFactory.openSession();
+		try{
+			tx=session.beginTransaction();
+			session.save(user);
+			tx.commit();
+			return true;
+		}catch(Exception e){
+			if(tx!=null){
+				tx.rollback();
+			}
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
