@@ -33,6 +33,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	private boolean friendFlag;
 	private int le;
 	boolean flag;
+	private int type;
 	public boolean getFlag() {
 		return flag;
 	}
@@ -69,8 +70,13 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+
 	private int page;
 	@JSON(serialize=false)
 	public int getPage() {
@@ -107,16 +113,25 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			errorFlag=0;
 			return LOGIN;
 		}else{
-			if(user.getPassword().endsWith(password)){
-				if(user.getType().equals(2)){
-					getSession().put("user", user);
-					return "superman";
-				}else{
-					getSession().put("user", user);
+			if((user.getPassword().endsWith(password))&&(user.getType().equals(type))){
+				getSession().put("user", user);
+				switch (type) {
+				case 1:
 					return SUCCESS;
+				case 2:
+					return "superman";
+				case 0:
+					return SUCCESS;
+				default:
+					errorFlag=2;
+					return LOGIN;
 				}
 			}else{
-				errorFlag=2;
+				if(!user.getType().equals(type)){
+					errorFlag=4;
+				}else{
+					errorFlag=2;
+				}
 				return LOGIN;
 			}
 		}

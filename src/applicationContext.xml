@@ -25,7 +25,7 @@
 			value="jdbc:mysql://localhost:3306/bbs_forum?useUnicode=true&amp;characterEncoding=UTF-8">
 		</property>
 		<property name="username" value="root"></property>				
-		
+		<property name="password" value="123456"></property>
 	</bean>
 	<!-- 解决getCurrentSession不能获取session的问题 
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">

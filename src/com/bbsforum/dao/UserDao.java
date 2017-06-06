@@ -32,5 +32,11 @@ public interface UserDao {
 	 * @return 返回一个用户信息
 	 */
 	public List getUser(int i);
+	/**
+	 * @param user User类
+	 * @function 在数据库添加用户记录，实现注册功能
+	 * @return 返回一个boolean类型，true 或者 false
+	 * */
+	public boolean addUser(User user);
 
 }

@@ -33,5 +33,9 @@ public class UserBizImpl implements UserBiz {
 		List user=userDao.getAllUserList(offset, pageSize);
 		return user;
 	}
-
+	
+	@Override
+	public boolean addUser(User user) {
+		return userDao.addUser(user);
+	}
 }
