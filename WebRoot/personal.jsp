@@ -234,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                       	</div>                    
 			                      	  </div>
 			                      	  <div name="hoverbutton" style="float:right;display: none">
-			                      	  	<a class="hoverbutton greenbutton"><i class="fa fa-envelope-o"></i> 私信</a>			                      	  	
+			                      	  	<a class="hoverbutton greenbutton" href="beginChat?friendMail=${user.mailAddress}"><i class="fa fa-envelope-o"></i> 私信</a>			                      	  	
 			                      	  	<br><a onclick="deleFriend(this)" name="${user.mailAddress }" class="hoverbutton redbutton"><i class="fa fa-user-times"></i> 删除</a>
 			                      	  </div>		                          	                            
 			                        </div>

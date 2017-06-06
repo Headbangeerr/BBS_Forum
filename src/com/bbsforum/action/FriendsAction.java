@@ -3,6 +3,8 @@ package com.bbsforum.action;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
@@ -12,6 +14,7 @@ import com.bbsforum.biz.FriendsBiz;
 import com.bbsforum.biz.PageViewBiz;
 import com.bbsforum.biz.UserBiz;
 import com.bbsforum.entity.PageBean;
+
 @ParentPackage("json-default")//要使用json必须要依赖于该包
 public class FriendsAction extends BaseAction {
 
@@ -84,7 +87,9 @@ public class FriendsAction extends BaseAction {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-	@Action(value="addFriends",results={
+	  
+	@Action(value="addFriends",interceptorRefs={		
+	},results={
 			@Result(name="success",type="json",params={
 					"includeProperties","flag"
 			})

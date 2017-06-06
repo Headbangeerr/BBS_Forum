@@ -33,8 +33,7 @@ function showNews(){
          url:"showLastestSender",  
          type:"POST",               
          dataType:"json",  
-         success:function(data){ 
-        	 alert("调用了show")
+         success:function(data){         	 
         	 $("#user_list_loading").parent("center").remove();
         	 var str;
         	 if(data.lastestUsers.length==0){        			 
@@ -60,7 +59,28 @@ function showNews(){
             		 }        			 
 					$(".chat_history_list").append(str);
             	 }); 
-        	 }            	 
+        	 }
+        	 var chatFlag=$("#chatFlag").val();
+        	 var chatUsermail=$("#chatUsermail").val();
+     		var chatUsername=$("#chatUsername").val();
+     		var chatUserPhoto=$("#chatUserPhoto").val();
+     		var receiverMail=$("#userMail").val();     		
+     		if(chatFlag=="false"&&chatFlag!=""){		
+     			$("#myTab li:eq(1) a").tab("show");        			
+     			str="<a class='rname_card active' onclick='checkNews(this)' name='"+chatUsermail+"'>"+
+     					"<img src='"+chatUserPhoto+"'>"+
+     					"<div class='name'>"+chatUsername+"</div>"+
+     					"<div class='last_msg'></div>"+
+     					"<div class='msg_num' style='display:none'></div>"+		
+     				"</a>";
+     			$(".chat_history_list").append(str);
+     			$("a[name="+chatUsermail+"]").trigger("click");
+     		}else if(chatFlag="true"&&chatFlag!=""){
+     			$("#myTab li:eq(1) a").tab("show");        			
+     			//alert(chatUsermail)     			
+     			$("a[name="+chatUsermail+"]").trigger("click");	
+     		} 
         }             
 		 })
+		
 }

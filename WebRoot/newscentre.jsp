@@ -144,25 +144,6 @@ $(function(){
 		dataType:"json",
         success:function(data){
         	showNews();
-        	 var chatUsermail=$("#chatUsermail").val();
-        		var chatUsername=$("#chatUsername").val();
-        		var chatUserPhoto=$("#chatUserPhoto").val();
-        		var receiverMail=$("#userMail").val();        
-        		if(chatFlag=="false"&&chatFlag!=""){		
-        			$("#myTab li:eq(1) a").tab("show");        			
-        			str="<a class='rname_card active' onclick='checkNews(this)' name='"+chatUsermail+"'>"+
-        					"<img src='"+chatUserPhoto+"'>"+
-        					"<div class='name'>"+chatUsername+"</div>"+
-        					"<div class='last_msg'></div>"+
-        					"<div class='msg_num' style='display:none'></div>"+		
-        				"</a>";
-        			$(".chat_history_list").append(str);
-        			$("a[name="+chatUsermail+"]").trigger("click");
-        		}else if(chatFlag="true"&&chatFlag!=""){
-        			$("#myTab li:eq(1) a").tab("show");        			
-        			//alert(chatUsermail)
-        			$("a[name="+chatUsermail+"]").trigger("click");	
-        		} 
         	$("img[name=loading]").remove()
         	if(data.news.length==0){
         		$("#friend ul").append("<center><li  class='message-main-list' >没有待处理的好友请求。</li></center>")
