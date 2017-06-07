@@ -99,5 +99,13 @@ public interface PostDao {
 	
 	public List SearchSensitivePostForPage(int offset, int PageSize);
 	public int SearchSensitiveSumPost();
+	/**
+	 * 显示不包含该用户所屏蔽用户的帖子
+	 * @param username
+	 * @return
+	 */
+	public List ShowPostOnIndexExcludeShiled(String username);
+	
+	
 
 }

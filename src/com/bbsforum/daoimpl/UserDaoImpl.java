@@ -220,4 +220,50 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 	}
 		
+	@Override
+	public boolean checkShieldForUser(String userMail, String shieldMail) {
+		session=sessionFactory.openSession();
+		String sql="select * from  shield where user_mail=? and shielder_mail=?";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, userMail);
+		query.setString(1, shieldMail);
+		List list=query.list();
+		session.close();
+		if(list.size()>0){
+			return true;
+		}else{
+			return false;
+		}	
+	}
+	@Override
+	public boolean addShieldUser(String userMail, String shieldMail) {
+		session=sessionFactory.openSession();
+		String sql="insert into shield(user_mail,shielder_mail) values(?,?)";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, userMail);
+		query.setString(1, shieldMail);
+		if(query.executeUpdate()>0){
+			session.close();
+			return true;
+		}else{
+			session.close();
+			return false;
+		}
+	}
+	@Override
+	public boolean deleShieldUser(String userMail, String shieldMail) {
+		session=sessionFactory.openSession();		
+		String sql="delete from shield where user_mail=? and shielder_mail=?";
+		Query query=session.createSQLQuery(sql);
+		query.setString(0, userMail);
+		query.setString(1, shieldMail);
+		if(query.executeUpdate()>0){
+			session.close();
+			return true;
+		}
+		else{
+			session.close();
+			return false;
+		}
+	}
 }

@@ -1,4 +1,40 @@
-﻿function send_message(){	
+﻿function addShieldUser(t)
+{
+	var shieldMail=$(t).attr("name");
+	var userMail=$("input[name=userMail]").val();
+	if(userMail==""||userMail==null){
+		alert("请登录以后再操作！")
+	}else{
+		 $.ajax({  
+             url:"addShieldUser?userMail="+shieldMail,  
+             type:"POST",    
+             dataType:"json",  
+             success:function(data){
+            	 $(t).replaceWith("<a href='javascript:void(0);' class='btn btn-warning' onclick='deleShieldUser(this)' " +
+            	 		"name='"+shieldMail+"' style='margin-bottom: 10px'>&nbsp;取消屏蔽</a>");
+            	
+             }
+         })
+	}
+}
+function deleShieldUser(t){
+	var shieldMail=$(t).attr("name");
+	var userMail=$("input[name=userMail]").val();
+	if(userMail==""||userMail==null){
+		alert("请登录以后再操作！")
+	}else{		
+		 $.ajax({  
+             url:"deleShieldUser?userMail="+shieldMail,  
+             type:"POST",    
+             dataType:"json",  
+             success:function(data){
+            	 $(t).replaceWith("<a class='btn btn-danger infos' href='javascript:void(0);' onclick='addShieldUser(this)' " +
+            	 		"name='"+shieldMail+"' style='margin-top: 3px'><i class='fa fa-window-close'></i>&nbsp;屏蔽该用户</a>");            	
+             }
+         })
+	}
+}
+function send_message(){	
 	var content=$("textarea[name=content]").val();
 	var regu = "^[ ]+$";
 	var re = new RegExp(regu);

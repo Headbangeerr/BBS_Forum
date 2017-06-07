@@ -89,4 +89,10 @@ public class PostBizImpl implements PostBiz {
 
 	}
 
+	@Override
+	public List ShowPostOnIndexExcludeShiled(String username) {
+		
+		return postDao.ShowPostOnIndexExcludeShiled(username);
+	}
+
 }

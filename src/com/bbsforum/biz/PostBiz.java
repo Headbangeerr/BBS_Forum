@@ -31,4 +31,5 @@ public interface PostBiz {
 	public List<Post> getZiPostListForPage(int offset, int PageSize,int cid);
 	
 	public PageBean SearchSensitivePost(int PageIndex, int PageSize);
+	public List ShowPostOnIndexExcludeShiled(String username);
 }

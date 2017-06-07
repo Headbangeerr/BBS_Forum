@@ -35,6 +35,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	private String password;
 	private int errorFlag;//登录时用于标记错误信息，为0时表示用户不存在，为2时表示密码错误
 	private boolean friendFlag;
+	private boolean shieldFlag;
 	private int le;
 	boolean flag;
     private String lastLoginDate;
@@ -47,6 +48,13 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	private String signature;
 	private String safetyCode;
 	private int safetyCodeFlag;
+	
+	public boolean isShieldFlag() {
+		return shieldFlag;
+	}
+	public void setShieldFlag(boolean shieldFlag) {
+		this.shieldFlag = shieldFlag;
+	}
 	public boolean getFlag() {
 		return flag;
 	}
@@ -322,8 +330,10 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 			getRequest().put("checkedUser", check);
 			postBean=pageViewBiz.showPostBypage(1, 5, mailAddress, check.getPosts().size());
 			friendFlag=false;
+			shieldFlag=false;
 			if(null!=user){			
 				friendFlag=friendsBiz.checkFriend(user.getMailAddress(), mailAddress);
+				shieldFlag=userBiz.checkShieldForUser(user.getMailAddress(), mailAddress);
 			}
 			logger.info("friendFlag:"+friendFlag);
 			return "others";
@@ -541,8 +551,31 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		}
 		logger.info("flag:"+flag);
 		return SUCCESS;
-
-
+	}
+	@Action(value="addShieldUser",results={
+			@Result(name="success",type="json",params={
+					"includeProperties","flag"
+			}),
+			@Result(name="login",location="/pages/unlogin.jsp")			
+	})
+	public String addShieldUser()
+	{
+		User user=(User) getSession().get("user");
+		flag=userBiz.addShieldUser(user.getMailAddress(),userMail );
+		logger.info(user.getMailAddress()+"已屏蔽用户："+userMail);
+		return SUCCESS;
+	}
+	
+	@Action(value="deleShieldUser",results={
+			@Result(name="success",type="json",params={
+					"includeProperties","flag"
+			}),	
+	})
+	public String deleShieldUser(){
+		User user=(User) getSession().get("user");
+		flag=userBiz.deleShieldUser(user.getMailAddress(),userMail );
+		logger.info(user.getMailAddress()+"已取消屏蔽用户："+userMail);
+		return SUCCESS;
 	}
 }
 

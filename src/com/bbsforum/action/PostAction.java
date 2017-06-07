@@ -210,7 +210,15 @@ public class PostAction extends BaseAction {
 	})
 	public String  showLastestPostOnIndexPage(){
 		lastestPostList=new ArrayList<Post>();
-		lastestPostList=postBiz.getLastestPost(1, 10);//显示前十条最新发帖
+		User user=(User) getSession().get("user");
+		if(user==null){
+			logger.info("未登录");
+			lastestPostList=postBiz.getLastestPost(1, 10);//显示前十条最新发帖
+		}
+		else{
+			logger.info("已登录:"+user.getMailAddress());
+			lastestPostList=postBiz.ShowPostOnIndexExcludeShiled(user.getMailAddress());
+		}
 		return SUCCESS;
 	}
 	

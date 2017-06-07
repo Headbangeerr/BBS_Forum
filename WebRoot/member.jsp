@@ -52,6 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}	
 	</style>
 	<link rel="stylesheet" type="text/css" href="css/user.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.4.0/css/font-awesome.min.css">
   </head>
    <script type="text/javascript" src="js/member.js" ></script>
@@ -96,41 +97,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <input type="hidden" name="userMail" value='<s:property value="#session.user.mailAddress"/>'>
 	                <input type="hidden" name="friendMail" value='<s:property value="#request.checkedUser.mailAddress"/>'>
 
-	                <s:if test='#session.user.type==1'>
-	              <s:if test='#request.checkedUser.status==3'>
-	                	  <a  id="deleteButton" class="btn btn-success infos" style="background-color: grey"><i class="fa fa-user-plus"></i>&nbsp;该用户已被注销</a>
-	             </s:if>
-	              <s:elseif test='#request.checkedUser.status==2'>
-	               <a onclick="nonsilence()" class="btn btn-success infos" style="background-color: grey"><i class="fa fa-user-plus"></i>&nbsp;解除禁言</a>
-	                 <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
-	              </s:elseif>
-	               <s:elseif test='friendFlag==true'>	
-	                <a href="javascript:void(0);" class="btn btn-default infos">&nbsp;Ta已经是你的好友</a>
-	                  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
-	               	<a onclick="silence()" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
-	               	
-	                </s:elseif>
-                   <s:else>
-	                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
-	                	  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
-	                	<!-- <a href="silenceUser.action?user.mailAddress=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
-	                 -->
-	                 <a onclick="silence()" class="btn btn-success infos" ><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
-	                </s:else>
-	                
-	                <div class="alert2333"></div>
+	              <s:if test='#session.user.type==1'>
+			              <s:if test='#request.checkedUser.status==3'>
+			                	  <a  id="deleteButton" class="btn btn-success infos" style="background-color: grey"><i class="fa fa-user-plus"></i>&nbsp;该用户已被注销</a>
+			             </s:if>
+			              <s:elseif test='#request.checkedUser.status==2'>
+			               <a onclick="nonsilence()" class="btn btn-success infos" style="background-color: grey"><i class="fa fa-user-plus"></i>&nbsp;解除禁言</a>
+			                 <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+			              </s:elseif>
+			               <s:elseif test='friendFlag==true'>	
+			                <a href="javascript:void(0);" class="btn btn-default infos">&nbsp;Ta已经是你的好友</a>
+			                  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+			               	<a onclick="silence()" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
+			               	
+			                </s:elseif>
+		                   <s:else>
+			                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
+			                	  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+			                	<!-- <a href="silenceUser.action?user.mailAddress=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
+			                 -->
+			                 <a onclick="silence()" class="btn btn-success infos" ><i class="fa fa-user-plus"></i>&nbsp;禁言</a>
+			                </s:else>
+			                
+			                <div class="alert2333"></div>
 	                </s:if>
 	                <s:else>
 		                <s:if test='friendFlag==true'>
-		                  <a href="javascript:void(0);" class="btn btn-default infos">&nbsp;Ta已经是你的好友</a>
-		                    <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+		                  <a href="javascript:void(0);" class="btn btn-default infos">&nbsp;Ta已经是你的好友</a>		                  
 		                </s:if>
 		                <s:else>
-		                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>
-		                	  <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
-		                </s:else>
+		                	<a onclick="checkLogin(this)" href="javascript:void(0);" class="btn btn-success infos"><i class="fa fa-user-plus"></i>&nbsp;添加好友</a>		               
+		                </s:else>		                
+		                <s:if test='shieldFlag==true'>
+		                	<a href="javascript:void(0);" class="btn btn-warning" onclick="deleShieldUser(this)" name="<s:property value="#request.checkedUser.mailAddress"/>" style="margin-bottom: 10px">&nbsp;取消屏蔽</a>	
+		                </s:if>
+		                <s:else>
+		                	<a  class="btn btn-danger infos" href="javascript:void(0);" onclick="addShieldUser(this)" name="<s:property value="#request.checkedUser.mailAddress"/>" style="margin-top: 3px"><i class="fa fa-window-close"></i>&nbsp;屏蔽该用户</a>
+		                </s:else>		              
+		                 <a href="beginChat?friendMail=<s:property value="#request.checkedUser.mailAddress"/>" class="btn btn-info"><i  class="fa fa-envelope-o"></i>&nbsp;私信</a>
+		                 
 	                </s:else>
-	                
+	               
 	            </div>
 	            
 	        </div>

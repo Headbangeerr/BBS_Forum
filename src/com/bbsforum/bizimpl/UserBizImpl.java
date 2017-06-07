@@ -75,4 +75,25 @@ public class UserBizImpl implements UserBiz {
 	}
 
 
+	@Override
+	public boolean checkShieldForUser(String userMail, String shieldMail) {
+		
+		return userDao.checkShieldForUser(userMail, shieldMail);
+	}
+
+
+	@Override
+	public boolean addShieldUser(String userMail, String shieldMail) {
+		
+		return userDao.addShieldUser(userMail, shieldMail);
+	}
+
+
+	@Override
+	public boolean deleShieldUser(String userMail, String shieldMail) {
+		
+		return userDao.deleShieldUser(userMail, shieldMail);
+	}
+
+	
 }

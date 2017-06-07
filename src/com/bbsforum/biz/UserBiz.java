@@ -19,5 +19,8 @@ public interface UserBiz {
 	public boolean silenceUserByMailAddress(String mailAddress);
 	public boolean NonsilenceUserByMailAddress(String mailAddress);
 	public void updateUserLastLoginDate(User user);
+	public boolean checkShieldForUser(String userMail,String shieldMail);
+	public boolean addShieldUser(String userMail,String shieldMail);
+	public boolean deleShieldUser(String userMail,String shieldMail);
 }
 

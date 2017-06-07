@@ -58,6 +58,10 @@ public interface UserDao {
 	public boolean NonsilenceUserByMailAddress(String mailAddress);
 	//更新用户最后登录时间
 	public void updateUserLastLoginDate(User user);
+	public boolean checkShieldForUser(String userMail,String shieldMail);
 	
+	public boolean addShieldUser(String userMail,String shieldMail);
+	
+	public boolean deleShieldUser(String userMail,String shieldMail);
 	
 }

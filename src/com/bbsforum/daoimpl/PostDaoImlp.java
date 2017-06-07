@@ -261,8 +261,20 @@ public class PostDaoImlp implements PostDao {
 		int sum=sumNum.intValue();
 		session.close();
 		return sum;
-
 	}
+	@Override
+	public List ShowPostOnIndexExcludeShiled(String username) {
+		session=sessionFactory.openSession();
+		String sql="select * from post where publisher_mail not in (select shielder_mail from shield where user_mail =?)"
+				+ " order by publish_time desc  limit 0,10 ";
+		Query query=session.createSQLQuery(sql)
+				.addEntity(Post.class);
+		query.setString(0, username);
+		List<Post> posts=query.list();
+		session.close();
+		return posts;
+	}
+	
 
 
 }
