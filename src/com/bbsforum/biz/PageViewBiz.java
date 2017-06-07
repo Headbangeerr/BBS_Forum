@@ -1,5 +1,6 @@
 package com.bbsforum.biz;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.bbsforum.entity.Message;
@@ -26,5 +27,7 @@ public interface PageViewBiz {
 	public PageBean showUserBypage(int pageIndex,int pageSize);
 	
 	public PageBean showLastestNews(int pageIndex,int pageSize,String senderMail,String receiverMail);
+	
+	public PageBean showOutdateUserByPage(int pageIndex,int pageSize,Date lastLoginDate);
 }
 

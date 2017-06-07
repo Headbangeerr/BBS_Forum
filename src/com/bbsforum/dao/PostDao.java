@@ -96,4 +96,8 @@ public interface PostDao {
 	 * @return ·µ»Øtrue»òfalse
 	 */
 	public boolean deletePost(String id);
+	
+	public List SearchSensitivePostForPage(int offset, int PageSize);
+	public int SearchSensitiveSumPost();
+
 }

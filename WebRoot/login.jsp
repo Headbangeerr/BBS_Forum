@@ -44,7 +44,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    <s:if test='errorFlag=="3"'>
                     <span style="color:red">注册成功！</span>
                    </s:if>
-                  
+                    <s:if test='errorFlag=="5"'>
+                    <span style="color:red">用户已被注销！</span>
+                   </s:if>
+                     
             <input type="password" required class="form-control" name="password" style="height: 55px;margin-top: 30px;"
                    placeholder="请输入密码">
                     <s:if test='errorFlag=="2"'>

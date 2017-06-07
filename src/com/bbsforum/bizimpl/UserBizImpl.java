@@ -44,4 +44,35 @@ public class UserBizImpl implements UserBiz {
 	public boolean updateUser(User user) {
 		return userDao.UpdateUser(user);
 	}
+	
+	@Override
+	public boolean deleteUserByMailAddress(String mailAddress) {
+	    return userDao.deleteUserByMailAddress(mailAddress);
+		
+	}
+
+
+	@Override
+	public boolean silenceUserByMailAddress(String mailAddress) {
+		
+		return userDao.silenceUserByMailAddress(mailAddress);
+	
+		
+	}
+
+
+	@Override
+	public boolean NonsilenceUserByMailAddress(String mailAddress) {
+		return 	userDao.NonsilenceUserByMailAddress(mailAddress);
+		
+	}
+
+
+	@Override
+	public void updateUserLastLoginDate(User user) {
+		userDao.updateUserLastLoginDate(user);
+		
+	}
+
+
 }
