@@ -61,7 +61,7 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-	public int isLe() {
+	public int getLe() {
 		return le;
 	}
 	public void setLe(int le) {
@@ -576,6 +576,16 @@ private static Logger logger=Logger.getLogger(UserAction.class);
 		flag=userBiz.deleShieldUser(user.getMailAddress(),userMail );
 		logger.info(user.getMailAddress()+"已取消屏蔽用户："+userMail);
 		return SUCCESS;
+	}
+	@Action(value="getBadUser",results={
+			@Result(name="self",location="/pages/SuperGetBadUser.jsp")
+	})
+	public String getBadUser(){
+		int i=7;
+		List<User> userBean1=new ArrayList<User>();
+		userBean1=userDao.getShieldMail(i);
+		getRequest().put("userBean1", userBean1);
+		return "self";
 	}
 }
 

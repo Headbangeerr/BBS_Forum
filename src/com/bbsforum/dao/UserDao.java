@@ -64,4 +64,6 @@ public interface UserDao {
 	
 	public boolean deleShieldUser(String userMail,String shieldMail);
 	
+	public List<User> getShieldMail(int i);
+	
 }

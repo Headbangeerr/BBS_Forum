@@ -43,8 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <ul class="list-group">
                 <div class="list-group-item active">
                     	论坛公告
-                </div>
-                         <span class="list-group-item">23423423</span>
+                </div>                      
+                         <a href="#" class="list-group-item">23423423</a>
                          <a href="#" class="list-group-item">23423423</a>
             </ul>
           <s:if test='#session.user!=null'>

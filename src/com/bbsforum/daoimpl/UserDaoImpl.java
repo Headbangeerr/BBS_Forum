@@ -266,4 +266,15 @@ public class UserDaoImpl implements UserDao {
 			return false;
 		}
 	}
+	@Override
+	public List<User> getShieldMail(int i) {
+		// TODO Auto-generated method stub
+		session=sessionFactory.openSession();
+		String sql="select * from user where mail_Address in (select shielder_mail from shield)";
+		Query query=session.createSQLQuery(sql)
+				.addEntity(User.class);
+		List<User> shield=query.list();
+		session.close();
+		return shield;
+	}
 }

@@ -65,7 +65,8 @@ function showNews(){
      		var chatUsername=$("#chatUsername").val();
      		var chatUserPhoto=$("#chatUserPhoto").val();
      		var receiverMail=$("#userMail").val();     		
-     		if(chatFlag=="false"&&chatFlag!=""){		
+     		if(chatFlag=="false"&&chatFlag!=""){
+     			$("center").remove();
      			$("#myTab li:eq(1) a").tab("show");        			
      			str="<a class='rname_card active' onclick='checkNews(this)' name='"+chatUsermail+"'>"+
      					"<img src='"+chatUserPhoto+"'>"+

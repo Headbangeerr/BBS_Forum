@@ -22,8 +22,11 @@
         	});	
         	var list=data.newsBean.list;        	
         	var str;
-        	var currentPage=data.newsBean.currentPage;        	
-        	$(".more_chat_msg").attr("name",currentPage)        	
+        	var currentPage=data.newsBean.currentPage;
+        	$(".no_more").remove();
+        	$(".more_chat_msg").remove();
+        	$(".chat_room_content").append("<div class='more_chat_msg' onclick='pageup(this)' name=''>查看以往消息<br></div>");
+        	$(".more_chat_msg").attr("name",currentPage);        	
         	$("[name=friendMail]").val(friendMail);
         	$(".other_msg").remove();
         	$(".my_msg").remove();

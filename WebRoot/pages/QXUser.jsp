@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <div class="user-left-n clearfix">
 	                <ul class="list-group">
 	                    <li class="list-group-item" style="text-align: center;">
-	                        <i class="fa fa-user-secret"></i>&nbsp;Level：<s:property value="#request.checkedUser1.level"/>
+	                        <i class="fa fa-user-secret"></i>&nbsp;Level：<s:property value="#request.le"/>
 	                    </li>
 	                    <li class="list-group-item" style="text-align: center;" href="">
 	                       

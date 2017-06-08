@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                        	<a href="http://localhost:8080/BBS_Forum/checkQXUserByUrl?mailAddress=${user.mailAddress}">${user.username}</a>
 						                        </div>
 						                        <div class="comment-bt">
-						                        	<span>用户</span>
+						                        	<span>权限：用户</span>
 						                       	</div>                    
 				                      	  </div>
 				                      	  <div name="hoverbutton" style="float:right;display: none">
@@ -89,23 +89,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                        <hr>
 				                    </s:if>
 				                    <s:else>
-				                    	<div class="media">	                           
-				                            <a class="pull-left" href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress }">
-				                            	<img class="media-object avatar avatar-sm" src="${user.photoUrl}" alt="${user.username }">
-				                            </a>
-				                            <div class="comment" style="width: 525px;float: left"> 
-						                         <div class="comment-author h6 no-margin">
-						                        	<a href="http://localhost:8080/BBS_Forum/checkQXUserByUrl?mailAddress=${user.mailAddress}">${user.username}</a>
-						                        </div>
-						                        <div class="comment-bt">
-						                        	<span>管理员</span>
-						                       	</div>                    
-				                      	  </div>
-				                      	  <div name="hoverbutton" style="float:right;display: none">
-				                      	  	<a href="http://localhost:8080/BBS_Forum/checkQXUserByUrl?mailAddress=${user.mailAddress}" class="hoverbutton greenbutton">管理权限</a>			                      	  	
-				                      	  </div>		                          	                            
-				                        </div>
-				                        <hr>
+				                    	<s:if test="#request.user.mailAddress==7777">
+					                    	<div class="media" style="display:none;">	                           
+					                            <a class="pull-left" href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress }">
+					                            	<img class="media-object avatar avatar-sm" src="${user.photoUrl}" alt="${user.username }">
+					                            </a>
+					                            <div class="comment" style="width: 525px;float: left"> 
+							                         <div class="comment-author h6 no-margin">
+							                        	<a href="http://localhost:8080/BBS_Forum/checkQXUserByUrl?mailAddress=${user.mailAddress}">${user.username}</a>
+							                        </div>
+							                        <div class="comment-bt">
+							                        	<span>权限：管理员</span>
+							                       	</div>                    
+					                      	  </div>
+					                      	  <div name="hoverbutton" style="float:right;display: none">
+					                      	  	<a href="http://localhost:8080/BBS_Forum/checkQXUserByUrl?mailAddress=${user.mailAddress}" class="hoverbutton greenbutton">管理权限</a>			                      	  	
+					                      	  </div>		                          	                            
+					                        </div>
+					                        <hr>
+				                        </s:if>
+				                        <s:else>
+				                        	<div class="media">	                           
+					                            <a class="pull-left" href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=${user.mailAddress }">
+					                            	<img class="media-object avatar avatar-sm" src="${user.photoUrl}" alt="${user.username }">
+					                            </a>
+					                            <div class="comment" style="width: 525px;float: left"> 
+							                         <div class="comment-author h6 no-margin">
+							                        	<a href="http://localhost:8080/BBS_Forum/checkQXUserByUrl?mailAddress=${user.mailAddress}">${user.username}</a>
+							                        </div>
+							                        <div class="comment-bt">
+							                        	<span>权限：管理员</span>
+							                       	</div>                    
+					                      	  </div>
+					                      	  <div name="hoverbutton" style="float:right;display: none">
+					                      	  	<a href="http://localhost:8080/BBS_Forum/checkQXUserByUrl?mailAddress=${user.mailAddress}" class="hoverbutton greenbutton">管理权限</a>			                      	  	
+					                      	  </div>		                          	                            
+					                        </div>
+					                        <hr>
+				                        </s:else>
 									</s:else>	
 						  		</s:iterator>	                       
 	                   	  </s:else>	                           	                              

@@ -44,6 +44,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span class="h5 bold"><s:property value='#session.user.username'/></span>
 							<p></p>
 							<div class="w150 center-block mt10">
+								<a class="btn btn-success btn-outline btn-block" href="getBadUser">
+									<span>查看信用</span>
+								</a>
+							</div>
+							<div class="w150 center-block mt10">
 								<a class="btn btn-success btn-outline btn-block" href="getAllUser">
 									<span>查看权限</span>
 								</a>
